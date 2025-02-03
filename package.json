@@ -2,7 +2,7 @@
     "name": "express-ultimate-movie-recommendation",
     "version": "1.0.0",
     "description": "Express Web App for Movie Recommendation",
-    "main": "app.js",
+    "main": "scripts/app.js",
     "repository": "https://github.com/ulrichsene/UltimateMovieRecomendation",
     "author": "Ulrichsene",
     "private": false,
