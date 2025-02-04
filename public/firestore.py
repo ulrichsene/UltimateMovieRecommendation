@@ -37,8 +37,8 @@ def init_firestore_client():
 #                 regions={self.regions}\
 #             )"
 
-def get_document(db):
-    doc_ref = db.collection("users").document("DOUd4fCGm572MDHQsnKO")
+def get_document(db, collection, document_id):
+    doc_ref = db.collection(collection).document(document_id)
 
     doc = doc_ref.get()
     if doc.exists:
@@ -46,6 +46,16 @@ def get_document(db):
     else:
         print("No such document!")
 
+def add_document(db, data, collection, document_id):
+    """Creates or updates a document with the specified ID"""
+    # add a new doc in collection with document id, if the document exists already updates the information to the provided data 
+    db.collection(collection).document(document_id).set(data)
+
 if __name__ == "__main__":
+    data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
+    collection_name = "users"
+    document_id = "DOUd4fCGm572MDHQsnKO"
+
     db = init_firestore_client()
-    document = get_document(db)
+    add_document(db, data, collection_name, document_id)
+    document = get_document(db, collection_name, document_id)
