@@ -1,0 +1,112 @@
+[
+    {
+        "id": 3217677,
+        "title": "Paradise",
+        "platforms": [
+            {
+                "name": "Hulu",
+                "price": null,
+                "web_url": "https://www.hulu.com/watch/26fb7558-a0bb-4153-9dde-18800e1738a9"
+            }
+        ]
+    },
+    {
+        "id": 3181750,
+        "title": "The Night Agent",
+        "platforms": [
+            {
+                "name": "Netflix",
+                "price": null,
+                "web_url": "https://www.netflix.com/watch/81554238"
+            }
+        ]
+    },
+    {
+        "id": 3189482,
+        "title": "The Recruit",
+        "platforms": [
+            {
+                "name": "Netflix",
+                "price": null,
+                "web_url": "https://www.netflix.com/watch/81462348"
+            }
+        ]
+    },
+    {
+        "id": 3188265,
+        "title": "School Spirits",
+        "platforms": [
+            {
+                "name": "The Roku Channel",
+                "price": null,
+                "web_url": "https://therokuchannel.roku.com/watch/e8010f67e0c6538dbd5c49e4763ba5f1?source=google"
+            },
+            {
+                "name": "Pluto TV",
+                "price": null,
+                "web_url": "https://pluto.tv/on-demand/series/school-spirits/season/1/episode/my-so-called-death-2023-1-1?utm_medium=deeplink&utm_source="
+            },
+            {
+                "name": "Paramount Plus",
+                "price": null,
+                "web_url": "https://paramountplus.qflm.net/5bbABo?u=https%3A%2F%2Fwww.paramountplus.com%2Fshows%2Fschool-spirits%2Fvideo%2F7H97Abj_yordO5mKdGAyWOrnM87UCpE9%2Fschool-spirits-my-so-called-death"
+            },
+            {
+                "name": "Netflix",
+                "price": null,
+                "web_url": "https://www.netflix.com/watch/81706090"
+            },
+            {
+                "name": "Spectrum On Demand",
+                "price": null,
+                "web_url": "https://ondemand.spectrum.net/tv/paramount-with-showtime/23819949/school-spirits/"
+            },
+            {
+                "name": "fuboTV",
+                "price": null,
+                "web_url": "https://www.fubo.tv/welcome/series/124574766/school-spirits/?irmp=1993008&irad=599307"
+            },
+            {
+                "name": "Prime Video",
+                "price": null,
+                "web_url": "https://www.amazon.com/gp/video/detail/amzn1.dv.gti.4ea7ce1a-3626-42f2-83b9-96466fe3c6f3?tag=&autoplay=1"
+            },
+            {
+                "name": "Amazon",
+                "price": 1.99,
+                "web_url": "https://www.amazon.com/gp/video/detail/amzn1.dv.gti.4ea7ce1a-3626-42f2-83b9-96466fe3c6f3?tag="
+            },
+            {
+                "name": "VUDU",
+                "price": 1.99,
+                "web_url": "https://www.vudu.com/content/movies/details/content/2547881"
+            },
+            {
+                "name": "AppleTV",
+                "price": 1.99,
+                "web_url": "https://tv.apple.com/us/episode/umc.cmc.1rgmoqf4k3ztp6eu48fahugv?itsct=&itscg=30200&at=1010layx"
+            },
+            {
+                "name": "Windows Store",
+                "price": 2.99,
+                "web_url": "https://www.microsoft.com/en-us/p/Season%201/8D6KGWXZKS25?episode=8D6KGWXZKS2F"
+            },
+            {
+                "name": "Windows Store",
+                "price": 1.99,
+                "web_url": "https://www.microsoft.com/en-us/p/Season%201/8D6KGWXZKS25?episode=8D6KGWXZKS2F"
+            }
+        ]
+    },
+    {
+        "id": 3185007,
+        "title": "Mo",
+        "platforms": [
+            {
+                "name": "Netflix",
+                "price": null,
+                "web_url": "https://www.netflix.com/watch/81187230"
+            }
+        ]
+    }
+]
