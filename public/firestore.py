@@ -10,33 +10,6 @@ def init_firestore_client():
     db = firestore.client() 
     return db
 
-# class City:
-#     def __init__(self, name, state, country, capital=False, population=0, regions=[]):
-#         self.name = name
-#         self.state = state
-#         self.country = country
-#         self.capital = capital
-#         self.population = population
-#         self.regions = regions
-
-#     @staticmethod
-#     def from_dict(source):
-#         pass
-#         # ...
-
-#     def to_dict(self):
-#         pass
-#         # ...
-
-#     def __repr__(self):
-#         return f"City(\
-#                 name={self.name}, \
-#                 country={self.country}, \
-#                 population={self.population}, \
-#                 capital={self.capital}, \
-#                 regions={self.regions}\
-#             )"
-
 def get_document(db, collection, document_id):
     doc_ref = db.collection(collection).document(document_id)
 
@@ -51,11 +24,24 @@ def add_document(db, data, collection, document_id):
     # add a new doc in collection with document id, if the document exists already updates the information to the provided data 
     db.collection(collection).document(document_id).set(data)
 
+def add_new_document(db, data, collection):
+    """Adds a new document with an auto generated document id"""
+    
+    ref = db.collection(collection_name).add(data)
+    print(f"Added document with id {ref.id}")
+
 if __name__ == "__main__":
     data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
+    user = {"id": "3234-4389", "first_name": "Marisa", "last_name": "Luis"}
+    
     collection_name = "users"
     document_id = "DOUd4fCGm572MDHQsnKO"
 
     db = init_firestore_client()
     add_document(db, data, collection_name, document_id)
     document = get_document(db, collection_name, document_id)
+
+    add_new_document(db, user, collection_name)
+
+
+
