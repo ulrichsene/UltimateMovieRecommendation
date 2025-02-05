@@ -27,7 +27,7 @@ def add_document(db, data, collection, document_id):
 def add_new_document(db, data, collection):
     """Adds a new document with an auto generated document id"""
     
-    ref = db.collection(collection_name).add(data)
+    update_time, ref = db.collection(collection_name).add(data)
     print(f"Added document with id {ref.id}")
 
 if __name__ == "__main__":
