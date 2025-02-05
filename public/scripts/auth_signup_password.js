@@ -1,4 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth();
 createUserWithEmailAndPassword(auth, email, password)
@@ -13,10 +14,7 @@ createUserWithEmailAndPassword(auth, email, password)
     // ..
   });
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
-const auth = getAuth();
-signInWithEmailAndPassword(auth, email, password)
+  signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
