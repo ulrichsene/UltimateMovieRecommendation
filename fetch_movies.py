@@ -5,7 +5,7 @@ import json # allows us to parse API responses and save results to a json file
 api_key = "C9jD5sQKfD7UMfht2vFXmTIdJKzZHzJkV0TmsiDn"
 base_url = "https://api.watchmode.com/v1"
 
-def get_movies(limit=5):
+def get_movies(limit=25):
     """This function fetches a list of movies from Watchmode API."""
     url = f"{base_url}/list-titles/?apiKey={api_key}&limit={limit}"
     # this url is basically built using the base url with the list-titles endpoint, the api key, and only wanted 5 to be returned (parameter)
@@ -41,7 +41,7 @@ def get_streaming_services(movie_id):
 
 def fetch_movies_with_platforms():
     """This function fetches multiple (5 in this case) movies, retrieves their streaming platforms, and saves to a json file."""
-    movies = get_movies(limit=5)  # calls the get_movies function to fetch 5 movie -> results in a list of movie objects
+    movies = get_movies(limit=25)  # calls the get_movies function to fetch 5 movie -> results in a list of movie objects
     movie_list = []
 
     for movie in movies: # function loops through each movie in movie list and gets the id and calls the get_streaming service function to get platforms
