@@ -132,17 +132,6 @@
         ]
     },
     {
-        "id": 3165283,
-        "title": "Mythic Quest",
-        "platforms": [
-            {
-                "name": "AppleTV+",
-                "price": null,
-                "web_url": "https://tv.apple.com/us/episode/quarantine/umc.cmc.2mpi140x3j70r8wg9ro1cdv11?itsct=&itscg=30200&at=1010layx"
-            }
-        ]
-    },
-    {
         "id": 3218220,
         "title": "Prime Target",
         "platforms": [
@@ -155,6 +144,17 @@
                 "name": "Prime Video",
                 "price": null,
                 "web_url": "https://www.amazon.com/gp/video/detail/amzn1.dv.gti.add00bf0-d191-45bf-9fb1-bb23dbb434f6?tag=&autoplay=1"
+            }
+        ]
+    },
+    {
+        "id": 3165283,
+        "title": "Mythic Quest",
+        "platforms": [
+            {
+                "name": "AppleTV+",
+                "price": null,
+                "web_url": "https://tv.apple.com/us/episode/quarantine/umc.cmc.2mpi140x3j70r8wg9ro1cdv11?itsct=&itscg=30200&at=1010layx"
             }
         ]
     },
@@ -202,55 +202,6 @@
         ]
     },
     {
-        "id": 3256235,
-        "title": "This Is the Tom Green Documentary",
-        "platforms": [
-            {
-                "name": "Prime Video",
-                "price": null,
-                "web_url": "https://watch.amazon.com/detail?gti=amzn1.dv.gti.2f092d31-c19e-48fe-8643-cb6a329ef552"
-            }
-        ]
-    },
-    {
-        "id": 549848,
-        "title": "Say Nothing",
-        "platforms": [
-            {
-                "name": "Hulu",
-                "price": null,
-                "web_url": "https://www.hulu.com/watch/2a1c6e16-3201-4e68-a4b8-9792510c1360"
-            }
-        ]
-    },
-    {
-        "id": 3181575,
-        "title": "Bosch: Legacy",
-        "platforms": [
-            {
-                "name": "Amazon Freevee",
-                "price": null,
-                "web_url": "https://www.amazon.com/gp/video/detail/amzn1.dv.gti.60ea7803-b58c-4a4c-aaf5-c1e575406834?tag=&autoplay=1"
-            },
-            {
-                "name": "Prime Video",
-                "price": null,
-                "web_url": "https://www.amazon.com/gp/video/detail/amzn1.dv.gti.26e903af-4faf-43d2-8db5-c368a1613db9?tag=&autoplay=1"
-            }
-        ]
-    },
-    {
-        "id": 3180212,
-        "title": "Your Friendly Neighborhood Spider-Man",
-        "platforms": [
-            {
-                "name": "Disney+",
-                "price": null,
-                "web_url": "https://www.disneyplus.com/play/87117ee4-bb79-4bdf-a7a8-1cdca260536d"
-            }
-        ]
-    },
-    {
         "id": 3212694,
         "title": "Wild Cards",
         "platforms": [
@@ -283,6 +234,66 @@
                 "name": "AppleTV",
                 "price": 2.99,
                 "web_url": "https://tv.apple.com/us/episode/the-infinity-thief/umc.cmc.2it26x200ce66e0stzq8zvk0x?at=1000l3V2&ct=app_tv&itscg=30200&itsct=&playableId=tvs.sbd.9001%3A1755047059&showId=umc.cmc.5xgrxpio0baofevsuj07xaf8g"
+            }
+        ]
+    },
+    {
+        "id": 3256235,
+        "title": "This Is the Tom Green Documentary",
+        "platforms": [
+            {
+                "name": "Prime Video",
+                "price": null,
+                "web_url": "https://watch.amazon.com/detail?gti=amzn1.dv.gti.2f092d31-c19e-48fe-8643-cb6a329ef552"
+            }
+        ]
+    },
+    {
+        "id": 549848,
+        "title": "Say Nothing",
+        "platforms": [
+            {
+                "name": "Hulu",
+                "price": null,
+                "web_url": "https://www.hulu.com/watch/2a1c6e16-3201-4e68-a4b8-9792510c1360"
+            }
+        ]
+    },
+    {
+        "id": 3175593,
+        "title": "Wrong Side of the Tracks",
+        "platforms": [
+            {
+                "name": "Netflix",
+                "price": null,
+                "web_url": "https://www.netflix.com/watch/81481489"
+            }
+        ]
+    },
+    {
+        "id": 3181575,
+        "title": "Bosch: Legacy",
+        "platforms": [
+            {
+                "name": "Amazon Freevee",
+                "price": null,
+                "web_url": "https://www.amazon.com/gp/video/detail/amzn1.dv.gti.60ea7803-b58c-4a4c-aaf5-c1e575406834?tag=&autoplay=1"
+            },
+            {
+                "name": "Prime Video",
+                "price": null,
+                "web_url": "https://www.amazon.com/gp/video/detail/amzn1.dv.gti.26e903af-4faf-43d2-8db5-c368a1613db9?tag=&autoplay=1"
+            }
+        ]
+    },
+    {
+        "id": 3180212,
+        "title": "Your Friendly Neighborhood Spider-Man",
+        "platforms": [
+            {
+                "name": "Disney+",
+                "price": null,
+                "web_url": "https://www.disneyplus.com/play/87117ee4-bb79-4bdf-a7a8-1cdca260536d"
             }
         ]
     },
@@ -337,22 +348,6 @@
                 "name": "Hulu",
                 "price": null,
                 "web_url": "https://www.hulu.com/watch/ebc546d1-cb6b-461d-8f06-f227dc355c48"
-            }
-        ]
-    },
-    {
-        "id": 3222269,
-        "title": "The Pitt",
-        "platforms": [
-            {
-                "name": "MAX",
-                "price": null,
-                "web_url": "https://max.prf.hn/click/camref:1011l3DxTc/destination:https%3a%2f%2fplay.max.com%2fvideo%2fwatch%2fe4b915fb-5e6b-42b8-97ac-90ec7d0e3147%2f00d49d4e-4f14-4b27-8c50-b01949609544"
-            },
-            {
-                "name": "HBO (Via Hulu)",
-                "price": null,
-                "web_url": "https://www.hulu.com/watch/5aede1e2-dfa9-4462-ae7d-d20e4cd97919"
             }
         ]
     },
@@ -417,11 +412,6 @@
                 "web_url": "https://www.amazon.com/gp/video/detail/amzn1.dv.gti.248f6dab-42f2-4918-8dbf-1d52b18834d5?tag="
             },
             {
-                "name": "Amazon",
-                "price": 2.99,
-                "web_url": "https://www.amazon.com/gp/video/detail/amzn1.dv.gti.248f6dab-42f2-4918-8dbf-1d52b18834d5?tag="
-            },
-            {
                 "name": "AppleTV",
                 "price": 2.99,
                 "web_url": "https://tv.apple.com/us/episode/richard-harris/umc.cmc.1dtblj6j8xk14xv0y11jbf4b9?at=1000l3V2&ct=app_tv&itscg=30200&itsct=&playableId=tvs.sbd.9001%3A1791379317&showId=umc.cmc.5m61qqcru30ivyw5a5690ilj5"
@@ -430,22 +420,22 @@
                 "name": "VUDU",
                 "price": 1.99,
                 "web_url": "https://www.vudu.com/content/movies/details/content/3987025"
-            },
-            {
-                "name": "VUDU",
-                "price": 2.99,
-                "web_url": "https://www.vudu.com/content/movies/details/content/3987025"
             }
         ]
     },
     {
-        "id": 3233443,
-        "title": "Envious",
+        "id": 3222269,
+        "title": "The Pitt",
         "platforms": [
             {
-                "name": "Netflix",
+                "name": "MAX",
                 "price": null,
-                "web_url": "https://www.netflix.com/watch/81725655"
+                "web_url": "https://max.prf.hn/click/camref:1011l3DxTc/destination:https%3a%2f%2fplay.max.com%2fvideo%2fwatch%2fe4b915fb-5e6b-42b8-97ac-90ec7d0e3147%2f00d49d4e-4f14-4b27-8c50-b01949609544"
+            },
+            {
+                "name": "HBO (Via Hulu)",
+                "price": null,
+                "web_url": "https://www.hulu.com/watch/5aede1e2-dfa9-4462-ae7d-d20e4cd97919"
             }
         ]
     }

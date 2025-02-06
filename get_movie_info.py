@@ -1,12 +1,14 @@
 
 import requests
 import json
+import pandas as pd
 
 # Declare the API keys and base URLs
 watchmode_api_key = "C9jD5sQKfD7UMfht2vFXmTIdJKzZHzJkV0TmsiDn"
 watchmode_base_url = "https://api.watchmode.com/v1"
 tmdb_api_key = "9783354ee4a285168b36af0283b59f02"
 tmdb_base_url = "https://api.themoviedb.org/3"
+
 
 def get_movies(limit=25):
     """This function fetches a list of movies from the Watchmode API, specifies how many movies to retrieve"""
