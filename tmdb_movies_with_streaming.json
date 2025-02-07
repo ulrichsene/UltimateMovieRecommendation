@@ -1,0 +1,481 @@
+[
+    {
+        "id": 939243,
+        "title": "Sonic the Hedgehog 3",
+        "release_date": "2024-12-19",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store",
+                "Spectrum On Demand",
+                "Plex"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 539972,
+        "title": "Kraven the Hunter",
+        "release_date": "2024-12-11",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 1241982,
+        "title": "Moana 2",
+        "release_date": "2024-11-21",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Fandango At Home",
+                "Microsoft Store",
+                "Spectrum On Demand"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 993710,
+        "title": "Back in Action",
+        "release_date": "2025-01-15",
+        "streaming_services": {
+            "streaming": [
+                "Netflix",
+                "Netflix basic with Ads"
+            ],
+            "rent": [
+                "Not Available"
+            ],
+            "buy": [
+                "Not Available"
+            ]
+        }
+    },
+    {
+        "id": 1249289,
+        "title": "Alarum",
+        "release_date": "2025-01-16",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store",
+                "Spectrum On Demand",
+                "Plex"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 1410082,
+        "title": "Sniper: The Last Stand",
+        "release_date": "2025-01-21",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store",
+                "Spectrum On Demand"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 85,
+        "title": "Raiders of the Lost Ark",
+        "release_date": "1981-06-12",
+        "streaming_services": {
+            "streaming": [
+                "Disney Plus",
+                "fuboTV",
+                "Paramount Plus",
+                "Paramount Plus Apple TV Channel ",
+                "Paramount+ Amazon Channel",
+                "Paramount+ Roku Premium Channel"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store",
+                "Spectrum On Demand",
+                "Plex"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 1097549,
+        "title": "Babygirl",
+        "release_date": "2024-12-25",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store",
+                "Plex"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 912649,
+        "title": "Venom: The Last Dance",
+        "release_date": "2024-10-22",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store",
+                "Spectrum On Demand"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 426063,
+        "title": "Nosferatu",
+        "release_date": "2024-12-25",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 558449,
+        "title": "Gladiator II",
+        "release_date": "2024-11-05",
+        "streaming_services": {
+            "streaming": [
+                "fuboTV",
+                "MGM+ Amazon Channel",
+                "Paramount Plus",
+                "Paramount+ Amazon Channel",
+                "Paramount+ Roku Premium Channel",
+                "MGM Plus"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store",
+                "FlixFling",
+                "Spectrum On Demand",
+                "Plex"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 811941,
+        "title": "Devara: Part 1",
+        "release_date": "2024-09-26",
+        "streaming_services": {
+            "streaming": [
+                "Netflix",
+                "Netflix basic with Ads"
+            ],
+            "rent": [
+                "Not Available"
+            ],
+            "buy": [
+                "Not Available"
+            ]
+        }
+    },
+    {
+        "id": 762509,
+        "title": "Mufasa: The Lion King",
+        "release_date": "2024-12-18",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Not Available"
+            ],
+            "buy": [
+                "Not Available"
+            ]
+        }
+    },
+    {
+        "id": 1114894,
+        "title": "Star Trek: Section 31",
+        "release_date": "2025-01-15",
+        "streaming_services": {
+            "streaming": [
+                "fuboTV",
+                "Paramount Plus",
+                "Paramount+ Amazon Channel",
+                "Paramount+ Roku Premium Channel"
+            ],
+            "rent": [
+                "Not Available"
+            ],
+            "buy": [
+                "Not Available"
+            ]
+        }
+    },
+    {
+        "id": 426889,
+        "title": "Le clitoris",
+        "release_date": "2016-06-18",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Not Available"
+            ],
+            "buy": [
+                "Not Available"
+            ]
+        }
+    },
+    {
+        "id": 970450,
+        "title": "Werewolves",
+        "release_date": "2024-12-04",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 933260,
+        "title": "The Substance",
+        "release_date": "2024-09-07",
+        "streaming_services": {
+            "streaming": [
+                "MUBI",
+                "MUBI Amazon Channel"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Fandango At Home",
+                "Spectrum On Demand"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Fandango At Home"
+            ]
+        }
+    },
+    {
+        "id": 1255788,
+        "title": "The Gardener",
+        "release_date": "2025-01-30",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Not Available"
+            ],
+            "buy": [
+                "Not Available"
+            ]
+        }
+    },
+    {
+        "id": 1035048,
+        "title": "Elevation",
+        "release_date": "2024-11-07",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Plex"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Google Play Movies",
+                "YouTube",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    },
+    {
+        "id": 839033,
+        "title": "The Lord of the Rings: The War of the Rohirrim",
+        "release_date": "2024-12-05",
+        "streaming_services": {
+            "streaming": [
+                "Not Available"
+            ],
+            "rent": [
+                "Amazon Video",
+                "Apple TV",
+                "Fandango At Home",
+                "Microsoft Store",
+                "Spectrum On Demand",
+                "Plex"
+            ],
+            "buy": [
+                "Amazon Video",
+                "Apple TV",
+                "Fandango At Home",
+                "Microsoft Store"
+            ]
+        }
+    }
+]
