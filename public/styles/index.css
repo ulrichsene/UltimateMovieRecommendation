@@ -1,8 +1,7 @@
 /* Set background image */
 body {
-  font-family: "Antic Didone", serif;
-  background: url('../images/lloyd-dirks-red-seats.jpg') center/cover no-repeat fixed;
-  margin: 0;
+  font-family: "Antic Didone", serif, sans-serif;
+  background: url('../images/lloyd-dirks-red-seats.jpg') center/cover no-repeat fixed;  margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -13,32 +12,23 @@ body {
   position: relative;
 }
 
-/* Login Button Styling */
+/* Login Button */
 .login-btn {
   position: absolute;
   top: 20px;
   right: 20px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
+  background-color: #1e1e1e;
   color: white;
-  background-color: black;
-  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 25px;
   text-decoration: none;
   display: inline-block;
-  text-align: center;
-  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .login-btn:hover {
   background-color: #333;
-  transform: scale(1.05);
-}
-
-/* Background Styling */
-body {
-  background: url('../images/lloyd-dirks-red-seats.jpg') no-repeat center center fixed;
-  background-size: cover;
 }
 
 /* Adjust section for better readability */
@@ -53,12 +43,8 @@ section {
 /* Responsive Design */
 @media (max-width: 768px) {
   section {
-      width: 90%;
-      padding: 20px;
+    width: 90%;
+    padding: 20px;
   }
-
-  .login-btn {
-      font-size: 14px;
-      padding: 8px 15px;
-  }
+  
 }

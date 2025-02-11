@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('https://www.transparenttextures.com/patterns/cubes.png'), linear-gradient(135deg, #000, #fff);
+    background: url('../images/lloyd-dirks-red-seats.jpg') center/cover no-repeat fixed;
     color: black;
     text-align: center;
 }
@@ -19,10 +19,13 @@ body {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    width: 100%;
+    max-width: 400px; /* Maximum width */
     text-align: center;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
+/* Header Style */
 .login-container h2 {
     margin-bottom: 20px;
 }
@@ -30,29 +33,31 @@ body {
 /* Input Fields */
 input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin: 10px 0;
     border: 2px solid black;
     border-radius: 6px;
     font-size: 16px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
-/* Login Button */
-.login-btn {
-    padding: 10px 20px;
+/* Enter Button (Submit) */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
     font-size: 16px;
     font-weight: bold;
     color: white;
-    background: black;
+    background: #1e1e1e;
     border: 2px solid white;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease;
+    box-sizing: border-box;
 }
 
-.login-btn:hover {
-    background-color: white;
-    color: black;
+button[type="submit"]:hover {
+    background-color: #333;
 }
 
 /* Back Button */
@@ -62,4 +67,17 @@ input {
     text-decoration: none;
     color: black;
     font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 20px;
+        width: 90%;
+        max-width: 350px;
+    }
+
+    input, button[type="submit"] {
+        font-size: 14px; /* Adjust font size for mobile */
+    }
 }
