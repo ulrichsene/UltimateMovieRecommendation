@@ -6,7 +6,7 @@
     <title>🎉 Slither Sisterz! 🎉</title>
 
     <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="/styles/index.css">
@@ -19,7 +19,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: "Poppins", sans-serif;
+            font-family: "Bodoni Moda", sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,6 +27,27 @@
             background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: white;
             text-align: center;
+            position: relative; /* This allows positioning the login button */
+        }
+
+        /* Login Button Styling */
+        .login-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            background-color: #ff4081;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #ff79a5;
         }
 
         /* Animated Section */
@@ -66,6 +87,9 @@
     </style>
 </head>
 <body>
+    <!-- Login Button -->
+    <button class="login-btn">Login</button>
+
     <section>
         <h1>🎉 Hello from Slither Sisterz! 🎉</h1>
         <p>Welcome to the party! Enjoy the confetti magic! ✨</p>

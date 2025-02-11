@@ -1,19 +1,18 @@
 @import url("https://p.typekit.net/p.css?s=1&k=vnd5zic&ht=tk&f=39475.39476.39477.39478.39479.39480.39481.39482&a=18673890&app=typekit&e=css");
-@font-face {
-    font-family: 'MyCustomFont';
-    src: url('fonts/Rainbow.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
   
-  body {
-    font-family: 'MyCustomFont', sans-serif;
-  }
-  
+  @media (max-width: 600px) {
+    section {
+        width: 80%;
+        padding: 15px;
     }
+}
+
+  body {
+    font-family: 'Bodoni Moda', sans-serif;
+  }
 
 html {
-    font-family: neo-sans;
+    font-family: 'Bodoni Moda';
     font-weight: 700;
     font-size: calc(62rem / 16);
 }
@@ -23,12 +22,9 @@ body {
 }
 
 section {
-    border-radius: 1em;
-    padding: 1em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari Support */
 }
+
   
