@@ -3,119 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 Slither Sisterz! 🎉</title>
+    <title>Slither Sisters!</title>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Antic+Didone&display=swap" rel="stylesheet">
 
     <!-- External Stylesheet -->
-    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="styles/index.css">
 
     <!-- Confetti Script -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
-    <style>
-        /* Fancy Background */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Bodoni Moda", sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: white;
-            text-align: center;
-            position: relative; /* This allows positioning the login button */
-        }
-
-        /* Login Button Styling */
-        .login-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            color: white;
-            background-color: #ff4081;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .login-btn:hover {
-            background-color: #ff79a5;
-        }
-
-        /* Animated Section */
-        section {
-            padding: 20px 40px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        /* Button Styling */
-        button {
-            margin-top: 20px;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            background: #ff4081;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.3s;
-        }
-
-        button:hover {
-            background: #ff79a5;
-            transform: scale(1.05);
-        }
-
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
 </head>
 <body>
     <!-- Login Button -->
-    <button class="login-btn">Login</button>
+    <a href="login.html" class="login-btn">LOGIN</a>
 
     <section>
-        <h1>🎉 Hello from Slither Sisterz! 🎉</h1>
-        <p>Welcome to the party! Enjoy the confetti magic! ✨</p>
-        <button onclick="launchConfetti()">More Confetti! 🎊</button>
-    </section>
+        <h1> Hello from Slither Sisters! </h1>
+        <p>Welcome to the party! Enjoy the confetti magic!</p>
 
-    <script>
-        // Initial Confetti Burst
-        setTimeout(() => {
-            confetti({
-                particleCount: 150,
-                spread: 80,
-                origin: { y: 0.6 },
-                disableForReducedMotion: true
-            });
-        }, 500);
-
-        // Confetti on Button Click
-        function launchConfetti() {
-            confetti({
-                particleCount: 200,
-                spread: 100,
-                origin: { y: 0.6 },
-                disableForReducedMotion: true
-            });
-        }
     </script>
 </body>
 </html>

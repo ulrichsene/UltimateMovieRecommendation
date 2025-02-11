@@ -1,0 +1,65 @@
+/* Black & White Fun Background */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Bodoni Moda", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('https://www.transparenttextures.com/patterns/cubes.png'), linear-gradient(135deg, #000, #fff);
+    color: black;
+    text-align: center;
+}
+
+/* Login Form */
+.login-container {
+    padding: 30px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid black;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+/* Login Button */
+.login-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: black;
+    border: 2px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Back Button */
+.back-btn {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}

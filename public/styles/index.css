@@ -1,30 +1,64 @@
-@import url("https://p.typekit.net/p.css?s=1&k=vnd5zic&ht=tk&f=39475.39476.39477.39478.39479.39480.39481.39482&a=18673890&app=typekit&e=css");
-  
-  @media (max-width: 600px) {
-    section {
-        width: 80%;
-        padding: 15px;
-    }
+/* Set background image */
+body {
+  font-family: "Antic Didone", serif;
+  background: url('../images/lloyd-dirks-red-seats.jpg') center/cover no-repeat fixed;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  color: white;
+  position: relative;
 }
 
-  body {
-    font-family: 'Bodoni Moda', sans-serif;
+/* Login Button Styling */
+.login-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border-radius: 30px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+/* Background Styling */
+body {
+  background: url('../images/lloyd-dirks-red-seats.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Adjust section for better readability */
+section {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 30px 50px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  section {
+      width: 90%;
+      padding: 20px;
   }
 
-html {
-    font-family: 'Bodoni Moda';
-    font-weight: 700;
-    font-size: calc(62rem / 16);
+  .login-btn {
+      font-size: 14px;
+      padding: 8px 15px;
+  }
 }
-
-body {
-    background: white;
-}
-
-section {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* Safari Support */
-}
-
-  
