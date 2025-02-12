@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import firestore
 from firebase_admin import credentials
+import pandas as pd
 
 def init_firestore_client():
     # Application Default credentials are automatically created.
@@ -30,6 +31,12 @@ def add_new_document(db, data, collection):
     update_time, ref = db.collection(collection_name).add(data)
     print(f"Added document with id {ref.id}")
 
+def save_movie_dataset():
+    """Saves the cleaned IMDb movie dataset to the movie colection in firestore"""
+    data = pd.read_csv("../input_data/final_cleaned_IMDb_dataset.csv")
+    print(data.head)
+
+
 if __name__ == "__main__":
     data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
     user = {"id": "3234-4389", "first_name": "Marisa", "last_name": "Luis"}
@@ -37,11 +44,11 @@ if __name__ == "__main__":
     collection_name = "users"
     document_id = "DOUd4fCGm572MDHQsnKO"
 
-    db = init_firestore_client()
-    add_document(db, data, collection_name, document_id)
-    document = get_document(db, collection_name, document_id)
+    # db = init_firestore_client()
+    # add_document(db, data, collection_name, document_id)
+    # document = get_document(db, collection_name, document_id)
 
-    add_new_document(db, user, collection_name)
+    # add_new_document(db, user, collection_name)
 
-
+    save_movie_dataset()
 
