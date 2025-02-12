@@ -12,52 +12,51 @@ body {
     text-align: center;
 }
 
-/* Login Form */
-.login-container {
+/* Create User Form */
+.create-user-container {
     padding: 30px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px; /* Maximum width */
+    width: 300px;
     text-align: center;
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
-/* Header Style */
-.login-container h2 {
-    margin-bottom: 20px;
+.create-user-container h2 {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
 }
 
 /* Input Fields */
 input {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     margin: 10px 0;
     border: 2px solid black;
     border-radius: 6px;
     font-size: 16px;
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
-/* Enter Button (Submit) */
-button[type="submit"] {
-    width: 100%;
-    padding: 12px;
+/* Create Account Button */
+.create-btn {
+    padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
     color: white;
-    background: #1e1e1e;
+    background: black;
     border: 2px solid white;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease;
-    box-sizing: border-box;
 }
 
-button[type="submit"]:hover {
-    background-color: #333;
+.create-btn:hover {
+    background-color: white;
+    color: black;
 }
 
 /* Back Button */
@@ -67,17 +66,4 @@ button[type="submit"]:hover {
     text-decoration: none;
     color: black;
     font-weight: bold;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .login-container {
-        padding: 20px;
-        width: 90%;
-        max-width: 350px;
-    }
-
-    input, button[type="submit"] {
-        font-size: 14px; /* Adjust font size for mobile */
-    }
 }

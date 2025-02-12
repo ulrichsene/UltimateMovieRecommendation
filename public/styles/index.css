@@ -1,7 +1,7 @@
 /* Set background image */
 body {
-  font-family: "Antic Didone", serif, sans-serif;
-  background: url('../images/lloyd-dirks-red-seats.jpg') center/cover no-repeat fixed;  margin: 0;
+  font-family: sans-serif;
+  margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -9,7 +9,19 @@ body {
   height: 100vh;
   text-align: center;
   color: white;
+  background: url('../images/lloyd-dirks-red-seats.jpg') center/cover no-repeat fixed;
   position: relative;
+  animation: fadeIn 2s ease-out; /* Fade-in effect for the background */
+}
+
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
 }
 
 /* Login Button */
@@ -25,26 +37,69 @@ body {
   border-radius: 25px;
   text-decoration: none;
   display: inline-block;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
 .login-btn:hover {
   background-color: #333;
+  transform: translateY(-3px); /* Add subtle hover effect */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Enhance shadow on hover */
 }
 
-/* Adjust section for better readability */
+/* Section for title and description */
 section {
   background: rgba(0, 0, 0, 0.7);
-  padding: 30px 50px;
-  border-radius: 10px;
+  padding: 40px 60px;
+  border-radius: 15px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Add text shadow for a glowing effect */
+  transform: scale(1); /* Slight scaling effect */
+  animation: scaleUp 1s ease-out; /* Add scale-up animation */
+}
+
+/* Animation for scaling effect */
+@keyframes scaleUp {
+  0% {
+      transform: scale(0.95);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #ff6347; /* Change title color to something eye-catching */
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Add shadow to header for more impact */
+}
+
+p {
+  font-size: 1.5rem;
+  color: #fff;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   section {
-    width: 90%;
-    padding: 20px;
+      width: 90%;
+      padding: 20px;
   }
-  
+
+  h1 {
+      font-size: 2rem; /* Adjust for mobile */
+  }
+
+  p {
+      font-size: 1.2rem; /* Adjust for mobile */
+  }
+
+  .login-btn {
+      top: 10px;
+      right: 10px;
+      font-size: 16px;
+      padding: 8px 16px;
+  }
 }
