@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User - Slither Sisterz</title>
+    <title>Create User - Slither Sisters</title>
 
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="styles/createUser.css">
@@ -11,15 +11,19 @@
 <body>
     <div class="create-user-container">
         <h2>Create a New Account</h2>
-        <form>
+        <form id="signup-form">
             <div class="input-fields">
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <input type="password" placeholder="Confirm Password" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
                 <button type="submit" class="create-btn">Create Account</button>
             </div>
+            <p id="signup-error-message" class="error-message"></p> <!-- Error display -->
         </form>
         <a href="index.html" class="back-btn">&#x2190 Back to Home</a>
     </div>
+
+    <!-- Firebase Authentication -->
+    <script type="module" src="scripts/auth_signup.js"></script>
 </body>
 </html>

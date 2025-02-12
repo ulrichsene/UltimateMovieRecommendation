@@ -12,15 +12,18 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form>
+        <form id="login-form">  <!-- Added form ID -->
             <div class="login-input-fields">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Login</button> <!-- This is the enter button -->
+                <input type="email" id="email" placeholder="Email" required> <!-- Updated to 'email' -->
+                <input type="password" id="password" placeholder="Password" required> 
+                <button type="submit">Login</button> <!-- Submit button -->
             </div>
         </form>
-        <a href="createUser.html" class="back-btn">&#x2190 Create Account</a>
+        <p id="error-message"></p> <!-- Error display -->
+        <a href="createUser.html" class="back-btn">Create Account</a>
         <a href="index.html" class="back-btn">&#x2190 Back to Home</a>
     </div>
+
+    <script type="module" src="scripts/auth_signin_password.js"></script>
 </body>
 </html>
