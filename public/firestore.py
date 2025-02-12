@@ -33,9 +33,18 @@ def add_new_document(db, data, collection):
 
 def save_movie_dataset():
     """Saves the cleaned IMDb movie dataset to the movie colection in firestore"""
-    data = pd.read_csv("../input_data/final_cleaned_IMDb_dataset.csv")
-    print(data.head)
-
+    
+    db = init_firestore_client()
+    # df = pd.read_csv("../input_data/final_cleaned_IMDb_dataset.csv") # run python
+    df = pd.read_csv("input_data/final_cleaned_IMDb_dataset.csv") # debugging
+    column_names = df.columns
+    print(column_names)
+    data = []
+    for i, row in enumerate(df):
+        for col_name in column_names:
+            # add to data row by row
+            data += f'{col_name}: {row[i]}'
+    print(data)
 
 if __name__ == "__main__":
     data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
@@ -50,5 +59,9 @@ if __name__ == "__main__":
 
     # add_new_document(db, user, collection_name)
 
-    save_movie_dataset()
+    # save_movie_dataset()
+    
+    df = pd.read_csv("../input_data/final_cleaned_IMDb_dataset.csv") # run python
+    for row in df:
+        print(row)
 
