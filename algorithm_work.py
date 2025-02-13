@@ -43,7 +43,7 @@ data['Cleaned_Overview'] = data['Overview'].apply(preprocess_text)
 output_data = data[['movie title', 'Cleaned_Overview']]
 
 # save this to a new CSV file
-output_data.to_csv('movies_with_cleaned_overview.csv', index=False)
+# output_data.to_csv('movies_with_cleaned_overview.csv', index=False)
 
 # debugging: print before/after for comparison
 print("\nOriginal vs Cleaned Overview:\n")
