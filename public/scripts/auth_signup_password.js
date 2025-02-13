@@ -1,19 +1,23 @@
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
-// Firebase Configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAMURFt8AWPf6mr9qv6jqdeSjLu-r2_Fbc",
-    authDomain: "https://free2memovies.firebaseapp.com/",
-    projectId: "free2memovies",
-    storageBucket: "free2memovies.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "1:496384632960:web:592102ff928d855fb5de65"
+  apiKey: "AIzaSyAMURFt8AWPf6mr9qv6jqdeSjLu-r2_Fbc",
+  authDomain: "free2memovies.firebaseapp.com",
+  projectId: "free2memovies",
+  storageBucket: "free2memovies.firebasestorage.app",
+  messagingSenderId: "496384632960",
+  appId: "1:496384632960:web:592102ff928d855fb5de65",
+  measurementId: "G-Y9DXZB6P2W"
 };
 
 // Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+
+const analytics = getAnalytics(app);
 
 // Handle Signup Form Submission
 document.getElementById("signup-form").addEventListener("submit", function(event) {
