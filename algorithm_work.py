@@ -1,6 +1,9 @@
 import pandas as pd
 import string # this is used to remove punctuation -- helps to eliminate "noise"
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS # e.g. "the, is, and etc", keeps only meaningful words
+import re # used to substitute [ ] in columns
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # here is where we will implement the content-based movie recommendation system
 
@@ -59,20 +62,24 @@ for i in range(5): # just display first 5 movies
 # print a sample to verify
 print("\nSample Combined Feature Text:\n")
 
-# helper function to convert lists into space-separated strings (e.g. Genre, Actors, Plot Keywords)
-def list_to_string(lst):  # takes one argument (list that we want to convert to a string)
-    if isinstance(lst, list):  # checks if the argument is actually a list
-        # converts each element to string and join them with a space
-        return " ".join(str(i) for i in lst)  # Using generator expression to convert and join
-    return str(lst)  # If it's not a list, just return the string version of it
+# Step 1: Define the function to clean the column
+def list_to_string(value):
+    # Remove the square brackets
+    value = re.sub(r'[\[\]]', '', value)
+    
+    # Ensure there are no leading or trailing spaces (optional)
+    value = value.strip()
+    
+    return value
 
-# apply this helper function to each column that may contain lists
+# Step 2: Apply this helper function to each relevant column in your dataframe
 data['Generes'] = data['Generes'].apply(list_to_string)
 data['Plot Kyeword'] = data['Plot Kyeword'].apply(list_to_string)
 data['Top 5 Casts'] = data['Top 5 Casts'].apply(list_to_string)
 
-# in order of importance?
+# in order of importance
 data["combined_features"] = (
+    "Movie Title: " + data["movie title"] + " " +
     "Plot: " + output_data["Cleaned_Overview"] + " " + 
     "Keywords: " + data["Plot Kyeword"] + " " +
     "Actors: " + data["Top 5 Casts"] + " " +
@@ -81,20 +88,25 @@ data["combined_features"] = (
 )
 
 # create a new dataframe with both the movie title and the combined features
-output_data2 = data[['movie title', 'combined_features']]
+output_data2 = data['combined_features']
 
 # save this to a new CSV
 output_data2.to_csv('movies_with_combined_features.csv', index=False)
 
-# NOTE: NEED TO FIX THE LIST TO STRING (not working right now)
-
 # step 3: convert this merged text data into numerical feature vectors
 # apply the TF-IDF Vectorization on the merged text column.
 # each movie will now be represented as a numerical vector.
+
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(output_data2["combined_features"])
+
 # this allows us to compute the similarity between different movies.
 
 # step 4: use cosine similarity to measure how similar movies are based on vectors
 # return top 3 or something? closest matches
+
+def get_similar_movies(movie_input, data, X):
+    pass
 
 # step 5: for the actual recommendation function we could do something like this:
 # take the movie title as input from the user
