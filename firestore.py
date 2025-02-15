@@ -5,14 +5,14 @@ import pandas as pd
 from google.cloud import firestore
 from google.cloud.firestore_v1 import aggregation
 from google.cloud.firestore_v1.base_query import FieldFilter
-
+from ast import literal_eval
 
 def init_firestore_client():
     # Application Default credentials are automatically created.
     cred = credentials.ApplicationDefault()
 
     firebase_admin.initialize_app(cred)
-    db = firestore.client() 
+    db = firestore.Client() 
     return db
 
 def load_data():
@@ -70,18 +70,21 @@ def create_count_query(project_id: str, collection_name) -> None:
 
 def save_movie_titles(db, df):
     """Saves the cleaned IMDb movie dataset to the movie colection in firestore"""
-    column_names = df.columns
     data = []
-    print(type(df))
-    print(df)
     movie_titles = df['movie title']
     for movie in movie_titles:
         data = {"movie_title": f"{movie}"}
         print(data)
-        add_new_document(db, data, "movies")
+        # add_new_document(db, data, "movies")
 
-def save_genres(db):
-    pass
+def save_genres(db, df):
+    data = []
+    genres = df['Generes']
+    for genre in genres:
+        genre_list = literal_eval(genre)
+        data = {"genre": genre_list}
+        print(type(genre_list))
+        print(data)
 
 if __name__ == "__main__":
     data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
@@ -89,5 +92,6 @@ if __name__ == "__main__":
     # set up database and dataframe
     db = init_firestore_client()
     df = load_data()
+    save_genres(db, df)
 
     # save_movie_titles(db, df) # don't run, will save all movie titles to db and run out of daily document saves
