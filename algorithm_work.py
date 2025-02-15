@@ -1,57 +1,62 @@
-import pandas as pd
-import string # this is used to remove punctuation -- helps to eliminate "noise"
-from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS # e.g. "the, is, and etc", keeps only meaningful words
-import re # used to substitute [ ] in columns
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-# import torch # deep learning library (PyTorch) to run models and process data
-# from transformers import DistilBertTokenizer, DistilBertModel
-# # transformers is a library from Hugging Face 
+import pandas as pd  # handles datasets
+import numpy as np  # matrix operations
+import os  # for file checks
+from sklearn.feature_extraction.text import TfidfVectorizer  # converts text data into numerical form
+from sklearn.metrics.pairwise import cosine_similarity  # measures similarity between movie vectors
+from sentence_transformers import SentenceTransformer  # loads the SBERT model to generate embeddings
+from scipy.sparse import hstack
+from scipy.sparse import csr_matrix
 
-# # here is where we will implement the content-based movie recommendation system
+# Load the SBERT model
+print("Loading SBERT model...")
+model = SentenceTransformer('all-MiniLM-L6-v2')  # lightweight model for efficiency
 
-# # load the pre-trained BERT model and tokenizer
-# tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
-# model = DistilBertModel.from_pretrained('distilbert-base-uncased')
-# # the tokenizer splits the input text (plot overview) into smaller chunks that BERT understands
+# Read CSV files
+print("Reading CSV files...")
+movies_plot = pd.read_csv("input_data/movies_cleaned_plot.csv")  # Movie titles and cleaned plots
+movies_features = pd.read_csv("input_data/movies_non_plot_features.csv")  # Other attributes
 
-# def get_bert_embedding(text):
-#     inputs = tokenizer(text, return_tensors = 'pt', truncation = True, padding = True, max_length = 512)
-#     # text = plot overview
-#     # return_tensors = pt tells the tokenizer to return the output as a PyTorch tensor which Bert uses
-#     # truncation = True if text is too long it shortens it to fit BERT's max input size
+# Path for saved SBERT embeddings
+sbert_embeddings_path = "input_data/sbert_embeddings.npy"
 
-#     with torch.no_grad():
-#         outputs = model(**inputs) # sends tokenized inputs into BERT model
-    
-#     embedding = outputs.pooler_output
-#     # gives us the embedding for the entire input text (plot overview). 
-#     # the pooler output represents a dense vector that summarizes the meaning of the input sentence.
+if os.path.exists(sbert_embeddings_path):
+    print("Loading precomputed SBERT embeddings...")
+    sbert_embeddings = np.load(sbert_embeddings_path)  # Load saved embeddings
+else:
+    print("Generating SBERT embeddings...")
+    sbert_embeddings = model.encode(movies_plot['plot_cleaned'].fillna("").tolist(), convert_to_numpy=True)
+    np.save(sbert_embeddings_path, sbert_embeddings)  # Save embeddings for future runs
 
-#     return embedding.sqeeze().numpy() # convert tensor to numpy array and remove unnecessary dimensions
+# Convert the 2D array into a list of 1D arrays for Pandas compatibility
+movies_plot['sbert_plot_embedding'] = list(sbert_embeddings)
 
-# sample_text = "After more than thirty years of service as one of the Navy's top aviators, Pete Mitchell is where he belongs, pushing the envelope as a courageous test pilot and dodging the advancement in rank that would ground."
-# embedding = get_bert_embedding(sample_text)
-# print("Embedding shape:", embedding.shape)  # Should print something like (768,)
-# print("First few values of the embedding:", embedding[:10])  # Prints first 10 elements
+print("SBERT embeddings successfully assigned to DataFrame.")
 
 
-# step 3: convert this merged text data into numerical feature vectors
-# apply the TF-IDF Vectorization on the merged text column.
-# each movie will now be represented as a numerical vector.
+# convert all the non-plot features in file into a single text column
+# allows TF-IDF to process all categorical metadata together
+print("Processing combined features...")
+movies_features["combined_features"] = (
+    movies_features["Plot Kyeword"] + " " +
+    movies_features["Director"] + " " +
+    movies_features["Top 5 Casts"] + " " +
+    movies_features["Generes"]
+)
+
+# apply the TF-IDF vectorization on the combined features
+print("Computing TF-IDF matrix...")
+tfidf_vectorizer = TfidfVectorizer() 
+tfidf_matrix = tfidf_vectorizer.fit_transform(movies_features["combined_features"].fillna(""))
 
 
-# this allows us to compute the similarity between different movies.
-
-# step 4: use cosine similarity to measure how similar movies are based on vectors
-# return top 3 or something? closest matches
-
-data = pd.read_csv("input_data/movies_cleaned_plot.csv")
-data2 = pd.read_csv("input_data/movies_non_plot_features.csv")
+# have to normalize and combine the SBERT and TF-IDF vectors
+print("Combining features...")
+sbert_embeddings = np.stack(movies_plot['sbert_plot_embedding'].values)
+full_feature_matrix = hstack([sbert_embeddings, tfidf_matrix]).tocsr()  # Convert to csr_matrix for indexing
 
 def find_movie_by_title(movie_input):
     # loop through the dataset to get the index and title of the inputted movie
-    for index, row in enumerate(data["movie title"]):
+    for index, row in enumerate(movies_plot["movie title"]):
         if movie_input.lower() == row.lower(): # compares the lowercase title
             print(f"Movie: {movie_input} found at index {index}.")
             return index
@@ -60,28 +65,17 @@ def find_movie_by_title(movie_input):
     print(f"Movie {movie_input} not found in the dataset. Try another movie.")
     return None
 
-known_movie = "iron man 2"
-unknown_movie = "Vampire Diaries"
-
-# test with both movies
-find_movie_by_title(known_movie)
-find_movie_by_title(unknown_movie)
-
 def get_similar_movies(movie_title, top_n = 3):
     # call function and get the index of desired movie
     input_movie_index = find_movie_by_title(movie_title)
 
     if input_movie_index is None:
         return None
-    
-    # get the vector for the input movie
-    vectorizer = TfidfVectorizer()
-    movie_vectors = vectorizer.fit_transform(data2)
-    input_movie_vector = movie_vectors[input_movie_index]
 
     # calculate the cosine similarity between the input movie and all other movies
-    similarity_scores = cosine_similarity(input_movie_vector, movie_vectors).flatten()
-    # resul is a 1D array of similarity scores
+    similarity_scores = cosine_similarity(full_feature_matrix[input_movie_index], full_feature_matrix).flatten()
+
+    # result is a 1D array of similarity scores
 
     # want to exclude the input movie (bc would always have highest score of 1)
     similarity_scores[input_movie_index] = -1
@@ -93,22 +87,14 @@ def get_similar_movies(movie_title, top_n = 3):
     top_movies = sorted_indexes[:top_n]
 
     # extract the movie titles that correspond to these indexes
-    similar_movies = data['movie title'].iloc[top_movies]
+    similar_movies = movies_plot['movie title'].iloc[top_movies]
     
     # extract the similarity score of the top movies
     similar_movies_score = similarity_scores[top_movies]
 
     return list(zip(similar_movies, similar_movies_score))
 
-# step 5: for the actual recommendation function we could do something like this:
-# take the movie title as input from the user
-# find the movie in the dataset (if not found, return error message)
-# extract its feature vector
-# cocmpute similarity scores between this movie and all other movies
-# sort the movies based on similarity scores (descending order?)
-
-
-# example
-known_movie = "Top Gun: Maverick"
-similar_movies = get_similar_movies(known_movie, top_n=3)
-print(similar_movies)
+# example with a movie
+print("Running movie recommendation system...")
+similar_movies = get_similar_movies("Sonic the Hedgehog 2", top_n=3)
+print("Recommended movies:", similar_movies)
