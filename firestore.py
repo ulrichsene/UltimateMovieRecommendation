@@ -88,100 +88,29 @@ def create_count_query(project_id: str, collection_name) -> None:
         print(f"Alias of results from query: {result[0].alias}")
         print(f"Number of results from query: {result[0].value}")
 
-def save_movie_titles(db, df):
-    """Saves the cleaned IMDb movie dataset to the movie colection in firestore"""
-    data = []
-    movie_titles = df['Movie title']
-    for movie in movie_titles:
-        data = {"movie_title": f"{movie}"}
-        print(data)
-        add_new_document(db, data, "movies")
-
-def save_genres(db, df, limit=None):
-    # TODO finish this function
-    """Saves genres to the matching documents in firestore"""
-    genres = df['Generes']
-    if limit:
-        documents = get_documents(db, 'movies', limit)
-        for document in documents:
-            
-            genre_list = literal_eval(genres[i])
-            data = {"genre": genre_list}
-            add_document(db, data, 'movies', document.id)
-
-    else: 
-        documents = get_document(db, 'movies')
-        for document in documents:
-            pass
-        for genre in genres:
-            genre_list = literal_eval(genre)
-            data = {"genre": genre_list}
-
-def save_movies(db, df, limit=None):
+def save_movies(db, df, start=0, end=None):
     column_names = list(df.columns)
     data_list = []
 
-    if limit:
-        for i in range(limit):
-            row_data = {}
-            for column_name in column_names:
-                value = df[column_name].iloc[i]
+    if end is None:
+        end = len(df)
+        
+    for i in range(start, end):
+        row_data = {}
+        for column_name in column_names:
+            value = df[column_name].iloc[i]
 
-                # convert value to list if needed
-                if isinstance(value, str) and value.startswith('['):
-                    value = literal_eval(value)
+            # convert value to list if needed
+            if isinstance(value, str) and value.startswith('['):
+                value = literal_eval(value)
 
-                row_data[column_name] = value
-            data_list.append(row_data)
-            print(row_data)
-    else:
-        for i in range(len(df['Movie title'])):
-            row_data = {}
-            for column_name in column_names:
-                value = df[column_name].iloc[i]
-
-                # convert value to list if needed
-                if isinstance(value, str) and value.startswith('['):
-                    value = literal_eval(value)
-
-                row_data[column_name] = value
-            data_list.append(row_data)
-            print(row_data)
-
-            # column = df[column_name]
-            # for i in range(limit):
-            #     value = column[i]
-            #     # convert value to list if needed
-            #     if not isinstance(value, float) and value[0] == '[':
-            #         value_list = literal_eval(value)
-            #         data = {f"{column_name}": value_list}
-            #         print(data) # TODO add to db
-            #         print(type(value_list))
-            #     else:
-            #         data = {f"{column_name}": f"{value}"}
-            #         print(data) # TODO add to db
-            #         print(type(value))
-
-    # else:
-        # for column_name in column_names:
-        #     column = df[column_name]
-        #     for value in column:
-        #         # convert value to list if needed
-        #         if value[0] == '[':
-        #             value_list = literal_eval(value)
-        #             data = {f"{column_name}": value_list}
-        #             print(data) # TODO add to db
-        #         else:
-        #             data = {f"{column_name}": f"{value}"}
-        #             print(data) # TODO add to db
-        # pass
-
+            row_data[column_name] = value
+        data_list.append(row_data)
+        print(row_data)
+    
 if __name__ == "__main__":
     data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
 
     # initialize database and load dataframe
     db = init_firestore_client()
     df = load_data()
-    save_movies(db, df, )
-
-    # save_movie_titles(db, df) # don't run, will save all movie titles to db and run out of daily document saves
