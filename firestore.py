@@ -97,27 +97,58 @@ def save_movie_titles(db, df):
         print(data)
         add_new_document(db, data, "movies")
 
-def save_genres(db, df):
+def save_genres(db, df, limit=None):
     # TODO finish this function
-    """Saves all genres to the database"""
-    data = []
+    """Saves genres to the matching documents in firestore"""
     genres = df['Generes']
-    for genre in genres:
-        genre_list = literal_eval(genre)
-        data = {"genre": genre_list}
-        print(type(genre_list))
-        print(data)
+    if limit:
+        documents = get_documents(db, 'movies', limit)
+        for document in documents:
+            
+            genre_list = literal_eval(genres[i])
+            data = {"genre": genre_list}
+            add_document(db, data, 'movies', document.id)
 
-def save_genres_limit(db, df, limit):
-    # TODO finish this function
-    """Saves first n genres of the specified limit to the database"""
-    data = []
-    genres = df['Generes']
-    for i in range(limit):
-        genre_list = literal_eval(genres[i])
-        data = {"genre": genre_list}
-        print(type(genre_list))
-        
+    else: 
+        documents = get_document(db, 'movies')
+        for document in documents:
+            pass
+        for genre in genres:
+            genre_list = literal_eval(genre)
+            data = {"genre": genre_list}
+
+def save_movies(db, df, limit=None):
+    column_names = list(df.columns)
+    data_list = []
+    
+    if limit:
+        for column_name in column_names:
+            column = df[column_name]
+            for i in range(limit):
+                value = column[i]
+                # convert value to list if needed
+                if not isinstance(value, float) and value[0] == '[':
+                    value_list = literal_eval(value)
+                    data = {f"{column_name}": value_list}
+                    print(data) # TODO add to db
+                    print(type(value_list))
+                else:
+                    data = {f"{column_name}": f"{value}"}
+                    print(data) # TODO add to db
+                    print(type(value))
+
+    else:
+        for column_name in column_names:
+            column = df[column_name]
+            for value in column:
+                # convert value to list if needed
+                if value[0] == '[':
+                    value_list = literal_eval(value)
+                    data = {f"{column_name}": value_list}
+                    print(data) # TODO add to db
+                else:
+                    data = {f"{column_name}": f"{value}"}
+                    print(data) # TODO add to db
 
 if __name__ == "__main__":
     data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
@@ -125,7 +156,7 @@ if __name__ == "__main__":
     # initialize database and load dataframe
     db = init_firestore_client()
     df = load_data()
-    # save_genres_limit(db, df, 5)
-    get_documents(db, 'movies', 5)
+    # save_genres(db, df, 5)
+    save_movies(db, df, 5)
 
     # save_movie_titles(db, df) # don't run, will save all movie titles to db and run out of daily document saves
