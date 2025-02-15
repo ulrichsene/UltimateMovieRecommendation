@@ -4,94 +4,37 @@ from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS # e.g. "the, is, 
 import re # used to substitute [ ] in columns
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+# import torch # deep learning library (PyTorch) to run models and process data
+# from transformers import DistilBertTokenizer, DistilBertModel
+# # transformers is a library from Hugging Face 
 
-# here is where we will implement the content-based movie recommendation system
+# # here is where we will implement the content-based movie recommendation system
 
-# step 1: preprocess the overview column (provides context and better descriptions rather than just using plot keywords)
-# convert all text to lowercase, remove punctuation, remove stop words (e.g., "the", "is", "and") to keep only meaningful words.
+# # load the pre-trained BERT model and tokenizer
+# tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+# model = DistilBertModel.from_pretrained('distilbert-base-uncased')
+# # the tokenizer splits the input text (plot overview) into smaller chunks that BERT understands
 
-# read the file
-data = pd.read_csv("input_data/final_cleaned_IMDb_dataset.csv")
-# print(data.head())
+# def get_bert_embedding(text):
+#     inputs = tokenizer(text, return_tensors = 'pt', truncation = True, padding = True, max_length = 512)
+#     # text = plot overview
+#     # return_tensors = pt tells the tokenizer to return the output as a PyTorch tensor which Bert uses
+#     # truncation = True if text is too long it shortens it to fit BERT's max input size
 
-# extract the overview column
-# if 'Overview' in data.columns:
-#     print("\nOverview column found. Displaying first few overviews:\n")
-#     print(data['Overview'].head(10))
-# else:
-#     print("\nError: 'Overview' column not found in dataset!")
-
-
-# helper function to start preprocessing this column
-def preprocess_text(text): # takes in text (i.e. a movie overview)
-    if isinstance(text, str): # checks if text is a string (only want to process valid strings)
-        text = text.lower() # converts all characters to lowercase for consistency
-        text = text.translate(str.maketrans('', '', string.punctuation)) # removes punctuation (replaces with empty string)
-
-        words = text.split() # split into words
-        filtered_words = []
-
-        for word in words:  
-            if word not in ENGLISH_STOP_WORDS or word in {"who", "as", "is", "are", "one", "new"}:
-                filtered_words.append(word)  # keeps meaningful stopwords  
-        
-        text = " ".join(filtered_words) # rejoin non stop words into a single string
-        return text.strip() # remove any extra spaces
-    return "" # just return empty string 
-
-# apply this function to the overview column
-data['Cleaned_Overview'] = data['Overview'].apply(preprocess_text)
-
-# want to create a new dataframe with movie title and cleaned overview
-output_data = data[['movie title', 'Cleaned_Overview']]
-
-# save this to a new CSV file
-# output_data.to_csv('movies_with_cleaned_overview.csv', index=False)
-
-# debugging: print before/after for comparison
-# print("\nOriginal vs Cleaned Overview:\n")
-# for i in range(5): # just display first 5 movies
-#     print(f"Original: {data['Overview'].iloc[i]}")
-#     print(f"Cleaned: {output_data['Cleaned_Overview'].iloc[i]}\n")
-
-# NOTE: NEED TO MAKE SURE NOT OVER PROCESSING AND PLOT SUMMARY ISN'T READABLE!
-
-# step 2: merge all the relevant features into a single text field (will allow the vectorizer to compare information effectively)
-# use title, genres, overview, plot keywords, director, top 5 cast members
-
-# print a sample to verify
-# print("\nSample Combined Feature Text:\n")
-
-# Step 1: Define the function to clean the column
-def list_to_string(value):
-    # Remove the square brackets
-    value = re.sub(r'[\[\]]', '', value)
+#     with torch.no_grad():
+#         outputs = model(**inputs) # sends tokenized inputs into BERT model
     
-    # Ensure there are no leading or trailing spaces (optional)
-    value = value.strip()
-    
-    return value
+#     embedding = outputs.pooler_output
+#     # gives us the embedding for the entire input text (plot overview). 
+#     # the pooler output represents a dense vector that summarizes the meaning of the input sentence.
 
-# Step 2: Apply this helper function to each relevant column in your dataframe
-data['Generes'] = data['Generes'].apply(list_to_string)
-data['Plot Kyeword'] = data['Plot Kyeword'].apply(list_to_string)
-data['Top 5 Casts'] = data['Top 5 Casts'].apply(list_to_string)
+#     return embedding.sqeeze().numpy() # convert tensor to numpy array and remove unnecessary dimensions
 
-# in order of importance
-data["combined_features"] = (
-    "Movie Title: " + data["movie title"] + " " +
-    "Plot: " + output_data["Cleaned_Overview"] + " " + 
-    "Keywords: " + data["Plot Kyeword"] + " " +
-    "Actors: " + data["Top 5 Casts"] + " " +
-    "Director: " + data["Director"] + " " +
-    "Genres: " + data["Generes"] 
-)
+# sample_text = "After more than thirty years of service as one of the Navy's top aviators, Pete Mitchell is where he belongs, pushing the envelope as a courageous test pilot and dodging the advancement in rank that would ground."
+# embedding = get_bert_embedding(sample_text)
+# print("Embedding shape:", embedding.shape)  # Should print something like (768,)
+# print("First few values of the embedding:", embedding[:10])  # Prints first 10 elements
 
-# create a new dataframe with both the movie title and the combined features
-output_data2 = data['combined_features']
-
-# save this to a new CSV
-output_data2.to_csv('movies_with_combined_features.csv', index=False)
 
 # step 3: convert this merged text data into numerical feature vectors
 # apply the TF-IDF Vectorization on the merged text column.
@@ -102,6 +45,9 @@ output_data2.to_csv('movies_with_combined_features.csv', index=False)
 
 # step 4: use cosine similarity to measure how similar movies are based on vectors
 # return top 3 or something? closest matches
+
+data = pd.read_csv("input_data/movies_cleaned_plot.csv")
+data2 = pd.read_csv("input_data/movies_non_plot_features.csv")
 
 def find_movie_by_title(movie_input):
     # loop through the dataset to get the index and title of the inputted movie
@@ -130,7 +76,7 @@ def get_similar_movies(movie_title, top_n = 3):
     
     # get the vector for the input movie
     vectorizer = TfidfVectorizer()
-    movie_vectors = vectorizer.fit_transform(output_data2)
+    movie_vectors = vectorizer.fit_transform(data2)
     input_movie_vector = movie_vectors[input_movie_index]
 
     # calculate the cosine similarity between the input movie and all other movies
