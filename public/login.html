@@ -5,21 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Slither Sisters</title>
 
-    <!-- External Stylesheet -->
-    <link rel="stylesheet" href="styles/index.css"> <!-- Link to index.css -->
-    <link rel="stylesheet" href="styles/login.css"> <!-- Retain the login.css for general styles -->
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="styles/index.css"> 
+    <link rel="stylesheet" href="styles/login.css"> 
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form id="login-form">  <!-- Added form ID -->
+        <form id="login-form">
             <div class="login-input-fields">
-                <input type="email" id="email" placeholder="Email" required> <!-- Updated to 'email' -->
+                <input type="email" id="email" placeholder="Email" required>
                 <input type="password" id="password" placeholder="Password" required> 
-                <button type="submit">Login</button> <!-- Submit button -->
+                <button type="submit">Login</button>
             </div>
         </form>
-        <p id="error-message"></p> <!-- Error display -->
+        
+        <!-- Google Sign-In Button -->
+        <button id="google-signin-btn" class="google-btn">
+            <img src="images/google-icon.png" alt="Google Logo">
+            Sign in with Google
+        </button>        
+
+        <p id="error-message"></p>
         <a href="createUser.html" class="back-btn">Create Account</a>
         <a href="index.html" class="back-btn">&#x2190 Back to Home</a>
     </div>

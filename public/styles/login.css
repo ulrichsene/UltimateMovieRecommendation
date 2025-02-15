@@ -85,3 +85,32 @@ button[type="submit"]:hover {
         font-size: 14px; /* Adjust font size for mobile */
     }
 }
+
+.google-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    background: white;
+    border: 2px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 10px; /* Adds spacing from login button */
+}
+
+.google-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.google-btn:hover {
+    background: #f0f0f0;
+    transform: scale(1.02);
+}
