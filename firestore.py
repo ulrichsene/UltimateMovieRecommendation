@@ -28,6 +28,30 @@ def load_data():
     except:
         "File not found"
 
+def get_documents(db, collection_name, limit=None):
+    """Returns all documents in the specified collection, returns all unless a limit is provided"""
+    documents_list = []
+    if limit:
+        docs = db.collection(collection_name)
+        query = docs.limit_to_last(limit)
+        results = query.get()
+
+        for doc in results:
+            print(f"{doc.id} => {doc.to_dict()}")
+            documents_list.append(doc)
+
+        return documents_list
+    
+    else:
+        docs = db.collection(collection_name).stream()
+
+    for doc in docs:
+        print(f"{doc.id} => {doc.to_dict()}")
+        documents_list.append(doc)
+
+    return documents_list
+
+
 def get_document(db, collection, document_id):
     doc_ref = db.collection(collection).document(document_id)
 
@@ -75,9 +99,11 @@ def save_movie_titles(db, df):
     for movie in movie_titles:
         data = {"movie_title": f"{movie}"}
         print(data)
-        # add_new_document(db, data, "movies")
+        add_new_document(db, data, "movies")
 
 def save_genres(db, df):
+    # TODO finish this function
+    """Saves all genres to the database"""
     data = []
     genres = df['Generes']
     for genre in genres:
@@ -86,12 +112,24 @@ def save_genres(db, df):
         print(type(genre_list))
         print(data)
 
+def save_genres_limit(db, df, limit):
+    # TODO finish this function
+    """Saves first n genres of the specified limit to the database"""
+    data = []
+    genres = df['Generes']
+    for i in range(limit):
+        genre_list = literal_eval(genres[i])
+        data = {"genre": genre_list}
+        print(type(genre_list))
+        
+
 if __name__ == "__main__":
     data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
 
-    # set up database and dataframe
+    # initialize database and load dataframe
     db = init_firestore_client()
     df = load_data()
-    save_genres(db, df)
+    # save_genres_limit(db, df, 5)
+    get_documents(db, 'streaming_services', 5)
 
     # save_movie_titles(db, df) # don't run, will save all movie titles to db and run out of daily document saves
