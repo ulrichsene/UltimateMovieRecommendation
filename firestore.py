@@ -30,7 +30,6 @@ def load_data():
 
 def get_documents(db, collection_name, limit=None):
     """Returns all documents in the specified collection, returns all unless a limit is provided"""
-    documents_list = []
     if limit:
         docs = db.collection(collection_name)
         query = docs.limit_to_last(limit)
@@ -38,26 +37,23 @@ def get_documents(db, collection_name, limit=None):
 
         for doc in results:
             print(f"{doc.id} => {doc.to_dict()}")
-            documents_list.append(doc)
-
-        return documents_list
+        return results
     
     else:
         docs = db.collection(collection_name).stream()
+        for doc in docs:
+            print(f"{doc.id} => {doc.to_dict()}")
 
-    for doc in docs:
-        print(f"{doc.id} => {doc.to_dict()}")
-        documents_list.append(doc)
-
-    return documents_list
-
+        return results
 
 def get_document(db, collection, document_id):
+    """Returns the document with the specified id"""
     doc_ref = db.collection(collection).document(document_id)
 
     doc = doc_ref.get()
     if doc.exists:
         print(f"Document data: {doc.to_dict()}")
+        return doc
     else:
         print("No such document!")
 
@@ -67,7 +63,7 @@ def add_document(db, data, collection, document_id):
     db.collection(collection).document(document_id).set(data)
 
 def add_new_document(db, data, collection_name):
-    """Adds a new document with an auto generated document id"""
+    """Adds a new document with an auto generated document ID"""
     
     update_time, ref = db.collection(collection_name).add(data)
     print(f"Added document with id {ref.id}")
@@ -130,6 +126,6 @@ if __name__ == "__main__":
     db = init_firestore_client()
     df = load_data()
     # save_genres_limit(db, df, 5)
-    get_documents(db, 'streaming_services', 5)
+    get_documents(db, 'movies', 5)
 
     # save_movie_titles(db, df) # don't run, will save all movie titles to db and run out of daily document saves
