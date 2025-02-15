@@ -15,6 +15,19 @@ def init_firestore_client():
     db = firestore.client() 
     return db
 
+def load_data():
+    """Loads the cleaned IMDb dataset into a df"""
+    try:
+        df = pd.read_csv("../input_data/final_cleaned_IMDb_dataset.csv") # run python
+        return df
+    except:
+        "File not found"
+    try:
+        df = pd.read_csv("input_data/final_cleaned_IMDb_dataset.csv", on_bad_lines="skip") # debugging
+        return df
+    except:
+        "File not found"
+
 def get_document(db, collection, document_id):
     doc_ref = db.collection(collection).document(document_id)
 
@@ -55,17 +68,8 @@ def create_count_query(project_id: str, collection_name) -> None:
         print(f"Alias of results from query: {result[0].alias}")
         print(f"Number of results from query: {result[0].value}")
 
-def save_movie_titles(db):
+def save_movie_titles(db, df):
     """Saves the cleaned IMDb movie dataset to the movie colection in firestore"""
-    
-    try:
-        df = pd.read_csv("../input_data/final_cleaned_IMDb_dataset.csv") # run python
-    except:
-        "File not found"
-    try:
-        df = pd.read_csv("input_data/final_cleaned_IMDb_dataset.csv", on_bad_lines="skip") # debugging
-    except:
-        "File not found"
     column_names = df.columns
     data = []
     print(type(df))
@@ -76,36 +80,14 @@ def save_movie_titles(db):
         print(data)
         add_new_document(db, data, "movies")
 
-def save_genres():
-    
-
-    # try:
-    #     with open("../input_data/final_cleaned_IMDb_dataset.csv", "r", encoding="utf-8") as file:
-    #         lines = file.readlines()
-    # except Exception as e:
-    #     raise RuntimeError(f'Error reading the file: {e}')
-
-    # try:
-    #     with open("input_data/final_cleaned_IMDb_dataset.csv", "r", encoding="utf-8") as file:
-    #         lines = file.readlines()
-    # except Exception as e:
-    #     raise RuntimeError(f'Error reading the file: {e}')
+def save_genres(db):
+    pass
 
 if __name__ == "__main__":
     data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
 
-
-    create_count_query('free2memovies', 'movies')
-
+    # set up database and dataframe
     db = init_firestore_client()
-    # add_document(db, data, collection_name, document_id)
-    # document = get_document(db, collection_name, document_id)
+    df = load_data()
 
-    # add_new_document(db, user, collection_name)
-
-    # save_movie_titles(db) # don't run, will save all movie titles to db and run out of daily document saves
-    
-    # df = pd.read_csv("../input_data/final_cleaned_IMDb_dataset.csv") # run python
-    # for row in df:
-    #     print(row)
-
+    # save_movie_titles(db, df) # don't run, will save all movie titles to db and run out of daily document saves
