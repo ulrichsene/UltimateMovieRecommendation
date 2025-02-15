@@ -4,34 +4,33 @@ import os  # for file checks
 from sklearn.feature_extraction.text import TfidfVectorizer  # converts text data into numerical form
 from sklearn.metrics.pairwise import cosine_similarity  # measures similarity between movie vectors
 from sentence_transformers import SentenceTransformer  # loads the SBERT model to generate embeddings
-from scipy.sparse import hstack
-from scipy.sparse import csr_matrix
+from scipy.sparse import hstack # combines "sparse matrices"
+from scipy.sparse import csr_matrix # used for working with sparse matrices
 
-# Load the SBERT model
+# loads the pre trained SBERT model (efficient encoding of movie plot summaries into embeddings (numeric representations of the text)
 print("Loading SBERT model...")
 model = SentenceTransformer('all-MiniLM-L6-v2')  # lightweight model for efficiency
 
-# Read CSV files
+# read the csv files
 print("Reading CSV files...")
-movies_plot = pd.read_csv("input_data/movies_cleaned_plot.csv")  # Movie titles and cleaned plots
-movies_features = pd.read_csv("input_data/movies_non_plot_features.csv")  # Other attributes
+movies_plot = pd.read_csv("input_data/movies_cleaned_plot.csv")  # contains movie titles and cleaned plots
+movies_features = pd.read_csv("input_data/movies_non_plot_features.csv")  # contains other attributes
 
-# Path for saved SBERT embeddings
+# specifies the file path where the pre-computed SBERT embeddings will be stored
 sbert_embeddings_path = "input_data/sbert_embeddings.npy"
 
-if os.path.exists(sbert_embeddings_path):
+if os.path.exists(sbert_embeddings_path): # checks if it already exists
     print("Loading precomputed SBERT embeddings...")
-    sbert_embeddings = np.load(sbert_embeddings_path)  # Load saved embeddings
+    sbert_embeddings = np.load(sbert_embeddings_path)  # if it does, the embeddings are loaded
 else:
     print("Generating SBERT embeddings...")
     sbert_embeddings = model.encode(movies_plot['plot_cleaned'].fillna("").tolist(), convert_to_numpy=True)
-    np.save(sbert_embeddings_path, sbert_embeddings)  # Save embeddings for future runs
+    np.save(sbert_embeddings_path, sbert_embeddings)  # if it doesn't exist, generates new SBERT embeddings and saves them
 
-# Convert the 2D array into a list of 1D arrays for Pandas compatibility
+# this adds the sbert embeddings as a new column
 movies_plot['sbert_plot_embedding'] = list(sbert_embeddings)
 
 print("SBERT embeddings successfully assigned to DataFrame.")
-
 
 # convert all the non-plot features in file into a single text column
 # allows TF-IDF to process all categorical metadata together
@@ -44,15 +43,25 @@ movies_features["combined_features"] = (
 )
 
 # apply the TF-IDF vectorization on the combined features
+# converts the combined text features into a numerical matrix
 print("Computing TF-IDF matrix...")
 tfidf_vectorizer = TfidfVectorizer() 
 tfidf_matrix = tfidf_vectorizer.fit_transform(movies_features["combined_features"].fillna(""))
+# the fit_transform basically converts the data into a sparse matrix of values (each feature is a number that represents its importance in dataset)
 
+# weight the SBERT plot and non-plot features
+plot_weight = 0.7
+non_plot_weight = 0.3
 
-# have to normalize and combine the SBERT and TF-IDF vectors
-print("Combining features...")
-sbert_embeddings = np.stack(movies_plot['sbert_plot_embedding'].values)
-full_feature_matrix = hstack([sbert_embeddings, tfidf_matrix]).tocsr()  # Convert to csr_matrix for indexing
+# ensure that the SBERT embeddings are in sparse format (if not already)
+weighted_sbert_embeddings = csr_matrix(sbert_embeddings) * plot_weight
+weighted_tfidf_matrix = tfidf_matrix * non_plot_weight
+
+# combine the weighted matrices and ensure everything is in CSR format
+print("Combining weighted features...")
+# the hstack() stacks the embedding + matrix into one matrix
+# the tocsr() converts it to a csr format which is more efficient for storing and processing sparse data
+full_feature_matrix = hstack([weighted_sbert_embeddings, weighted_tfidf_matrix]).tocsr()
 
 def find_movie_by_title(movie_input):
     # loop through the dataset to get the index and title of the inputted movie
@@ -96,5 +105,5 @@ def get_similar_movies(movie_title, top_n = 3):
 
 # example with a movie
 print("Running movie recommendation system...")
-similar_movies = get_similar_movies("Sonic the Hedgehog 2", top_n=3)
+similar_movies = get_similar_movies("Spider-Man: No Way Home", top_n=3)
 print("Recommended movies:", similar_movies)
