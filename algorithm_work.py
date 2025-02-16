@@ -6,6 +6,9 @@ from sklearn.metrics.pairwise import cosine_similarity  # measures similarity be
 from sentence_transformers import SentenceTransformer  # loads the SBERT model to generate embeddings
 from scipy.sparse import hstack # combines "sparse matrices"
 from scipy.sparse import csr_matrix # used for working with sparse matrices
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
 
 # loads the pre trained SBERT model (efficient encoding of movie plot summaries into embeddings (numeric representations of the text)
 print("Loading SBERT model...")
@@ -73,6 +76,18 @@ def find_movie_by_title(movie_input):
     # if movie not found
     print(f"Movie {movie_input} not found in the dataset. Try another movie.")
     return None
+
+
+@app.route('/get-movies', methods=['POST'])
+def get_movies():
+    data = request.get_json()
+    movie_title = data.get("movie_title")
+
+    if not movie_title:
+        return jsonify({"error": "No movie title provided"}), 400
+    similar_movies = get_similar_movies(movie_title)
+    return jsonify({"recommendations": similar_movies})
+
 
 def get_similar_movies(movie_title, top_n = 3):
     # call function and get the index of desired movie
