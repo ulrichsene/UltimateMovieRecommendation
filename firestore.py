@@ -90,7 +90,6 @@ def create_count_query(project_id: str, collection_name) -> None:
 
 def save_movies(db, df, start=0, end=None):
     column_names = list(df.columns)
-    data_list = []
 
     if end is None:
         end = len(df)
@@ -105,8 +104,7 @@ def save_movies(db, df, start=0, end=None):
                 value = literal_eval(value)
 
             row_data[column_name] = value
-        data_list.append(row_data)
-        print(row_data)
+        add_new_document(db, row_data, 'movies')
     
 if __name__ == "__main__":
     data = {"id": "1234-5678", "first_name": "John", "last_name": "Doe"}
@@ -114,3 +112,4 @@ if __name__ == "__main__":
     # initialize database and load dataframe
     db = init_firestore_client()
     df = load_data()
+    # save_movies(db, df, 18000) # do not run on 2/15
