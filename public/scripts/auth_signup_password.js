@@ -54,7 +54,7 @@ document.getElementById("signup-form").addEventListener("submit", async function
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         console.log("✅ User created:", userCredential.user);
-        window.location.href = "home.html"; // Redirect to welcome page
+        window.location.href = "initializeUser.html"; // Redirect to welcome page
     } catch (error) {
         console.error("❌ Signup Error:", error.message);
         errorMessage.textContent = "Error: " + error.message;
