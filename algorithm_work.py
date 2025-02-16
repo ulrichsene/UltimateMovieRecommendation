@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity  # measures similarity be
 from sentence_transformers import SentenceTransformer  # loads the SBERT model to generate embeddings
 from scipy.sparse import hstack # combines "sparse matrices"
 from scipy.sparse import csr_matrix # used for working with sparse matrices
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
@@ -39,7 +39,7 @@ print("SBERT embeddings successfully assigned to DataFrame.")
 # allows TF-IDF to process all categorical metadata together
 print("Processing combined features...")
 movies_features["combined_features"] = (
-    movies_features["Plot Kyeword"] + " " +
+    movies_features["Plot Keywords"] + " " +
     movies_features["Director"] + " " +
     movies_features["Top 5 Casts"] + " " +
     movies_features["Generes"]
@@ -126,5 +126,5 @@ if __name__ == "__main__":
     similar_movies = get_similar_movies("Spider-Man: No Way Home", top_n=3)
     print("Recommended movies:", similar_movies)
 
-    app.run()
+    app.run(debug=True)
     handle_data()
