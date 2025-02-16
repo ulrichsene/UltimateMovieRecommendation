@@ -77,11 +77,12 @@ def find_movie_by_title(movie_input):
     print(f"Movie {movie_input} not found in the dataset. Try another movie.")
     return None
 
-
-@app.route('/get-movies', methods=['POST'])
-def get_movies():
+@app.route('/get-movies', methods=['GET', 'POST'])
+def handle_data():
     data = request.get_json()
-    movie_title = data.get("movie_title")
+    # movie_title = data.get("data")
+    movie_title = movies_plot["movie title"] # movie title from js
+    print(f'Received movie title: {movie_title}')
 
     if not movie_title:
         return jsonify({"error": "No movie title provided"}), 400
@@ -118,7 +119,12 @@ def get_similar_movies(movie_title, top_n = 3):
 
     return list(zip(similar_movies, similar_movies_score))
 
-# example with a movie
-print("Running movie recommendation system...")
-similar_movies = get_similar_movies("Spider-Man: No Way Home", top_n=3)
-print("Recommended movies:", similar_movies)
+if __name__ == "__main__":
+        
+    # example with a movie
+    print("Running movie recommendation system...")
+    similar_movies = get_similar_movies("Spider-Man: No Way Home", top_n=3)
+    print("Recommended movies:", similar_movies)
+
+    app.run()
+    handle_data()
