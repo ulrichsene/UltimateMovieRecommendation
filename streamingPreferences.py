@@ -1,36 +1,62 @@
-from flask import Flask, request, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore
 import json
 
-app = Flask(__name__)
+def init_firestore_client():
+    """Initialize Firestore client using service account credentials."""
+    cred = credentials.ApplicationDefault()  # Ensure this file exists
+    firebase_admin.initialize_app(cred)
 
-# Initialize Firebase Admin SDK
-cred = credentials.Certificate("serviceAccountKey.json")  # Replace with your Firebase credentials file
-firebase_admin.initialize_app(cred)
+    return firestore.client()
 
-db = firestore.client()  # Initialize Firestore client
+def get_document(db, collection, document_id):
+    """Retrieve a document from Firestore."""
+    doc_ref = db.collection(collection).document(document_id)
+    doc = doc_ref.get()
 
-@app.route('/save_preferences', methods=['POST'])
-def save_preferences():
-    try:
-        data = request.get_json()
-        user_id = data.get("userID")
-        streaming_services = data.get("streamingServices")
+    if doc.exists:
+        print(f"Document data: {doc.to_dict()}")
+        return doc.to_dict()
+    else:
+        print("No such document!")
+        return None
 
-        if not user_id or not streaming_services:
-            return jsonify({"error": "Missing userID or streamingServices"}), 400
+def add_document(db, data, collection, document_id):
+    """Creates or updates a document with the specified ID."""
+    db.collection(collection).document(document_id).set(data)
+    print(f"Document {document_id} updated in {collection}.")
 
-        # Save to Firestore
-        db.collection("user_preferences").document(user_id).set({
-            "userID": user_id,
-            "streamingServices": streaming_services
-        })
+def add_new_document(db, data, collection):
+    """Adds a new document with an auto-generated document ID."""
+    update_time, ref = db.collection(collection).add(data)
+    print(f"Added document with ID {ref.id}")
 
-        return jsonify({"message": "Preferences saved to Firestore!"}), 200
+def save_streaming_preferences(user):
+    """Saves user streaming preferences to Firestore."""
+    db = init_firestore_client()
+    
+    user_id = user.get("id")
+    streaming_services = user.get("streaming_services")
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    if not user_id or not streaming_services:
+        print("Error: Missing userID or streaming services.")
+        return
+    
+    data = {
+        "userID": user_id,
+        "streamingServices": streaming_services
+    }
+    
+    add_document(db, data, "user_preferences", user_id)
+    print(f"Preferences for user {user_id} saved successfully.")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Example user data
+    user = {"id": "3234-4389", "streaming_services": ["Netflix", "Hulu", "Disney+", "Amazon Prime Video"]}
+
+    # Save preferences
+    save_streaming_preferences(user)
+
+    # Retrieve and print stored data
+    db = init_firestore_client()
+    get_document(db, "user_preferences", user["id"])

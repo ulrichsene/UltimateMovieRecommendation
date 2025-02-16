@@ -7,9 +7,11 @@
     "author": "Ulrichsene",
     "private": false,
     "scripts": {
-      "start": "node app.js"
+        "start": "node app.js"
     },
     "dependencies": {
-      "express": "^5.0.0"
+        "cors": "^2.8.5",
+        "express": "^5.0.1",
+        "firebase-admin": "^13.1.0"
     }
-  }
+}
