@@ -47,7 +47,7 @@ def save_streaming_preferences(user):
         "streamingServices": streaming_services
     }
     
-    add_document(db, data, "user_preferences", user_id)
+    add_document(db, data, "users", user_id)
     print(f"Preferences for user {user_id} saved successfully.")
 
 if __name__ == "__main__":
@@ -59,4 +59,4 @@ if __name__ == "__main__":
 
     # Retrieve and print stored data
     db = init_firestore_client()
-    get_document(db, "user_preferences", user["id"])
+    get_document(db, "users", user["id"])
