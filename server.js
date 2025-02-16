@@ -24,7 +24,7 @@ app.post("/save_preferences", async (req, res) => {
       return res.status(400).json({ error: "Missing userID or streamingServices" });
     }
 
-    await db.collection("user_preferences").doc(userID).set({
+    await db.collection("users").doc(userID).set({
       userID,
       streamingServices,
     });
