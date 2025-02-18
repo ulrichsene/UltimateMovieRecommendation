@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome - Slither Sisters</title>
-
-    <!-- Google Fonts -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Antic+Didone&display=swap" rel="stylesheet"> -->
-
     <!-- External Stylesheet -->
-    <link rel="stylesheet" href="styles/index.css">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 </head>
+
 <body>
     <!-- Login Button -->
-    <a href="login.html" class="login-btn">Login</a>
+    <a href="{{ url_for('static', filename='login.html') }}" class="login-btn">Login</a>
 
     <section>
-        <h1> Free 2 Me Movies </h1>
+        <h1>Free 2 Me Movies</h1>
         <p>The Ultimate Movie Recommendation Service!</p>
-
-    </script>
+    </section>
 </body>
+
 </html>
