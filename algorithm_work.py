@@ -105,5 +105,5 @@ def get_similar_movies(movie_title, top_n = 3):
 
 # example with a movie
 print("Running movie recommendation system...")
-similar_movies = get_similar_movies("Spider-Man: No Way Home", top_n=3)
+similar_movies = get_similar_movies("Planet of the Apes", top_n=3)
 print("Recommended movies:", similar_movies)
