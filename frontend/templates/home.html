@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Slither Sisters</title>
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+</head>
+
+<body>
+    <div class="home-container">
+        <h1>Welcome to Slither Sisters</h1>
+        <!-- Movie Search Form -->
+        <h2>Enter Movie Title:</h2>
+        <form id="movie-form">
+            <input type="text" id="movie_title" name="movie_title" placeholder="Enter a movie title!" required>
+            <div class="button-container">
+                <button type="button" id="get-recs-button">Get Movie Recommendations!</button>
+                <button type="button" id="get-streaming-info-button">Get Movie Streaming Information</button>
+            </div>
+        </form>
+        <!-- Display Recommendations -->
+        <h2 id="recommendations-heading" style="display:none;">Recommended Movies:</h2>
+        <ul id="recommendations-list"></ul>
+    </div>
+    <script type="module" src="{{ url_for('static', filename='scripts/auth_check.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='scripts/movie_recs.js') }}"></script>
+</body>
+
+</html>
