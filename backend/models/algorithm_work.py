@@ -13,11 +13,11 @@ model = SentenceTransformer('all-MiniLM-L6-v2')  # lightweight model for efficie
 
 # read the csv files
 print("Reading CSV files...")
-movies_plot = pd.read_csv("input_data/movies_cleaned_plot.csv")  # contains movie titles and cleaned plots
-movies_features = pd.read_csv("input_data/movies_non_plot_features.csv")  # contains other attributes
+movies_plot = pd.read_csv("../input_data/movies_cleaned_plot.csv")  # contains movie titles and cleaned plots
+movies_features = pd.read_csv("../input_data/movies_non_plot_features.csv")  # contains other attributes
 
 # specifies the file path where the pre-computed SBERT embeddings will be stored
-sbert_embeddings_path = "input_data/sbert_embeddings.npy"
+sbert_embeddings_path = "../input_data/sbert_embeddings.npy"
 
 if os.path.exists(sbert_embeddings_path): # checks if it already exists
     print("Loading precomputed SBERT embeddings...")
