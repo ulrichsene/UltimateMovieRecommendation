@@ -1,22 +1,8 @@
-import firebase_admin
-from firebase_admin import firestore
-from firebase_admin import credentials
-import pandas as pd
-from google.cloud import firestore
-from google.cloud.firestore_v1 import aggregation
-from google.cloud.firestore_v1.base_query import FieldFilter
+""""Stores all information about movies from the IMDB databset in the movies collection in firestore"""
 from ast import literal_eval
 import utils
 
-def init_firestore_client():
-    # Application Default credentials are automatically created.
-    cred = credentials.ApplicationDefault()
-
-    firebase_admin.initialize_app(cred)
-    db = firestore.Client() 
-    return db
-
-def save_movies(db, df, start=0, end=None):
+def store_movies(db, df, start=0, end=None):
     column_names = list(df.columns)
 
     if end is None:
@@ -37,5 +23,5 @@ def save_movies(db, df, start=0, end=None):
 if __name__ == "__main__":
 
     # initialize database and load dataframe
-    db = init_firestore_client()
+    db = utils.init_firestore_client()
     df = utils.load_data()
