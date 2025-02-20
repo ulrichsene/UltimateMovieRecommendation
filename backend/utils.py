@@ -1,4 +1,6 @@
 import pandas as pd
+from google.cloud import firestore
+from google.cloud.firestore_v1 import aggregation
 
 def load_data():
     """Loads the cleaned IMDb dataset into a df"""
