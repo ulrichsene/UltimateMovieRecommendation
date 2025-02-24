@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Slither Sisters</title>
     <!-- External Stylesheets -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+    <link rel="stylesheet" href="static/styles/index.css">
+    <link rel="stylesheet" href="static/styles/home.css">
 </head>
 
 <body>
+    <!-- Profile Button -->
+    <div class="profile-container">
+        <a href="profile.html">
+            <img src="static/images/profile-icon.png" alt="Profile" class="profile-icon">
+        </a>
+    </div>
+
     <div class="home-container">
         <h1>Welcome to Slither Sisters</h1>
         <!-- Movie Search Form -->
@@ -26,8 +33,10 @@
         <h2 id="recommendations-heading" style="display:none;">Recommended Movies:</h2>
         <ul id="recommendations-list"></ul>
     </div>
-    <script type="module" src="{{ url_for('static', filename='scripts/auth_check.js') }}"></script>
-    <script type="module" src="{{ url_for('static', filename='scripts/movie_recs.js') }}"></script>
+    <script type="module" src="static/scripts/auth_check.js"></script>
+    <script type="module" src="static/scripts/movie_recs.js"></script>
+
+    <!-- <script type="module" src="{{ url_for('static', filename='scripts/movie_recs.js') }}"></script> -->
 </body>
 
 </html>
