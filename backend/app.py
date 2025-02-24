@@ -1,8 +1,13 @@
 import os
 from flask import Flask, request, jsonify, render_template
+from jinja2 import FileSystemLoader, Environment
 from backend.models.algorithm_work import get_similar_movies
 
-app = Flask(__name__, static_folder='frontend/static', template_folder='templates')
+app = Flask(__name__)
+
+# Set the Jinja2 template loader explicitly
+template_folder_path = os.path.join(os.getcwd(), 'frontend/templates')
+app.jinja_env.loader = FileSystemLoader(template_folder_path)
 
 @app.route('/')
 def index():
@@ -11,6 +16,10 @@ def index():
 @app.route('/home')
 def home():
     return render_template('home.html')
+
+@app.route('/login.html')
+def login():
+    return render_template('login.html')
 
 @app.route('/get_similar_movies', methods=['POST'])
 def get_movie_recs():
@@ -34,4 +43,5 @@ def get_movie_recs():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 

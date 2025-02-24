@@ -4,33 +4,40 @@ import os  # for file checks
 from sklearn.feature_extraction.text import TfidfVectorizer  # converts text data into numerical form
 from sklearn.metrics.pairwise import cosine_similarity  # measures similarity between movie vectors
 from sentence_transformers import SentenceTransformer  # loads the SBERT model to generate embeddings
-from scipy.sparse import hstack # combines "sparse matrices"
-from scipy.sparse import csr_matrix # used for working with sparse matrices
+from scipy.sparse import hstack  # combines "sparse matrices"
+from scipy.sparse import csr_matrix  # used for working with sparse matrices
 
-# loads the pre trained SBERT model (efficient encoding of movie plot summaries into embeddings (numeric representations of the text)
+# get the absolute path to the project root (UltimateMovieRecommendation)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  
+
+# define absolute paths for input data
+MOVIES_PLOT_PATH = os.path.join(BASE_DIR, "backend", "input_data", "movies_cleaned_plot.csv")
+MOVIES_FEATURES_PATH = os.path.join(BASE_DIR, "backend", "input_data", "movies_non_plot_features.csv")
+SBERT_EMBEDDINGS_PATH = os.path.join(BASE_DIR, "backend", "input_data", "sbert_embeddings.npy")
+
+# Load the pre-trained SBERT model
 print("Loading SBERT model...")
 model = SentenceTransformer('all-MiniLM-L6-v2')  # lightweight model for efficiency
 
-# read the csv files
+# read the csv files here
 print("Reading CSV files...")
-movies_plot = pd.read_csv("../input_data/movies_cleaned_plot.csv")  # contains movie titles and cleaned plots
-movies_features = pd.read_csv("../input_data/movies_non_plot_features.csv")  # contains other attributes
+movies_plot = pd.read_csv(MOVIES_PLOT_PATH)  # contains movie titles and cleaned plots
+movies_features = pd.read_csv(MOVIES_FEATURES_PATH)  # contains other attributes
 
-# specifies the file path where the pre-computed SBERT embeddings will be stored
-sbert_embeddings_path = "../input_data/sbert_embeddings.npy"
-
-if os.path.exists(sbert_embeddings_path): # checks if it already exists
+# Check for precomputed SBERT embeddings
+if os.path.exists(SBERT_EMBEDDINGS_PATH):  
     print("Loading precomputed SBERT embeddings...")
-    sbert_embeddings = np.load(sbert_embeddings_path)  # if it does, the embeddings are loaded
+    sbert_embeddings = np.load(SBERT_EMBEDDINGS_PATH)  
 else:
     print("Generating SBERT embeddings...")
     sbert_embeddings = model.encode(movies_plot['plot_cleaned'].fillna("").tolist(), convert_to_numpy=True)
-    np.save(sbert_embeddings_path, sbert_embeddings)  # if it doesn't exist, generates new SBERT embeddings and saves them
+    np.save(SBERT_EMBEDDINGS_PATH, sbert_embeddings)  
 
-# this adds the sbert embeddings as a new column
+# Add the SBERT embeddings as a new column
 movies_plot['sbert_plot_embedding'] = list(sbert_embeddings)
 
 print("SBERT embeddings successfully assigned to DataFrame.")
+
 
 # convert all the non-plot features in file into a single text column
 # allows TF-IDF to process all categorical metadata together
