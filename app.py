@@ -13,13 +13,17 @@ app.jinja_env.loader = FileSystemLoader(template_folder_path)
 def index():
     return render_template('index.html')
 
-@app.route('/home')
+@app.route('/home.html')
 def home():
     return render_template('home.html')
 
 @app.route('/login.html')
 def login():
     return render_template('login.html')
+
+@app.route('/createUser.html')
+def create_user():
+    return render_template('createUser.html')
 
 @app.route('/get_similar_movies', methods=['POST'])
 def get_movie_recs():
