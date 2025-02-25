@@ -19,8 +19,10 @@ body {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    width: 100%;
+    max-width: 400px; /* Maximum width */
     text-align: center;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
 .create-user-container h2 {
