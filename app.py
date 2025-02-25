@@ -6,7 +6,7 @@ from backend.models.algorithm_work import get_similar_movies
 app = Flask(__name__)
 
 # Set the Jinja2 template loader explicitly
-template_folder_path = os.path.join(os.getcwd(), 'frontend/templates')
+template_folder_path = os.path.join(os.getcwd(), 'templates')
 app.jinja_env.loader = FileSystemLoader(template_folder_path)
 
 @app.route('/')
