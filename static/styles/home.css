@@ -13,7 +13,7 @@ body {
 }
 
 .welcome-enter-title {
-    background-color: black;
+    background-color: white;
     border-radius: 15px;
     margin-bottom: 80px;
     padding: 7px 7px;
@@ -22,11 +22,13 @@ body {
 .welcome-message {
     margin: 0px;
     padding-bottom: 10px;
+    color: black;
 }
 
 .enter-movie-title-text {
     margin: 0px;
     padding-bottom: 10px;
+    color: black;
 }
 
 button {
