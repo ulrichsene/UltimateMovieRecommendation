@@ -9,6 +9,26 @@ body {
 
 .home-container {
     margin-top: 20vh;
+    display: inline-block;
+}
+
+.welcome-enter-title {
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 80px;
+    padding: 7px 7px;
+}
+
+.welcome-message {
+    margin: 0px;
+    padding-bottom: 10px;
+    color: black;
+}
+
+.enter-movie-title-text {
+    margin: 0px;
+    padding-bottom: 10px;
+    color: black;
 }
 
 button {
