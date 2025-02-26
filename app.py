@@ -1,13 +1,20 @@
 import os
+import json
 from flask import Flask, request, jsonify, render_template
 from jinja2 import FileSystemLoader, Environment
 from backend.models.algorithm_work import get_similar_movies
 
 app = Flask(__name__)
 
-# Set the Jinja2 template loader explicitly
+# set up the Jinja2 template loader explicitly
 template_folder_path = os.path.join(os.getcwd(), 'templates')
 app.jinja_env.loader = FileSystemLoader(template_folder_path)
+
+# note: for autocomplete -- load the movie titles into memory once the app starts (so don't need to reload everytime)
+MOVIES_FILE_PATH = os.path.join(os.getcwd(), 'backend', 'input_data', 'movies.json')
+
+with open(MOVIES_FILE_PATH, 'r', encoding = 'utf-8') as file:
+    movie_titles = json.load(file) # read movie_list and store it as a list
 
 @app.route('/')
 def index():
@@ -44,6 +51,24 @@ def get_movie_recs():
         'recommendations': movie_titles,
         'scores': movie_scores
     })
+
+# NEW AUTOCOMPLETE ROUTE
+@app.route('/autocomplete', methods = ['GET'])
+def autocomplete():
+    """This returns movie titles that matches the user's input"""
+
+    query = request.args.get('query', '').lower()
+
+    if not query:
+        return jsonify([])
+    
+    # here we filter movie titles that start with the input query
+    matches = [] # will eventually store matching movie titles
+    for title in movie_titles:
+        if title.lower().startswith(query): # converts current title to lowercase and match only titles that start with the query
+            matches.append(title)
+    matches = matches[:10] # get first 10 results
+    return jsonify(matches)
 
 if __name__ == '__main__':
     app.run(debug=True)
