@@ -32,6 +32,10 @@ def login():
 def create_user():
     return render_template('createUser.html')
 
+@app.route('/profile.html')
+def profile():
+    return render_template('profile.html')
+
 @app.route('/get_similar_movies', methods=['POST'])
 def get_movie_recs():
     movie_title = request.json.get('movie_title')
@@ -72,5 +76,3 @@ def autocomplete():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-

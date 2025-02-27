@@ -12,6 +12,9 @@ body {
     display: inline-block;
 }
 
+.button-container {
+    margin-top: 20px;
+}
 .welcome-enter-title {
     background-color: white;
     border-radius: 15px;
@@ -37,12 +40,12 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #d9534f;
+    background-color: #890000;
     color: white;
 }
 
 button:hover {
-    background-color: #c9302c;
+    background-color: #770400;
 }
 
 #profile-button,
