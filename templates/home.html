@@ -27,12 +27,16 @@
         </div>
         <div>
             <form id="movie-form">
-                <input type="text" id="movie_title" name="movie_title" placeholder="Enter a movie title!" required>
+                <div class="autocomplete-container">
+                    <input type="text" id="movie_title" name="movie_title" placeholder="Enter a movie title!" required>
+                    <ul id="autocomplete-list" class="autocomplete-list"></ul> <!-- Ensures dropdown shows up -->
+                </div>
                 <div class="button-container">
                     <button type="button" id="get-recs-button">Get Movie Recommendations!</button>
                     <button type="button" id="get-streaming-info-button">Get Movie Streaming Information</button>
                 </div>
             </form>
+
         </div>
         <!-- Display Recommendations -->
         <h2 id="recommendations-heading" style="display:none;">Recommended Movies:</h2>
