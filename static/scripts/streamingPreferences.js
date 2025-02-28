@@ -1,35 +1,38 @@
-// import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-// import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-// import { app } from "./firebaseConfig.js"; // Import Firebase instance
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-// const auth = getAuth(app);
-// const db = getFirestore(app);
+const auth = getAuth();
+let uid = null;
 
-// document.getElementById("streaming-form").addEventListener("submit", async function (event) {
-//     event.preventDefault();
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      uid = user.uid;
+      // Use the UID
+      console.log("UID:", uid);
+    } else {
+      // User is signed out
+      console.log("User is signed out");
+    }
+  });
 
-//     const checkboxes = document.querySelectorAll('input[name="services"]:checked');
-//     const selectedServices = Array.from(checkboxes).map(cb => cb.value);
+// get the streaming form, add event listener for the submit button
+document.getElementById('streaming-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-//     const user = auth.currentUser; // Get the currently signed-in user
+    const services = [...document.querySelectorAll('input[name="services"]:checked')].map(checkbox => checkbox.value);
 
-//     if (user) {
-//         try {
-//             const userRef = doc(db, "users", user.uid);
+    console.log("userId:", uid)
+    console.log("services:", services)
 
-//             // Overwrite existing preferences with new selection
-//             await updateDoc(userRef, {
-//                 streamingPreferences: selectedServices 
-//             });
+    try {
+        const response = await fetch('/save_preferences', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id: uid, services: services })
+        });
 
-//             console.log("✅ Streaming preferences updated:", selectedServices);
-
-//             // ✅ Redirect to home.html **only after preferences are saved**
-//             window.location.href = "home.html"; 
-//         } catch (error) {
-//             console.error("❌ Error updating preferences:", error.message);
-//         }
-//     } else {
-//         console.error("❌ No user is signed in.");
-//     }
-// });
+        const result = await response.json();
+        alert(result.message);
+    } catch (error) {
+        console.error("Error saving preferences:", error);
+    }
+});

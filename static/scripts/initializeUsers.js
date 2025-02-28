@@ -21,14 +21,12 @@ const db = getFirestore(app);
 // ✅ Wait for User Authentication
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    console.log("✅ User authenticated:", user.uid);
 
     const userRef = doc(db, "users", user.uid);
     const userSnap = await getDoc(userRef);
 
     if (userSnap.exists()) {
       const userData = userSnap.data();
-      console.log("📌 User data:", userData);
 
       // ✅ Only redirect if streaming preferences exist
       if (userData.streamingPreferences && userData.streamingPreferences.length > 0) {
