@@ -31,7 +31,6 @@ onAuthStateChanged(auth, async (user) => {
       // ✅ Only redirect if streaming preferences exist
       if (userData.streamingPreferences && userData.streamingPreferences.length > 0) {
         console.log("🔄 User already set preferences, redirecting...");
-        // window.location.href = "home.html";
       } else {
         console.log("🛑 No preferences found. User stays on initializeUser.html.");
       }
