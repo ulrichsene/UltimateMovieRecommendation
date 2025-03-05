@@ -17,7 +17,7 @@ MOVIES_FILE_PATH = os.path.join(os.getcwd(), 'backend', 'input_data', 'movies.js
 with open(MOVIES_FILE_PATH, 'r', encoding = 'utf-8') as file:
     movie_titles = json.load(file) # read movie_list and store it as a list
 
-@app.route('/index.html')
+@app.route('/')
 def index():
     return render_template('index.html')
 
