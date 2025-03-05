@@ -18,8 +18,11 @@ const auth = getAuth(app);
 // Check if user is logged in
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        document.getElementById("user-email").textContent = user.email;
+        document.getElementById("user-email").innerHTML = user.email;
+        const services = user.services;
 
+        console.log('email:', user.email);
+        console.log('services:', services);
         // Load stored streaming preferences
         const preferences = JSON.parse(localStorage.getItem("streamingPreferences")) || [];
         const listElement = document.getElementById("streaming-list");
@@ -34,7 +37,6 @@ onAuthStateChanged(auth, (user) => {
 document.getElementById("logout").addEventListener("click", async () => {
     try {
         await signOut(auth);
-        localStorage.removeItem("streamingPreferences"); // Clear local data
         window.location.href = "index.html";
     } catch (error) {
         console.error("Logout Error:", error);
@@ -45,3 +47,5 @@ document.getElementById("logout").addEventListener("click", async () => {
 document.getElementById("edit-preferences").addEventListener("click", () => {
     window.location.href = "initializeUser.html";
 });
+
+document.getElementById("user-email").onLo
