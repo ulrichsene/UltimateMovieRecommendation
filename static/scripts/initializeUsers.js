@@ -29,7 +29,7 @@ onAuthStateChanged(auth, async (user) => {
       const userData = userSnap.data();
 
       // ✅ Only redirect if streaming preferences exist
-      if (userData.streamingPreferences && userData.streamingPreferences.length > 0) {
+      if (userData.services && userData.services.length > 0) {
         console.log("🔄 User already set preferences, redirecting...");
       } else {
         console.log("🛑 No preferences found. User stays on initializeUser.html.");
@@ -37,13 +37,11 @@ onAuthStateChanged(auth, async (user) => {
     } else {
       console.log("⚠️ No user data found, creating new document...");
 
-      // ✅ Create new user document with `streamingPreferences`
+      // Create new user document
       await setDoc(userRef, {
         uid: user.uid,
         email: user.email
       });
-
-      console.log("✅ New user document created in Firestore!");
     }
 
   } else {
