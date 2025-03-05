@@ -54,7 +54,7 @@ document.getElementById("logout").addEventListener("click", async () => {
     }
 });
 
-// Edit Preferences (Redirect to initializeUser.html)
-document.getElementById("edit-preferences").addEventListener("click", () => {
+// Edit Services (Redirect to initializeUser.html)
+document.getElementById("edit-services").addEventListener("click", () => {
     window.location.href = "initializeUser.html";
 });

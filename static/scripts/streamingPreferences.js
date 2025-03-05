@@ -36,8 +36,3 @@ document.getElementById('streaming-form').addEventListener('submit', async (even
         console.error("Error saving preferences:", error);
     }
 });
-
-// edit streaming preferences
-document.getElementById('streaming-preferences').addEventListener('submit', async(event =>) {
-
-});
