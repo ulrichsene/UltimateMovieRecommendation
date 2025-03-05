@@ -43,8 +43,7 @@ onAuthStateChanged(auth, async (user) => {
       // ✅ Create new user document with `streamingPreferences`
       await setDoc(userRef, {
         uid: user.uid,
-        email: user.email,
-        streamingPreferences: [] // Empty array for user preferences
+        email: user.email
       });
 
       console.log("✅ New user document created in Firestore!");
