@@ -21,32 +21,27 @@ const db = getFirestore(app);
 // ✅ Wait for User Authentication
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    console.log("✅ User authenticated:", user.uid);
 
     const userRef = doc(db, "users", user.uid);
     const userSnap = await getDoc(userRef);
 
     if (userSnap.exists()) {
       const userData = userSnap.data();
-      console.log("📌 User data:", userData);
 
       // ✅ Only redirect if streaming preferences exist
-      if (userData.streamingPreferences && userData.streamingPreferences.length > 0) {
+      if (userData.services && userData.services.length > 0) {
         console.log("🔄 User already set preferences, redirecting...");
-        // window.location.href = "home.html";
       } else {
         console.log("🛑 No preferences found. User stays on initializeUser.html.");
       }
     } else {
       console.log("⚠️ No user data found, creating new document...");
 
-      // ✅ Create new user document with `streamingPreferences`
+      // Create new user document
       await setDoc(userRef, {
         uid: user.uid,
         email: user.email
       });
-
-      console.log("✅ New user document created in Firestore!");
     }
 
   } else {

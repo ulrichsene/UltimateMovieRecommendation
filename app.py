@@ -3,6 +3,7 @@ import json
 from flask import Flask, request, jsonify, render_template
 from jinja2 import FileSystemLoader, Environment
 from backend.models.algorithm_work import get_similar_movies
+import utils
 
 app = Flask(__name__)
 
@@ -35,6 +36,25 @@ def create_user():
 @app.route('/profile.html')
 def profile():
     return render_template('profile.html')
+
+@app.route('/initializeUser.html')
+def initialize_user():
+    return render_template('initializeUser.html')
+
+@app.route('/save_preferences', methods=['POST'])
+def save_preferences():
+    """Store user's streaming preferences in Firestore."""
+    data = request.json
+    user_id = data.get('user_id')
+    services = data.get('services', [])
+
+    if not user_id:
+        return jsonify({'error': 'User ID is required'}), 400
+    db = utils.init_firestore_client()
+    db.collection('users').document(user_id).set({'services': services}, merge=True)
+
+    return jsonify({'message': 'Preferences saved successfully'})
+
 
 @app.route('/get_similar_movies', methods=['POST'])
 def get_movie_recs():
