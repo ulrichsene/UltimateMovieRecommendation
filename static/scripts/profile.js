@@ -25,11 +25,7 @@ onAuthStateChanged(auth, (user) => {
 
         console.log('email:', user.email);
         console.log('services:', services);
-        // Load stored streaming preferences
-        const preferences = JSON.parse(localStorage.getItem("streamingPreferences")) || [];
-        const listElement = document.getElementById("streaming-list");
-        listElement.innerHTML = preferences.length ? preferences.map(service => `<li>${service}</li>`).join('') : "<li>No preferences selected</li>";
-    } else {
+        } else {
         // Redirect to login if not logged in
         window.location.href = "index.html";
     }
