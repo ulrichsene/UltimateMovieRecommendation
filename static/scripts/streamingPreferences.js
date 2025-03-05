@@ -2,12 +2,14 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 
 const auth = getAuth();
 let uid = null;
+let services = null;
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
       uid = user.uid;
+      services = user.services; // streaming services
+      console.log('services:', services);
       // Use the UID
-      console.log("UID:", uid);
     } else {
       // User is signed out
       console.log("User is signed out");
