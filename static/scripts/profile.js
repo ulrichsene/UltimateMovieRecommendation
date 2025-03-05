@@ -1,8 +1,8 @@
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 
-// Your web app's Firebase configuration
-const app = initializeApp({
+// Firebase configuration
+const firebaseConfig = ({
     apiKey: "AIzaSyAMURFt8AWPf6mr9qv6jqdeSjLu-r2_Fbc",
     authDomain: "free2memovies.firebaseapp.com",
     projectId: "free2memovies",
@@ -11,6 +11,8 @@ const app = initializeApp({
     appId: "1:496384632960:web:592102ff928d855fb5de65",
     measurementId: "G-Y9DXZB6P2W"
   });
+
+const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Auth
 const auth = getAuth(app);
@@ -33,6 +35,19 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+let uid = null;
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      uid = user.uid;
+      // Use the UID
+      console.log("UID:", uid);
+    } else {
+      // User is signed out
+      console.log("User is signed out");
+    }
+  });
+
 // Logout Functionality
 document.getElementById("logout").addEventListener("click", async () => {
     try {
@@ -47,5 +62,3 @@ document.getElementById("logout").addEventListener("click", async () => {
 document.getElementById("edit-preferences").addEventListener("click", () => {
     window.location.href = "initializeUser.html";
 });
-
-document.getElementById("user-email").onLo
