@@ -7,4 +7,4 @@ Run pip install -r requirements.txt to install requirements
 To run flask app in debug mode run: flask --app app run --debug
     *from the project directory
 
-http://127.0.0.1:5000
+Runs locally on: http://127.0.0.1:5000
