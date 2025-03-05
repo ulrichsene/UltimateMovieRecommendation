@@ -16,7 +16,7 @@ body {
     margin-top: 20px;
 }
 .welcome-enter-title {
-    background-color: white;
+    background-color: rgba(220, 220, 220, 0.907);
     border-radius: 15px;
     margin-bottom: 80px;
     padding: 7px 7px;
