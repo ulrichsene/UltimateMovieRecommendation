@@ -1,6 +1,7 @@
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { app } from './app.js';
 
-const auth = getAuth();
+const auth = getAuth(app);
 let uid = null;
 let services = null;
 

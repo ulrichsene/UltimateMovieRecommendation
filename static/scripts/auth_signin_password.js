@@ -1,16 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-
-// Your web app's Firebase configuration
-const app = initializeApp({
-    apiKey: "AIzaSyAMURFt8AWPf6mr9qv6jqdeSjLu-r2_Fbc",
-    authDomain: "free2memovies.firebaseapp.com",
-    projectId: "free2memovies",
-    storageBucket: "free2memovies.firebasestorage.app",
-    messagingSenderId: "496384632960",
-    appId: "1:496384632960:web:592102ff928d855fb5de65",
-    measurementId: "G-Y9DXZB6P2W"
-});
+import { app } from "./app.js";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
