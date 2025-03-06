@@ -27,7 +27,7 @@ onAuthStateChanged(auth, (user) => {
         console.log('services:', services);
         } else {
         // Redirect to login if not logged in
-        window.location.href = "index.html";
+        window.location.href = "/";
     }
 });
 
@@ -48,7 +48,7 @@ onAuthStateChanged(auth, (user) => {
 document.getElementById("logout").addEventListener("click", async () => {
     try {
         await signOut(auth);
-        window.location.href = "index.html";
+        window.location.href = "/";
     } catch (error) {
         console.error("Logout Error:", error);
     }
