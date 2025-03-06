@@ -21,23 +21,23 @@ with open(MOVIES_FILE_PATH, 'r', encoding = 'utf-8') as file:
 def index():
     return render_template('index.html')
 
-@app.route('/home.html')
+@app.route('/home')
 def home():
     return render_template('home.html')
 
-@app.route('/login.html')
+@app.route('/login')
 def login():
     return render_template('login.html')
 
-@app.route('/createUser.html')
+@app.route('/createUser')
 def create_user():
     return render_template('createUser.html')
 
-@app.route('/profile.html')
+@app.route('/profile')
 def profile():
     return render_template('profile.html')
 
-@app.route('/initializeUser.html')
+@app.route('/initializeUser')
 def initialize_user():
     return render_template('initializeUser.html')
 

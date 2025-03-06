@@ -22,7 +22,6 @@ document.getElementById('streaming-form').addEventListener('submit', async (even
 
     const services = [...document.querySelectorAll('input[name="services"]:checked')].map(checkbox => checkbox.value);
 
-    console.log("userId:", uid)
     console.log("services:", services)
 
     try {
