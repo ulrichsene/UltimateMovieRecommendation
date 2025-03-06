@@ -9,3 +9,6 @@ flask --app app run --debug
 from the project directory
 
 Runs locally on: http://127.0.0.1:5000
+
+Here is a link of our deployed website!
+http://free2memovies.com/
