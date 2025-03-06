@@ -32,7 +32,7 @@ onAuthStateChanged(auth, async (user) => {
       if (userData.services && userData.services.length > 0) {
         console.log("🔄 User already set preferences, redirecting...");
       } else {
-        console.log("🛑 No preferences found. User stays on initializeUser.html.");
+        console.log("🛑 No preferences found. User stays on initializeUser");
       }
     } else {
       console.log("⚠️ No user data found, creating new document...");
