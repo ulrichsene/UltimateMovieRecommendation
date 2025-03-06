@@ -1,8 +1,7 @@
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { app } from './app.js';
 
-// Initialize Firebase Auth
+// // Initialize Firebase Auth
 const auth = getAuth(app);
 
 // Check if user is logged in
