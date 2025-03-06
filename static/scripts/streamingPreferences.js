@@ -32,9 +32,6 @@ document.getElementById('streaming-form').addEventListener('submit', async (even
             body: JSON.stringify({ user_id: uid, services: services })
         });
 
-        const text = await response.text(); // read the raw response
-        console.log('raw response:', text);
-
         const result = await response.json();
         alert(result.message);
     } catch (error) {

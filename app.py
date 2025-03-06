@@ -54,7 +54,7 @@ def save_preferences():
     db = utils.init_firestore_client()
     db.collection('users').document(user_id).set({'services': services}, merge=True)
 
-    return jsonify({'message': 'Preferences saved successfully'})
+    return jsonify({data})
 
 
 @app.route('/get_similar_movies', methods=['POST'])
