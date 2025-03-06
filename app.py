@@ -39,7 +39,6 @@ def profile():
 
 @app.route('/initializeUser')
 def initialize_user():
-    return render_template('initializeUser.html')
 
 @app.route('/save_preferences', methods=['POST'])
 def save_preferences():
