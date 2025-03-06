@@ -38,10 +38,11 @@ document.getElementById("login-form").addEventListener("submit", async function 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log("User signed in:", userCredential.user);
-        window.location.href = "home.html"; // Redirect on success
+        window.location.href = "/home"; // Redirect on success
     } catch (error) {
         console.error("Login Error:", error.message);
-        errorMessage.textContent = "Error: " + error.message;
+        // errorMessage.textContent = "Error: " + error.message;
+        document.getElementById('invalid-credentials').innerHTML = "Invalid credentials";
     }
 });
 
@@ -49,7 +50,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
 document.getElementById("google-signin-btn").addEventListener("click", function () {
     signInWithPopup(auth, provider)
         .then(() => {
-            window.location.href = "../../home.html"; // Redirect to home page
+            window.location.href = "../../home"; // Redirect to home page
         })
         .catch((error) => {
             console.error("Google Sign-In Error:", error);

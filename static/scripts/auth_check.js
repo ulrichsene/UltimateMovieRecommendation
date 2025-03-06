@@ -23,14 +23,14 @@ onAuthStateChanged(auth, (user) => {
         userEmailElement.textContent = `Logged in as: ${user.email}`;
     } else {
         // Redirect to login page if not authenticated
-        window.location.href = "index.html";
+        window.location.href = "/index";
     }
 });
 
 // Logout Functionality
 logoutButton.addEventListener("click", () => {
     signOut(auth).then(() => {
-        window.location.href = "index.html"; // Redirect to login page after logout
+        window.location.href = "/index"; // Redirect to login page after logout
     }).catch((error) => {
         console.error("Logout Error:", error);
     });
