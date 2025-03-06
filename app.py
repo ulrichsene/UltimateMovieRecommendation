@@ -47,6 +47,7 @@ def save_preferences():
     data = request.json
     user_id = data.get('user_id')
     services = data.get('services', [])
+    print(f'received data: {data}')
 
     if not user_id:
         return jsonify({'error': 'User ID is required'}), 400

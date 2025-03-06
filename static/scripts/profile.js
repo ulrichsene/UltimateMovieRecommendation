@@ -1,18 +1,6 @@
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
-
-// Firebase configuration
-const firebaseConfig = ({
-    apiKey: "AIzaSyAMURFt8AWPf6mr9qv6jqdeSjLu-r2_Fbc",
-    authDomain: "free2memovies.firebaseapp.com",
-    projectId: "free2memovies",
-    storageBucket: "free2memovies.firebasestorage.app",
-    messagingSenderId: "496384632960",
-    appId: "1:496384632960:web:592102ff928d855fb5de65",
-    measurementId: "G-Y9DXZB6P2W"
-  });
-
-const app = initializeApp(firebaseConfig);
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { app } from './app.js';
 
 // Initialize Firebase Auth
 const auth = getAuth(app);
@@ -54,7 +42,7 @@ document.getElementById("logout").addEventListener("click", async () => {
     }
 });
 
-// Edit Services (Redirect to initializeUser.html)
+// Edit Services (Redirect to initializeUser)
 document.getElementById("edit-services").addEventListener("click", () => {
     window.location.href = "/initializeUser";
 });
