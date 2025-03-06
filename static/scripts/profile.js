@@ -24,7 +24,6 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
       uid = user.uid;
       // Use the UID
-      console.log("UID:", uid);
     } else {
       // User is signed out
       console.log("User is signed out");
