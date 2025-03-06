@@ -80,8 +80,7 @@ document.getElementById("signup-form").addEventListener("submit", async function
 
         // ✅ Delay redirect slightly to prevent race conditions
         setTimeout(() => {
-            console.log("🔄 Redirecting to initializeUser.html...");
-            window.location.href = "initializeUser.html";
+            window.location.href = "/initializeUser";
         }, 500); // 0.5-second delay to prevent immediate re-triggers
 
     } catch (error) {

@@ -41,8 +41,8 @@ document.getElementById("login-form").addEventListener("submit", async function 
         window.location.href = "/home"; // Redirect on success
     } catch (error) {
         console.error("Login Error:", error.message);
-        // errorMessage.textContent = "Error: " + error.message;
-        document.getElementById('invalid-credentials').innerHTML = "Invalid credentials";
+        errorMessage.textContent = "Error: " + error.message;
+        // document.getElementById('invalid-credentials').innerHTML = "Invalid credentials"; // TODO
     }
 });
 
