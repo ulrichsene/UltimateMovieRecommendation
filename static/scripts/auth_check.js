@@ -2,25 +2,31 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 import { app } from './app.js';
 
 const auth = getAuth(app);
-const userEmailElement = document.getElementById("user-email");
-const logoutButton = document.getElementById("logout-button");
+document.addEventListener("DOMContentLoaded", () => {
+    const userEmailElement = document.getElementById("user-email");
+    const logoutButton = document.getElementById("logout-button");
 
-// Check if user is authenticated
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // Display user email
-        userEmailElement.textContent = `Logged in as: ${user.email}`;
+    if (userEmailElement) {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                userEmailElement.textContent = `Logged in as: ${user.email}`;
+            } else {
+                window.location.href = "/";
+            }
+        });
     } else {
-        // Redirect to login page if not authenticated
-        window.location.href = "/";
+        console.error('User email element not found!');
     }
-});
 
-// Logout Functionality
-logoutButton.addEventListener("click", () => {
-    signOut(auth).then(() => {
-        window.location.href = "/"; // Redirect to login page after logout
-    }).catch((error) => {
-        console.error("Logout Error:", error);
-    });
+    if (logoutButton) {
+        logoutButton.addEventListener("click", () => {
+            signOut(auth).then(() => {
+                window.location.href = "/"; // Redirect to index after logout
+            }).catch((error) => {
+                console.error("Logout Error:", error);
+            });
+        });
+    } else {
+        console.error('Logout button not found!');
+    }
 });

@@ -1,6 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-import { app } from '/.app.js';
+import { app } from './app.js';
 
 const auth = getAuth(app);
 const db = getFirestore(app); // 🔹 Ensure Firestore is initialized

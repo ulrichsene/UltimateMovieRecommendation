@@ -44,17 +44,24 @@ def initialize_user():
 @app.route('/save_preferences', methods=['POST'])
 def save_preferences():
     """Store user's streaming preferences in Firestore."""
+    print("Saving preferences...")
     data = request.json
     user_id = data.get('user_id')
     services = data.get('services', [])
-    print(f'received data: {data}')
-
+    
     if not user_id:
+        print("Error: Missing user_id")
         return jsonify({'error': 'User ID is required'}), 400
-    db = utils.init_firestore_client()
-    db.collection('users').document(user_id).set({'services': services}, merge=True)
 
-    return jsonify({data})
+    db = utils.init_firestore_client()
+    
+    try:
+        db.collection('users').document(user_id).set({'services': services}, merge=True)
+        print(f"Preferences saved for user: {user_id}, services: {services}")
+        return jsonify({"message": "Preferences saved successfully"})
+    except Exception as e:
+        print(f"Error saving preferences: {str(e)}")
+        return jsonify({'error': 'Failed to save preferences'}), 500
 
 
 @app.route('/get_similar_movies', methods=['POST'])
@@ -96,5 +103,5 @@ def autocomplete():
     return jsonify(matches)
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5002))
     app.run(host='0.0.0.0', port=port, debug=True)

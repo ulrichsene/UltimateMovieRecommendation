@@ -2,17 +2,17 @@ import pandas as pd
 from google.cloud import firestore
 from google.cloud.firestore_v1 import aggregation
 import firebase_admin
-from firebase_admin import firestore
-from firebase_admin import credentials
+from firebase_admin import credentials, firestore
 import pandas as pd
-from google.cloud.firestore_v1 import aggregation
 
 def init_firestore_client():
     # Application Default credentials are automatically created.
-    cred = credentials.ApplicationDefault()
+    if not firebase_admin._apps:
+        # Use Application Default Credentials
+        cred = credentials.ApplicationDefault()
+        firebase_admin.initialize_app(cred)
 
-    firebase_admin.initialize_app(cred)
-    db = firestore.Client() 
+    db = firestore.client()
     return db
 
 
