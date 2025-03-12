@@ -3,6 +3,7 @@ import json
 from flask import Flask, request, jsonify, render_template
 from jinja2 import FileSystemLoader, Environment
 from backend.models.algorithm_work import get_similar_movies
+from backend.routes.movie_stream_options import single_movie_stream
 import utils
 
 app = Flask(__name__)
@@ -83,6 +84,20 @@ def get_movie_recs():
         'recommendations': movie_titles,
         'scores': movie_scores
     })
+
+@app.route('/get_streaming_info', methods=['POST'])
+def get_streaming_info():
+    movie_title = request.json.get('movie_title')
+
+    if not movie_title:
+        return jsonify({'error': 'No movie title provided'}), 400
+
+    streaming_services = single_movie_stream(movie_title)
+
+    if not streaming_services:
+        return jsonify({'error': 'Streaming information not found'}), 404
+
+    return jsonify({'streaming_services': streaming_services})
 
 # NEW AUTOCOMPLETE ROUTE
 @app.route('/autocomplete', methods = ['GET'])
