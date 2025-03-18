@@ -28,16 +28,23 @@ document.getElementById("get-recs-button").addEventListener("click", async funct
         if (data.recommendations && data.recommendations.length > 0) {
             recommendationsHeading.style.display = "block"; // Show recommendations heading
             recommendationsList.innerHTML = data.recommendations
-                .map((movie, index) => {
-                    return `<li>${movie} (Score: ${data.scores[index].toFixed(2)})</li>`;
-                })
-                .join(""); // Join the list items as a string
+                // .map((movie, index) => {
+                //     return `<li>${movie} (Score: ${data.scores[index].toFixed(2)})</li>`;
+                // })
+                // .join(""); // Join the list items as a string
+            data.recommendations.forEach(movieTitle, index => {
+                const movieCard = document.createElement("div");
+                movieCard.classList.add("movie-card");
+                movieCard.innerHTML = `
+                    <h3>${movieTitle}</h3>
+                    <p>Similarity Score: ${data.scores[index].toFixed(2)}</p>
+                `;
+            });
         } else {
             recommendationsHeading.style.display = "block";
             recommendationsList.innerHTML = "<li>No recommendations found.</li>";
         }
     } catch (error) {
         console.error("Error fetching recommendations:", error);
-        alert("An error occurred while fetching recommendations. Please try again later.");
     }
 });
