@@ -7,6 +7,7 @@ from backend.routes.movie_stream_options import single_movie_stream
 import utils
 
 app = Flask(__name__)
+server=app.server
 
 # set up the Jinja2 template loader explicitly
 template_folder_path = os.path.join(os.getcwd(), 'templates')
