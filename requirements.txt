@@ -9,3 +9,4 @@ scikit-learn
 sentence-transformers
 google-cloud-firestore
 firebase-admin
+python-dotenv==1.0.1

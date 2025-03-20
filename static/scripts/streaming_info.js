@@ -1,13 +1,17 @@
 document.getElementById("get-streaming-info-button").addEventListener("click", async function (event) {
+    console.log("Button clicked!"); // debug statement 
     event.preventDefault(); // prevents page refresh when button clicked
 
     const movieTitle = document.getElementById("movie_title").value.trim();
+    console.log("Movie Title: " + movieTitle);  // Debugging: log the entered movie title
+
     if (!movieTitle) {
         alert("Please enter a movie title.");
         return;
     }
 
     try {
+        console.log("Sending request to server..."); // debug statement 
         const response = await fetch("/get_streaming_info", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -19,6 +23,7 @@ document.getElementById("get-streaming-info-button").addEventListener("click", a
         }
 
         const data = await response.json();
+        console.log("Received data:", data); // debug statement 
 
         // finds the elements to display the streaming info (in home.html file)
         const streamingInfoHeading = document.getElementById("streaming-info-heading");
@@ -43,3 +48,4 @@ document.getElementById("get-streaming-info-button").addEventListener("click", a
         alert("An error occurred while fetching streaming information. Please try again later.");
     }
 });
+

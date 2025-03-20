@@ -4,14 +4,23 @@ from flask import Flask, request, jsonify, render_template
 from jinja2 import FileSystemLoader, Environment
 from backend.models.algorithm_work import get_similar_movies
 from backend.routes.movie_stream_options import single_movie_stream
+from dotenv import load_dotenv
 import utils
 
 def create_app():
+# load environmental variables (like tmdb key) from the .env file
+load_dotenv()
+
+app = Flask(__name__)
+# server=app.server
 
     app = Flask(__name__)
     return app
     # server=app.server
 app = create_app()
+
+# get the API key from the environment
+tmdb_api_key = os.getenv('TMDB_API_KEY')
 
 # set up the Jinja2 template loader explicitly
 template_folder_path = os.path.join(os.getcwd(), 'templates')
@@ -93,16 +102,21 @@ def get_movie_recs():
 @app.route('/get_streaming_info', methods=['POST'])
 def get_streaming_info():
     movie_title = request.json.get('movie_title')
+    print("Received movie title:", movie_title)  #debug statement
 
     if not movie_title:
+        print("Error: No movie title provided")  #debug statement
         return jsonify({'error': 'No movie title provided'}), 400
 
     streaming_services = single_movie_stream(movie_title)
+    print("Streaming services:", streaming_services)  #debug statement
 
     if not streaming_services:
+        print("Error: Streaming information not found")  #debug statement
         return jsonify({'error': 'Streaming information not found'}), 404
 
     return jsonify({'streaming_services': streaming_services})
+
 
 # NEW AUTOCOMPLETE ROUTE
 @app.route('/autocomplete', methods = ['GET'])
