@@ -8,13 +8,16 @@ from dotenv import load_dotenv
 import utils
 
 def create_app():
-    app = Flask(__name__)
-    # server=app.server
-    return app
-app = create_app()
-
 # load environmental variables (like tmdb key) from the .env file
 load_dotenv()
+
+app = Flask(__name__)
+# server=app.server
+
+    app = Flask(__name__)
+    return app
+    # server=app.server
+app = create_app()
 
 # get the API key from the environment
 tmdb_api_key = os.getenv('TMDB_API_KEY')
