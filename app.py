@@ -6,8 +6,12 @@ from backend.models.algorithm_work import get_similar_movies
 from backend.routes.movie_stream_options import single_movie_stream
 import utils
 
-app = Flask(__name__)
-server=app.server
+def create_app():
+
+    app = Flask(__name__)
+    return app
+    # server=app.server
+app = create_app()
 
 # set up the Jinja2 template loader explicitly
 template_folder_path = os.path.join(os.getcwd(), 'templates')
