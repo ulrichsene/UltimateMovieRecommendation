@@ -1,20 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { app } from './app.js';
 
-// ✅ Firebase Configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAMURFt8AWPf6mr9qv6jqdeSjLu-r2_Fbc",
-  authDomain: "free2memovies.firebaseapp.com",
-  projectId: "free2memovies",
-  storageBucket: "free2memovies.appspot.com",
-  messagingSenderId: "496384632960",
-  appId: "1:496384632960:web:592102ff928d855fb5de65",
-  measurementId: "G-Y9DXZB6P2W"
-};
-
-// ✅ Initialize Firebase
-const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app); // 🔹 Ensure Firestore is initialized
 
@@ -80,8 +67,7 @@ document.getElementById("signup-form").addEventListener("submit", async function
 
         // ✅ Delay redirect slightly to prevent race conditions
         setTimeout(() => {
-            console.log("🔄 Redirecting to initializeUser.html...");
-            window.location.href = "initializeUser.html";
+            window.location.href = "/initializeUser";
         }, 500); // 0.5-second delay to prevent immediate re-triggers
 
     } catch (error) {

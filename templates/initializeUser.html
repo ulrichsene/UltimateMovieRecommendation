@@ -4,40 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Your Streaming Services</title>
-    <link rel="stylesheet" href="static/styles/index.css"> <!-- Use home.html styling -->
+    <link rel="stylesheet" href="static/styles/index.css">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Select Your Streaming Services</h2>
-        <p>Choose the streaming services you have access to. This helps us recommend the best movies for you!</p>
-        
-        <form id="streaming-form">
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="services" value="hulu"> Hulu</label>
-                <label><input type="checkbox" name="services" value="amazon prime video"> Amazon Prime Video</label>
-                <label><input type="checkbox" name="services" value="disney+"> Disney+</label>
-                <label><input type="checkbox" name="services" value="fubo"> Fubo</label>
-                <label><input type="checkbox" name="services" value="netflix"> Netflix</label>
-                <label><input type="checkbox" name="services" value="paramount+"> Paramount+</label>
-                <label><input type="checkbox" name="services" value="peacock"> Peacock</label>
-                <label><input type="checkbox" name="services" value="apple tv+"> Apple TV+</label>
-                <label><input type="checkbox" name="services" value="max"> Max</label>
-                <label><input type="checkbox" name="services" value="starz"> Starz</label>
-                <label><input type="checkbox" name="services" value="philo"> Philo</label>
-                <label><input type="checkbox" name="services" value="mubi"> Mubi</label>
-                <label><input type="checkbox" name="services" value="tubi"> Tubi</label>
-                <label><input type="checkbox" name="services" value="amc+"> AMC+</label>
-                <label><input type="checkbox" name="services" value="freevee"> Freevee</label>
-                <label><input type="checkbox" name="services" value="discovery+"> Discovery+</label>
-                <label><input type="checkbox" name="services" value="vudu"> Vudu</label>
-            </div>
+    <div style="display: flex; justify-content: center;">
+        <div style="border-radius: 20px; width: 90%; background-color: rgba(220, 220, 220, 0.907); padding: 10px 25px;" class="login-container">
+            <h2 style="color: black;">Select Your Streaming Services</h2>
+            <p style="color: black;">Choose the streaming services you have access to. This helps us recommend movies that are free to you!</p>
+            
+            <form id="streaming-form">
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="services" value="hulu"> Hulu</label>
+                    <label><input type="checkbox" name="services" value="amazon prime video"> Amazon Prime Video</label>
+                    <label><input type="checkbox" name="services" value="disney+"> Disney+</label>
+                    <label><input type="checkbox" name="services" value="fubo"> Fubo</label>
+                    <label><input type="checkbox" name="services" value="netflix"> Netflix</label>
+                    <label><input type="checkbox" name="services" value="paramount+"> Paramount+</label>
+                    <label><input type="checkbox" name="services" value="peacock"> Peacock</label>
+                    <label><input type="checkbox" name="services" value="apple tv+"> Apple TV+</label>
+                    <label><input type="checkbox" name="services" value="max"> Max</label>
+                    <label><input type="checkbox" name="services" value="starz"> Starz</label>
+                    <label><input type="checkbox" name="services" value="philo"> Philo</label>
+                    <label><input type="checkbox" name="services" value="mubi"> Mubi</label>
+                    <label><input type="checkbox" name="services" value="tubi"> Tubi</label>
+                    <label><input type="checkbox" name="services" value="amc+"> AMC+</label>
+                    <label><input type="checkbox" name="services" value="freevee"> Freevee</label>
+                    <label><input type="checkbox" name="services" value="discovery+"> Discovery+</label>
+                    <label><input type="checkbox" name="services" value="vudu"> Vudu</label>
+                </div>
 
-            <button type="submit">Save Preferences</button>
-        </form>
+                <button type="submit">Save Preferences</button>
+                <a style="color: black;" href="/home" class="back-btn">&#x2190 Back to Home</a>
+            </form>
+        </div>
     </div>
 
-    <script type="module" src="static/scripts/initializeUsers.js"></script> <!-- Script to handle selections -->
-    <!-- <script type="module" src="scripts/streamingPreferences.js"></script> -->
+    <script type="module" src="/static/scripts/initializeUsers.js"></script> <!-- Script to handle selections -->
+    <script type="module" src="/static/scripts/streamingPreferences.js"></script>
 
 </body>
 </html>

@@ -28,16 +28,17 @@ document.getElementById("get-recs-button").addEventListener("click", async funct
         if (data.recommendations && data.recommendations.length > 0) {
             recommendationsHeading.style.display = "block"; // Show recommendations heading
             recommendationsList.innerHTML = data.recommendations
-                .map((movie, index) => {
-                    return `<li>${movie} (Score: ${data.scores[index].toFixed(2)})</li>`;
-                })
-                .join(""); // Join the list items as a string
+                .map((movie) => {
+                return `<div class=movie=card>
+                            <h3>${movie}</h3>
+                        </div>`;
+            })
+            .join("");
         } else {
             recommendationsHeading.style.display = "block";
             recommendationsList.innerHTML = "<li>No recommendations found.</li>";
         }
     } catch (error) {
         console.error("Error fetching recommendations:", error);
-        alert("An error occurred while fetching recommendations. Please try again later.");
     }
 });

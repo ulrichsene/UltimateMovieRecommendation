@@ -12,8 +12,11 @@ body {
     display: inline-block;
 }
 
+.button-container {
+    margin-top: 20px;
+}
 .welcome-enter-title {
-    background-color: white;
+    background-color: rgba(220, 220, 220, 0.907);
     border-radius: 15px;
     margin-bottom: 80px;
     padding: 7px 7px;
@@ -37,12 +40,12 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #d9534f;
+    background-color: #890000;
     color: white;
 }
 
 button:hover {
-    background-color: #c9302c;
+    background-color: #770400;
 }
 
 #profile-button,
@@ -59,17 +62,6 @@ button:hover {
     font-size: 16px;
 }
 
-/* This is where we make text box bigger */
-#movie_title {
-    padding: 15px;
-    font-size: 18px;
-    width: 80%;
-    max-width: 500px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
 .profile-container {
     position: absolute;
     top: 15px;
@@ -81,4 +73,55 @@ button:hover {
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+/* wraps the input field and dropdown together */
+.autocomplete-container {
+    position: relative;
+    /* ensures dropdown is positioned relative to input */
+    display: inline-block;
+    /* keeps layout consistent */
+    width: 80%;
+    max-width: 500px;
+}
+
+/* ensures the input takes full width inside its container */
+#movie_title {
+    padding: 15px;
+    font-size: 18px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    /* Prevents width issues */
+}
+
+/* Autocomplete dropdown styling */
+.autocomplete-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    /* matches input width */
+    background: white;
+    color: black;
+    border: 1px solid #ccc;
+    position: absolute;
+    top: 100%;
+    /* positions it directly below input */
+    left: 0;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-list li:hover {
+    background: #ddd;
 }

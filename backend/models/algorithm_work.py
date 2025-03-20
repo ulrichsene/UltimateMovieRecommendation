@@ -57,8 +57,8 @@ tfidf_matrix = tfidf_vectorizer.fit_transform(movies_features["combined_features
 # the fit_transform basically converts the data into a sparse matrix of values (each feature is a number that represents its importance in dataset)
 
 # weight the SBERT plot and non-plot features
-plot_weight = 0.7
-non_plot_weight = 0.3
+plot_weight = 0.5
+non_plot_weight = 0.5
 
 # ensure that the SBERT embeddings are in sparse format (if not already)
 weighted_sbert_embeddings = csr_matrix(sbert_embeddings) * plot_weight

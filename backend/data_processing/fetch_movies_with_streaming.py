@@ -1,8 +1,10 @@
 import requests # allows us to make API calls
 import json # saves data in a structured format
+import os
 
 # tmdb api info here
-tmdb_api_key = "9783354ee4a285168b36af0283b59f02"
+tmdb_api_key = os.getenv("TMDB_API_KEY")
+# tmdb_api_key = "9783354ee4a285168b36af0283b59f02"
 base_url = "https://api.themoviedb.org/3"
 
 def get_movies(max_pages=1): # can limit to how many pages of movies (1 page = 20 movies)

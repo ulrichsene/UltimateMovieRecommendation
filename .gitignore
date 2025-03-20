@@ -65,5 +65,9 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# deployed keys (google and tmdb)
+app_keys
+secure_keys/
+
 # dataconnect generated files
 .dataconnect
