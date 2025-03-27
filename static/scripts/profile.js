@@ -1,34 +1,72 @@
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 import { app } from './app.js';
 
-// // Initialize Firebase Auth
+// Initialize Firebase Auth
 const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Elements
+const servicesList = document.getElementById('services-list');
+const userEmailElem = document.getElementById("user-email");
+
+// Store UID and services globally
+let uid = null;
+let services = [];
 
 // Check if user is logged in
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     if (user) {
-        document.getElementById("user-email").innerHTML = user.email;
-        const services = user.services;
+        // User is logged in
+        uid = user.uid;
+        userEmailElem.innerHTML = user.email;
 
-        console.log('email:', user.email);
-        console.log('services:', services);
+        console.log('Email:', user.email);
+        
+        // Fetch services from Firestore
+        const userDocRef = doc(db, "users", uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+            // If services exist in Firestore, load them
+            services = userDoc.data().services || [];
+            console.log("✅ Loaded services from Firestore:", services);
+
+            // Display services
+            displayServices(services);
         } else {
-        // Redirect to login if not logged in
-        window.location.href = "/";
+            console.log("⚠️ No preferences found in Firestore.");
+            services = [];  // Clear services if no data found
+            displayNoServices();
+        }
+    } else {
+        // User is not logged in, redirect to login page
+        console.log("🚪 User signed out");
+        uid = null;
+        services = [];
+        window.location.href = "/";  // Redirect to the login page
     }
 });
 
-let uid = null;
+// Function to display the list of services in the profile
+function displayServices(services) {
+    servicesList.innerHTML = ''; // Clear previous list
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-      uid = user.uid;
-      // Use the UID
+    if (services.length > 0) {
+        services.forEach(service => {
+            const li = document.createElement('li');
+            li.textContent = service;
+            servicesList.appendChild(li);
+        });
     } else {
-      // User is signed out
-      console.log("User is signed out");
+        displayNoServices();
     }
-  });
+}
+
+// Function to display a message when no services are available
+function displayNoServices() {
+    servicesList.innerHTML = '<li>No streaming services available</li>';
+}
 
 // Logout Functionality
 document.getElementById("logout").addEventListener("click", async () => {

@@ -129,22 +129,32 @@ body {
     margin-right: 8px;
   }
   
-  #user-info {
+  #user-info, #streaming-services {
     text-align: left;
     margin-bottom: 20px;
+    color: white;
   }
   
   #streaming-list {
     list-style: none;
     padding: 0;
+    text-align: left;
   }
-  
-  #streaming-list li {
-    background: white;
-    padding: 6px;
-    margin: 4px 0;
-    border: 1px solid black;
-    border-radius: 4px;
+
+  /* User Email */
+  #user-email {
+      font-weight: bold;
+      color: black; /* Keep it black for consistency */
+      margin: 4px 0;
+      font-size: 1.1rem;
+  }
+
+  /* Streaming Services List Items */
+  #services-list li {
+      font-weight: bold;
+      color: black; /* Keep the text black */
+      margin: 4px 0;
+      font-size: 1.1rem;
   }
   
   button {
