@@ -35,3 +35,36 @@ onAuthStateChanged(auth, async (user) => {
     console.error("❌ No user is signed in.");
   }
 });
+
+function populateStreamingServices() {
+  //     const container = document.getElementById("services-list");
+  //     if (!servicesList) {
+  //         console.error("Element #services-list not found!");
+  //         return;
+  //     }
+  //     container.innerHTML = ""; // Clear existing content
+  
+  //     availableServices.forEach(service => {
+  //         const listItem = document.createElement("li");
+  //         const checkbox = document.createElement("input");
+  //         checkbox.type = "checkbox";
+  //         checkbox.name = "services";
+  //         checkbox.value = service;
+          
+  //         // Pre-check if the user has this service saved
+  //         if (services.includes(service)) {
+  //             checkbox.checked = true;
+  //         }
+  
+  //         const label = document.createElement("label");
+  //         label.appendChild(checkbox);
+  //         label.appendChild(document.createTextNode(service));
+  
+  //         listItem.appendChild(label);
+  //         container.appendChild(listItem);
+      // });
+      let checkboxes = document.getElementById("streaming-form");
+      console.log('checkboxes:', checkboxes);
+  }
+
+  populateStreamingServices();
