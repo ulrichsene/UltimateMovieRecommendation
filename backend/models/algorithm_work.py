@@ -6,6 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity  # measures similarity be
 from sentence_transformers import SentenceTransformer  # loads the SBERT model to generate embeddings
 from scipy.sparse import hstack  # combines "sparse matrices"
 from scipy.sparse import csr_matrix  # used for working with sparse matrices
+import requests
 
 # get the absolute path to the project root (UltimateMovieRecommendation)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  
@@ -14,6 +15,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 MOVIES_PLOT_PATH = os.path.join(BASE_DIR, "backend", "input_data", "movies_cleaned_plot.csv")
 MOVIES_FEATURES_PATH = os.path.join(BASE_DIR, "backend", "input_data", "movies_non_plot_features.csv")
 SBERT_EMBEDDINGS_PATH = os.path.join(BASE_DIR, "backend", "input_data", "sbert_embeddings.npy")
+
+# For movie api calls
+base_url = "https://api.themoviedb.org/3"
+tmdb_api_key = "9783354ee4a285168b36af0283b59f02"
+# tmdb_api_key = os.getenv("TMDB_API_KEY")
 
 # Load the pre-trained SBERT model
 print("Loading SBERT model...")
@@ -110,7 +116,101 @@ def get_similar_movies(movie_title, top_n = 3):
 
     return list(zip(similar_movies, similar_movies_score))
 
-# example with a movie
-print("Running movie recommendation system...")
-similar_movies = get_similar_movies("Planet of the Apes", top_n=3)
-print("Recommended movies:", similar_movies)
+def get_movies(max_pages=1):
+    """This function retrieves movies."""
+    movies = []
+
+    for page in range(1, max_pages + 1):
+        url = f"{base_url}/discover/movie?api_key={tmdb_api_key}&language=en-US&page={page}"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            data = response.json().get("results", [])
+            for movie in data:
+                movies.append({
+                    "id": movie["id"],
+                    "title": movie["title"],
+                    "release_date": movie.get("release_date", "Unknown")
+                })
+        else:
+            print(f"Failed to fetch page {page}: {response.status_code}")
+            break
+
+    return movies
+
+def get_free_streaming_services(movie_id):
+    """Fetch available streaming services for a given movie, including rent and buy options."""
+    url = f"{base_url}/movie/{movie_id}/watch/providers?api_key={tmdb_api_key}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json().get("results", {})
+        us_data = data.get("US", {})
+
+        # This will show if a movie is available for free streaming
+        streaming_services = [s["provider_name"] for s in us_data.get("flatrate", [])]
+
+        # Return dictionary with streaming services
+        return {"streaming": streaming_services if streaming_services else ["Not Available"]}
+    else:
+        print(f"Failed to fetch streaming services for movie ID {movie_id}: {response.status_code}")
+        return {"streaming": ["Error"]}
+
+def match_movie_to_streaming(streaming_services, movie_list):
+    """Dynamically find up to 3 movies available on the given streaming services."""
+
+    print("Raw movie list input:", movie_list)  # Debugging print
+    print(streaming_services)
+
+    three_movies = []
+    added_movies = set()  # Track movies that have already been added
+
+    # Extract only movie titles if tuples (title, similarity_score) are present
+    clean_movie_list = [movie[0] if isinstance(movie, tuple) else movie for movie in movie_list]
+
+    print("Cleaned movie list:", clean_movie_list)  # Debugging print
+
+    for film in clean_movie_list:
+        if film in added_movies:
+            continue  # Skip duplicates
+
+        print(f"Searching for movie: {film}")  # Debugging print
+
+        # API call to search for the movie
+        search_url = f"{base_url}/search/movie?api_key={tmdb_api_key}&query={film}&language=en-US"
+        response = requests.get(search_url)
+
+        if response.status_code != 200:
+            print(f"Failed to search for movie '{film}': {response.status_code}")
+            continue  # Skip this movie if there's an API issue
+
+        search_results = response.json().get("results", [])
+        if not search_results:
+            print(f"Movie '{film}' not found.")
+            continue  # Skip if the movie is not found
+
+        movie_id = search_results[0]["id"]
+        services = get_free_streaming_services(movie_id)
+
+        # Extract available streaming services
+        available_streaming = set(services.get("streaming", []))
+
+        # Check if any streaming service matches user preferences
+        matching_services = available_streaming.intersection(streaming_services)
+        if matching_services:
+            matched_service = list(matching_services)[0]  # Pick the first match
+            three_movies.append({
+                "movie": film,
+                "streaming_service": matched_service
+            })
+            added_movies.add(film)  # Mark movie as added
+
+            print(f"Match found: {film} on {matched_service}")  # Debugging print
+
+            if len(three_movies) == 3:  # Stop as soon as 3 movies are found
+                print("Found 3 movies. Stopping search.")  # Debugging print
+                return three_movies
+
+    print("Final matched movies:", three_movies)  # Debugging print
+
+    return three_movies if three_movies else None  # Return None if no matches

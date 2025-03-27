@@ -12,17 +12,15 @@ onAuthStateChanged(auth, async (user) => {
     if (user) {
         uid = user.uid;
         
-        // ✅ Fetch user preferences from Firestore
         const userDocRef = doc(db, "users", uid);
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists()) {
             services = userDoc.data().services || [];
+            console.log("✅ Loaded services from Firestore:", services); // 🔍 Debug
         } else {
-            console.log("No preferences found.");
+            console.log("⚠️ No preferences found in Firestore.");
         }
-
-        console.log("User services:", services);
     } else {
         console.log("User is signed out");
     }

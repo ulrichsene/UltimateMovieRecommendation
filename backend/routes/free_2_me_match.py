@@ -3,8 +3,8 @@ import json
 import os
 
 # tmdb api info
-tmdb_api_key = os.getenv("TMDB_API_KEY")
-# tmdb_api_key = "9783354ee4a285168b36af0283b59f02"
+# tmdb_api_key = os.getenv("TMDB_API_KEY")
+tmdb_api_key = "9783354ee4a285168b36af0283b59f02"
 base_url = "https://api.themoviedb.org/3"
 
 def get_movies(max_pages=1):
@@ -91,7 +91,6 @@ def match_movie_to_streaming(streaming_services, movie_list):
         return None
 
     return three_movies
-
 
 if __name__ == "__main__":
     list_of_movies = ["Inception", "The Matrix", "Pulp Fiction", "The Lord of the Rings: The Return of the King",

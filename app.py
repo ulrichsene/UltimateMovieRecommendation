@@ -2,7 +2,7 @@ import os
 import json
 from flask import Flask, request, jsonify, render_template
 from jinja2 import FileSystemLoader, Environment
-from backend.models.algorithm_work import get_similar_movies
+from backend.models.algorithm_work import get_similar_movies, match_movie_to_streaming
 from backend.routes.movie_stream_options import single_movie_stream
 from dotenv import load_dotenv
 import utils
@@ -114,6 +114,28 @@ def get_streaming_info():
 
     return jsonify({'streaming_services': streaming_services})
 
+@app.route('/get_movie_recommendations', methods=['POST'])
+def get_movie_recommendations():
+    data = request.json
+    print("Received Data:", data)  # 🔍 Debugging step
+
+    streaming_services = data.get("services", [])
+    print("Streaming services: ", streaming_services)
+    movie_title = data.get("movie_title", "")
+
+    if not movie_title:
+        return jsonify({"error": "Movie title is required"}), 400
+
+    similar_movies = get_similar_movies(movie_title, top_n=50)
+    if not similar_movies:
+        return jsonify({"error": "No similar movies found"}), 400
+
+    recommended_movies = match_movie_to_streaming(streaming_services, similar_movies)
+
+    if recommended_movies:
+        return jsonify(recommended_movies)
+    else:
+        return jsonify({"error": "No movies found matching your services"}), 400
 
 # NEW AUTOCOMPLETE ROUTE
 @app.route('/autocomplete', methods = ['GET'])

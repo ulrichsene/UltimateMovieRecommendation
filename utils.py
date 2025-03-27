@@ -5,16 +5,6 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import os
 
-# def init_firestore_client():
-#     # Application Default credentials are automatically created.
-#     if not firebase_admin._apps:
-#         # Use Application Default Credentials
-#         cred = credentials.ApplicationDefault()
-#         firebase_admin.initialize_app(cred)
-
-#     db = firestore.client()
-#     return db
-
 def init_firestore_client():
     """Initialize Firestore client with credentials."""
     if not firebase_admin._apps:
