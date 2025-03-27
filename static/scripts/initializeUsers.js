@@ -49,12 +49,8 @@ async function populateStreamingServices(services) {
         console.error("User snapshot unavailable");
         return;
       }
-
-      // userData = userSnap.data();
-      // const userDocRef = doc(db, "users", auth.currentUser.uid);
-      // const userDocSnap = await getDoc(userDocRef);
-
-      // Fetch services from Firestore
+      
+      // get current user's services
       const userDocRef = doc(db, "users", auth.currentUser.uid);
       const userDoc = await getDoc(userDocRef);
 
@@ -64,8 +60,4 @@ async function populateStreamingServices(services) {
           console.log('services:', services); 
       }
 
-      // if (userDocSnap.exists()) {
-      //     services = userDoc.data().services || [];
-      // console.log('services:', services);
-      // }
 };
