@@ -49,7 +49,7 @@ async function populateStreamingServices(services) {
         console.error("User snapshot unavailable");
         return;
       }
-      
+
       // get current user's services
       const userDocRef = doc(db, "users", auth.currentUser.uid);
       const userDoc = await getDoc(userDocRef);
@@ -60,4 +60,11 @@ async function populateStreamingServices(services) {
           console.log('services:', services); 
       }
 
+      // check the streaming services the user has
+      for (let i = 0; i < checkboxes.length; i++) {
+        if (services.includes(checkboxes[i].value)) {
+          checkboxes[i].checked = true;
+          console.log('matching service')
+        }
+      };
 };
