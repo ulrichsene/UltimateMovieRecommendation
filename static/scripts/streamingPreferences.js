@@ -17,7 +17,7 @@ onAuthStateChanged(auth, async (user) => {
 
         if (userDoc.exists()) {
             services = userDoc.data().services || [];
-            console.log("✅ Loaded services from Firestore:", services); // 🔍 Debug
+            console.log("✅ Loaded services from Firestore:", services);
         } else {
             console.log("⚠️ No preferences found in Firestore.");
         }

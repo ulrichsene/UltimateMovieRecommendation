@@ -82,3 +82,4 @@ document.getElementById("logout").addEventListener("click", async () => {
 document.getElementById("edit-services").addEventListener("click", () => {
     window.location.href = "/initializeUser";
 });
+
