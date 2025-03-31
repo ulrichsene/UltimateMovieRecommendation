@@ -29,58 +29,58 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-function displayRecommendations(movies) {
-    const recommendationsList = document.getElementById("recommendations-list");
-    recommendationsList.innerHTML = ""; // Clear previous results
-
-    movies.forEach(movie => {
-        const movieBlock = document.createElement("li");
-        movieBlock.classList.add("movie-block"); // Apply the new styling
-        movieBlock.textContent = movie; // Replace with actual movie details if available
-        recommendationsList.appendChild(movieBlock);
-    });
-
-    document.getElementById("recommendations-heading").style.display = "block";
-}
-
-// function displayMovies(movies) {
-//     const resultsContainer = document.getElementById("recommendations-list");
-
-//     if (!resultsContainer) {
-//         console.error("❌ Movie results container not found!");
-//         return;
-//     }
-
-//     resultsContainer.innerHTML = ""; // Clear previous results
-
-//     if (movies.length === 0) {
-//         resultsContainer.innerHTML = "<p>No recommendations found.</p>";
-//         return;
-//     }
-
-//     // Group movies by their title to combine streaming services
-//     const movieMap = new Map();
+// function displayRecommendations(movies) {
+//     const recommendationsList = document.getElementById("recommendations-list");
+//     recommendationsList.innerHTML = ""; // Clear previous results
 
 //     movies.forEach(movie => {
-//         const title = movie.movie || "Unknown Title";  // Title of the movie
-//         const service = movie.streaming_service || "No service available"; // Streaming service for the movie
-
-//         if (!movieMap.has(title)) {
-//             movieMap.set(title, []);
-//         }
-//         movieMap.get(title).push(service);
+//         const movieBlock = document.createElement("li");
+//         movieBlock.classList.add("movie-block"); // Apply the new styling
+//         movieBlock.textContent = movie; // Replace with actual movie details if available
+//         recommendationsList.appendChild(movieBlock);
 //     });
 
-//     // Display the grouped movies with their services
-//     movieMap.forEach((services, title) => {
-//         const movieItem = document.createElement("li");
-//         movieItem.classList.add("movie-item");
-
-//         const uniqueServices = Array.from(new Set(services)).join(", ");  // Ensure no duplicate services
-//         movieItem.innerHTML = `<strong>${title}</strong><br>Available on: ${uniqueServices}`;
-//         resultsContainer.appendChild(movieItem);
-//     });
+//     document.getElementById("recommendations-heading").style.display = "block";
 // }
+
+function displayMovies(movies) {
+    const resultsContainer = document.getElementById("recommendations-list");
+
+    if (!resultsContainer) {
+        console.error("❌ Movie results container not found!");
+        return;
+    }
+
+    resultsContainer.innerHTML = ""; // Clear previous results
+
+    if (movies.length === 0) {
+        resultsContainer.innerHTML = "<p>No recommendations found.</p>";
+        return;
+    }
+
+    // Group movies by their title to combine streaming services
+    const movieMap = new Map();
+
+    movies.forEach(movie => {
+        const title = movie.movie || "Unknown Title";  // Title of the movie
+        const service = movie.streaming_service || "No service available"; // Streaming service for the movie
+
+        if (!movieMap.has(title)) {
+            movieMap.set(title, []);
+        }
+        movieMap.get(title).push(service);
+    });
+
+    // Display the grouped movies with their services
+    movieMap.forEach((services, title) => {
+        const movieItem = document.createElement("li");
+        movieItem.classList.add("movie-item");
+
+        const uniqueServices = Array.from(new Set(services)).join(", ");  // Ensure no duplicate services
+        movieItem.innerHTML = `<strong>${title}</strong><br>Available on: ${uniqueServices}`;
+        resultsContainer.appendChild(movieItem);
+    });
+}
 
 function formatServiceName(service) {
     return service
@@ -151,3 +151,21 @@ document.getElementById("get-recs-button").addEventListener("click", async funct
 
     await fetchMoviesForUser(movieTitle);
 });
+
+// Add CSS styles dynamically
+const style = document.createElement('style');
+style.innerHTML = `
+    .movie-item {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+    }
+    #recommendations-list {
+        list-style-type: none;
+        padding: 0;
+    }
+`;
+document.head.appendChild(style);
