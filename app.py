@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, render_template
 from jinja2 import FileSystemLoader, Environment
 from backend.models.algorithm_work import get_similar_movies, match_movie_to_streaming
 from backend.routes.movie_stream_options import single_movie_stream
+from backend.routes.free_2_me_match import get_trailer_link
 from dotenv import load_dotenv
 import utils
 
@@ -95,6 +96,19 @@ def get_movie_recs():
         'recommendations': movie_titles,
         'scores': movie_scores
     })
+
+@app.route("/get_trailer_link")
+def trailer_link():
+    """Gets a trailer link when given a movie title"""
+    movie_title = request.args.get("movie_title")
+    if not movie_title:
+        return jsonify({"error": "Missing movie title"}), 400  
+    
+    trailer_link = get_trailer_link(movie_title)
+    if not trailer_link:
+        return jsonify({"error": "No trailer found"}), 404
+    
+    return jsonify({"trailer_link": trailer_link})
 
 @app.route('/get_streaming_info', methods=['POST'])
 def get_streaming_info():

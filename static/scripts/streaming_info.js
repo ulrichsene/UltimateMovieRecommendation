@@ -2,6 +2,10 @@ document.getElementById("get-streaming-info-button").addEventListener("click", a
     console.log("Button clicked!"); // debug statement 
     event.preventDefault(); // prevents page refresh when button clicked
 
+    // this part directly clear both buttons before getting new recs (both buttons tied together)
+    document.getElementById("recommendations-list").innerHTML = "";
+    document.getElementById("streaming-info-list").innerHTML = "";
+
     const movieTitle = document.getElementById("movie_title").value.trim();
     console.log("Movie Title: " + movieTitle);  // Debugging: log the entered movie title
 
