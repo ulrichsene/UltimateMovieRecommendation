@@ -29,6 +29,50 @@ def get_movies(max_pages=1):
 
     return movies
 
+def get_movie_id(movie_title):
+    """Searches TMDB for the movie id based on the title"""
+    url=f"{base_url}/search/movie?api_key={tmdb_api_key}&query={movie_title}" # constructs a url for tmdbs search api
+    response = requests.get(url) # sends request to tmdb
+
+    if response.status_code != 200: # check if request was successful
+        print(f"Error: Unable to fetch data ({response.status_code})")
+        return None
+    
+    data = response.json() # converts response to json
+
+    if data["results"]:
+        return data["results"][0]["id"] # returns first matching movie's id
+    else:
+        print(f"No movie found for '{movie_title}")
+        return None
+    
+def get_movie_trailer(movie_id):
+    """For a given movie id, gets the youtube trailer link"""
+    url=f"{base_url}/movie/{movie_id}/videos?api_key={tmdb_api_key}"
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        print(f"Error: Unable to fetch trailers ({response.status_code})")
+        return None
+
+    data = response.json()
+
+    if data["results"]:
+        for video in data["results"]:
+            if video["type"] == "Trailer" and video["site"] == "YouTube":
+                return f"https://www.youtube.com/watch?v={video['key']}"
+
+    print("No trailer found for this movie.")
+    return None
+
+def get_trailer_link(movie_title):
+    """Ties together above two functions (gets movie id and then trailer link)"""
+    movie_id = get_movie_id(movie_title)
+    if not movie_id:
+        return None
+    
+    return get_movie_trailer(movie_id)
+
 def get_free_streaming_services(movie_id):
     """Fetch available streaming services for a given movie, including rent and buy options."""
     url = f"{base_url}/movie/{movie_id}/watch/providers?api_key={tmdb_api_key}"
@@ -106,3 +150,8 @@ if __name__ == "__main__":
         print("Found 3 matching movies:")
         for movie in matched_movies:
             print(f"Movie: {movie['movie']}, Streaming on: {movie['streaming_service']}")
+
+    # testing trailer here
+    movie_title = "The Parent Trap"
+    trailer_link=get_trailer_link(movie_title)
+    print(f"Trailer for {movie_title}: {trailer_link}")

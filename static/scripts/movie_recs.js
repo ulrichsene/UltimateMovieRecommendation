@@ -11,7 +11,7 @@ let services = [];
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         uid = user.uid;
-        
+
         const userDocRef = doc(db, "users", uid);
         const userDoc = await getDoc(userDocRef);
 
@@ -43,7 +43,21 @@ onAuthStateChanged(auth, async (user) => {
 //     document.getElementById("recommendations-heading").style.display = "block";
 // }
 
-function displayMovies(movies) {
+// logic for making title of movie a clickable link
+// takes one argument (name of movie we want to find a trailer for)
+async function getTrailerLink(movieTitle) {
+    const response = await fetch(`/get_trailer_link?movie_title=${encodeURIComponent(movieTitle)}`); // makes request to backend for link
+    if (!response.ok) { // if response failed -> log an error
+        console.error(`Error fetching trailer for ${movieTitle}`);
+        return null;
+    }
+
+    const data = await response.json(); // extracts the response data as json
+    return data.trailer_link || null;
+
+}
+
+async function displayMovies(movies) {
     const resultsContainer = document.getElementById("recommendations-list");
 
     if (!resultsContainer) {
@@ -51,33 +65,45 @@ function displayMovies(movies) {
         return;
     }
 
-    resultsContainer.innerHTML = ""; // Clear previous results
+    resultsContainer.innerHTML = ""; // clears previous results
 
     if (movies.length === 0) {
         resultsContainer.innerHTML = "<p>No recommendations found.</p>";
         return;
     }
 
-    // Group movies by their title to combine streaming services
+    // group movies by their title to combine streaming services
     const movieMap = new Map();
 
-    movies.forEach(movie => {
-        const title = movie.movie || "Unknown Title";  // Title of the movie
-        const service = movie.streaming_service || "No service available"; // Streaming service for the movie
+    for (const movie of movies) {
+        const title = movie.movie || "Unknown Title";
+        const service = movie.streaming_service || "No service available";
+
+        // get trailer link dynamically
+        const trailerLink = await getTrailerLink(title);
 
         if (!movieMap.has(title)) {
-            movieMap.set(title, []);
+            movieMap.set(title, { services: [], trailerLink });
         }
-        movieMap.get(title).push(service);
-    });
+        movieMap.get(title).services.push(service);
+    }
 
-    // Display the grouped movies with their services
-    movieMap.forEach((services, title) => {
+
+    // display the grouped movies with their services
+    movieMap.forEach(({ services, trailerLink }, title) => {
         const movieItem = document.createElement("li");
         movieItem.classList.add("movie-item");
 
+        // fix: if there is no trailer, default to link to the tmdb page instead (so recs still displayed)
+        const movieLink = trailerLink ? trailerLink : `https://www.themoviedb.org/search?query=${encodeURIComponent(title)}`;
+
         const uniqueServices = Array.from(new Set(services)).join(", ");  // Ensure no duplicate services
-        movieItem.innerHTML = `<strong>${title}</strong><br>Available on: ${uniqueServices}`;
+        // here is the logic for making the title a clickable link to trailer
+        movieItem.innerHTML = `
+        <a href="${movieLink}" target="_blank"><strong>${title}</strong></a><br>
+        Available on: ${uniqueServices}
+        `;
+
         resultsContainer.appendChild(movieItem);
     });
 }
@@ -142,6 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById("get-recs-button").addEventListener("click", async function (event) {
     event.preventDefault();
+
+    // this part directly clear both buttons before getting new recs (both buttons tied together)
+    document.getElementById("recommendations-list").innerHTML = "";
+    document.getElementById("streaming-info-list").innerHTML = "";
+
+    document.getElementById("streaming-info-heading").style.display = "none"; // this hides the Streaming Availability heading
 
     const movieTitle = document.getElementById("movie_title").value.trim();
     if (!movieTitle) {
