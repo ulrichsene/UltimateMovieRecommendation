@@ -6,6 +6,7 @@ from backend.models.algorithm_work import get_similar_movies, match_movie_to_str
 from backend.routes.movie_stream_options import single_movie_stream
 from dotenv import load_dotenv
 import utils
+from backend.models.moviePosters import get_movie_poster_url
 
 def create_app():
     app = Flask(__name__)
@@ -133,6 +134,11 @@ def get_movie_recommendations():
     recommended_movies = match_movie_to_streaming(streaming_services, similar_movies)
 
     if recommended_movies:
+        # Add poster URLs to the response
+        for movie in recommended_movies:
+            title = movie["movie"]
+            poster_url = get_movie_poster_url(title)
+            movie["poster_url"] = poster_url if poster_url else "static/images/image-not-found.jpg" 
         return jsonify(recommended_movies)
     else:
         return jsonify({"error": "No movies found matching your services"}), 400

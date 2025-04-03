@@ -214,3 +214,83 @@ def match_movie_to_streaming(streaming_services, movie_list):
     print("Final matched movies:", three_movies)  # Debugging print
 
     return three_movies if three_movies else None  # Return None if no matches
+
+# def get_all_streaming_providers():
+#     """Fetch all streaming providers available in the TMDB API."""
+#     url = f"{base_url}/watch/providers/movie?api_key={tmdb_api_key}&language=en-US"
+#     response = requests.get(url)
+    
+#     if response.status_code == 200:
+#         providers = response.json().get("results", [])
+#         # Return the list of provider names
+#         return [provider["provider_name"] for provider in providers]
+#     else:
+#         print(f"Failed to fetch streaming providers: {response.status_code}")
+#         return []
+
+# def get_free_streaming_providers():
+#     """Filter out only free streaming services from all providers."""
+#     all_providers = get_all_streaming_providers()
+    
+#     # Common free streaming services in the US
+#     # This is a simplified approach - in production, you would query each provider's data
+#     # to determine if they offer free content
+#     free_services = [
+#         "Tubi TV", 
+#         "Pluto TV", 
+#         "Peacock", 
+#         "The Roku Channel", 
+#         "Crackle", 
+#         "Plex", 
+#         "Vudu Free", 
+#         "IMDb TV", 
+#         "Freevee",
+#         "YouTube Free"
+#     ]
+    
+#     # Return providers that are in our free services list
+#     return [provider for provider in all_providers if provider in free_services]
+
+# def get_all_us_streaming_options(movie_id):
+#     """Get comprehensive streaming options for a movie in the US market."""
+#     url = f"{base_url}/movie/{movie_id}/watch/providers?api_key={tmdb_api_key}"
+#     response = requests.get(url)
+    
+#     if response.status_code == 200:
+#         data = response.json().get("results", {})
+#         us_data = data.get("US", {})
+        
+#         # Get all streaming categories
+#         free = [s["provider_name"] for s in us_data.get("free", [])]
+#         flatrate = [s["provider_name"] for s in us_data.get("flatrate", [])]
+#         ads = [s["provider_name"] for s in us_data.get("ads", [])]
+        
+#         # Combined free options (truly free + ad-supported)
+#         all_free = list(set(free + ads))
+        
+#         return {
+#             "subscription": flatrate if flatrate else ["Not Available"],
+#             "free": all_free if all_free else ["Not Available"]
+#         }
+#     else:
+#         print(f"Failed to fetch streaming services for movie ID {movie_id}: {response.status_code}")
+#         return {"subscription": ["Error"], "free": ["Error"]}
+
+# if __name__ == "__main__":
+#     print("Getting all streaming providers...")
+#     all_providers = get_all_streaming_providers()
+#     print(f"Found {len(all_providers)} streaming providers.")
+    
+#     print("\nGetting free streaming providers...")
+#     free_providers = get_free_streaming_providers()
+#     print(f"Found {len(free_providers)} free streaming providers:")
+#     for provider in free_providers:
+#         print(f"- {provider}")
+    
+#     # Example: Get streaming options for a specific movie
+#     # The Shawshank Redemption movie ID
+#     movie_id = 278
+#     print(f"\nGetting streaming options for movie ID {movie_id}...")
+#     options = get_all_us_streaming_options(movie_id)
+#     print("Subscription options:", options["subscription"])
+#     print("Free options:", options["free"])

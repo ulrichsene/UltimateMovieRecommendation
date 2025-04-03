@@ -29,20 +29,6 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// function displayRecommendations(movies) {
-//     const recommendationsList = document.getElementById("recommendations-list");
-//     recommendationsList.innerHTML = ""; // Clear previous results
-
-//     movies.forEach(movie => {
-//         const movieBlock = document.createElement("li");
-//         movieBlock.classList.add("movie-block"); // Apply the new styling
-//         movieBlock.textContent = movie; // Replace with actual movie details if available
-//         recommendationsList.appendChild(movieBlock);
-//     });
-
-//     document.getElementById("recommendations-heading").style.display = "block";
-// }
-
 function displayMovies(movies) {
     const resultsContainer = document.getElementById("recommendations-list");
 
@@ -52,6 +38,7 @@ function displayMovies(movies) {
     }
 
     resultsContainer.innerHTML = ""; // Clear previous results
+    document.getElementById("recommendations-heading").style.display = "block";
 
     if (movies.length === 0) {
         resultsContainer.innerHTML = "<p>No recommendations found.</p>";
@@ -64,20 +51,35 @@ function displayMovies(movies) {
     movies.forEach(movie => {
         const title = movie.movie || "Unknown Title";  // Title of the movie
         const service = movie.streaming_service || "No service available"; // Streaming service for the movie
+        const posterUrl = movie.poster_url || "static/images/image-not-found.jpg";
 
         if (!movieMap.has(title)) {
-            movieMap.set(title, []);
+            movieMap.set(title, {
+                services: [],
+                poster: posterUrl
+            });
         }
-        movieMap.get(title).push(service);
+        movieMap.get(title).services.push(service);
     });
 
     // Display the grouped movies with their services
-    movieMap.forEach((services, title) => {
-        const movieItem = document.createElement("li");
-        movieItem.classList.add("movie-item");
+    movieMap.forEach((movieData, title) => {
+        const movieItem = document.createElement("div");
+        movieItem.classList.add("movie-card");
 
-        const uniqueServices = Array.from(new Set(services)).join(", ");  // Ensure no duplicate services
-        movieItem.innerHTML = `<strong>${title}</strong><br>Available on: ${uniqueServices}`;
+        const uniqueServices = Array.from(new Set(movieData.services)).join(", ");  // Ensure no duplicate services
+        
+        // Create movie card content with poster
+        movieItem.innerHTML = `
+            <div class="movie-poster-container">
+                <img src="${movieData.poster}" alt="${title} poster" class="movie-poster">
+            </div>
+            <div class="movie-info">
+                <h3 class="movie-title">${title}</h3>
+                <p class="streaming-service">Available on: ${uniqueServices}</p>
+            </div>
+        `;
+        
         resultsContainer.appendChild(movieItem);
     });
 }
@@ -133,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             console.log("🎬 Fetching recommendations for:", movieTitle);
-            fetchMoviesForUser(movieTitle);  // ✅ Corrected: Pass only movieTitle here
+            fetchMoviesForUser(movieTitle);
         });
     } else {
         console.error("Form element 'movie-form' not found.");
@@ -155,17 +157,60 @@ document.getElementById("get-recs-button").addEventListener("click", async funct
 // Add CSS styles dynamically
 const style = document.createElement('style');
 style.innerHTML = `
-    .movie-item {
-        background-color: black;
-        color: white;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 5px;
-        text-align: center;
-    }
     #recommendations-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
         list-style-type: none;
-        padding: 0;
+    }
+    
+    .movie-card {
+        width: 220px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+        background-color: #000;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+    
+    .movie-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .movie-poster-container {
+        width: 100%;
+        height: 330px;
+        overflow: hidden;
+    }
+    
+    .movie-poster {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .movie-card:hover .movie-poster {
+        transform: scale(1.05);
+    }
+    
+    .movie-info {
+        padding: 15px;
+    }
+    
+    .movie-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    
+    .streaming-service {
+        font-size: 14px;
+        color: #ccc;
     }
 `;
 document.head.appendChild(style);
