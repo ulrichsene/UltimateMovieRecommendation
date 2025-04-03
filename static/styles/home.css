@@ -17,6 +17,7 @@ body {
 .button-container {
     margin-top: 20px;
 }
+
 .welcome-enter-title {
     background-color: rgba(220, 220, 220, 0.907);
     border-radius: 15px;
@@ -50,11 +51,13 @@ button:hover {
     background-color: #770400;
 }
 
-#recommendations-list, #streaming-info-list {
+#recommendations-list,
+#streaming-info-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px; /* Space between movie blocks */
+    gap: 20px;
+    /* Space between movie blocks */
     padding: 20px;
 }
 
@@ -63,8 +66,10 @@ button:hover {
     background-color: white;
     color: black;
     padding: 15px;
-    width: 30%; /* Ensures 3 movies per row */
-    min-width: 250px; /* Prevents movies from getting too small */
+    width: 30%;
+    /* Ensures 3 movies per row */
+    min-width: 250px;
+    /* Prevents movies from getting too small */
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -115,7 +120,22 @@ button:hover {
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    /* Prevents width issues */
+}
+
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+#movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Adjust alignment as needed */
+    gap: 20px;
+    /* Space between movie cards */
 }
 
 /* Autocomplete dropdown styling */
