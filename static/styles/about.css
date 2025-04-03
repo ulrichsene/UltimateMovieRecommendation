@@ -21,30 +21,15 @@
     text-align: center;
     min-width: 80%;
     max-width: 80%;
-    /* flex: 1; */
 }
-/* 
-.recommendations-desc {
-    background-color: orange;
-    align-self: center;
-    margin-top: 25px;
-}
-
-.services-desc {
-    background-color: lightblue;
-    align-self: center;
-    margin-top: 25px;
-} */
 
 .about-us-flexbox {
     display: flex;
-    /* background-color: lightgreen; */
     flex-direction: row;
     justify-content: space-around;
     margin-top: 25px;
 }
 
 .about-panel {
-    /* display: flex; */
     background-color: aliceblue;
 }
