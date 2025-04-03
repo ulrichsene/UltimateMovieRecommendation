@@ -4,6 +4,7 @@
     justify-content: center;
     flex-direction: column;
     padding-top: 20px;
+    gap: 20px;
 }
 
 .about {
@@ -13,12 +14,16 @@
     border-radius: 25px;
 }
 
-.website-desc {
+.website-desc, .services-desc, .recommendations-desc {
     background-color: purple;
     align-self: center;
     margin-top: 25px;
+    text-align: center;
+    min-width: 200px;
+    max-width: 500px;
+    /* flex: 1; */
 }
-
+/* 
 .recommendations-desc {
     background-color: orange;
     align-self: center;
@@ -29,7 +34,7 @@
     background-color: lightblue;
     align-self: center;
     margin-top: 25px;
-}
+} */
 
 .about-us-flexbox {
     display: flex;
