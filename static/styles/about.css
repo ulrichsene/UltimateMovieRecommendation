@@ -1,8 +1,4 @@
-body {
-    background-color: black;
-}
-
-.container {
+.flexbox {
     background-color: white;
     display: flex;
     justify-content: center;
@@ -12,8 +8,20 @@ body {
 .about {
     background-color: pink;
     padding: 10px 75px;
+    align-self: center;
 }
 
-.description {
+.website-desc {
     background-color: purple;
+    align-self: center;
+}
+
+.recommendations-desc {
+    background-color: orange;
+    align-self: center;
+}
+
+.services-desc {
+    background-color: lightblue;
+    align-self: center;
 }
