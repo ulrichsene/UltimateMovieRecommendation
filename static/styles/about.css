@@ -15,12 +15,12 @@
 }
 
 .website-desc, .services-desc, .recommendations-desc {
-    background-color: purple;
+    background-color: rgb(255, 183, 223);
     align-self: center;
     margin-top: 25px;
     text-align: center;
-    min-width: 200px;
-    max-width: 500px;
+    min-width: 80%;
+    max-width: 80%;
     /* flex: 1; */
 }
 /* 
