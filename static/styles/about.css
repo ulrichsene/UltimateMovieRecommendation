@@ -17,10 +17,11 @@
 .website-desc, .services-desc, .recommendations-desc {
     background-color: rgb(255, 183, 223);
     align-self: center;
-    margin-top: 25px;
     text-align: center;
-    min-width: 80%;
-    max-width: 80%;
+    min-width: 85%;
+    max-width: 85%;
+    border-width: 20px;
+    border-color: lightgray;
 }
 
 .about-us-flexbox {
