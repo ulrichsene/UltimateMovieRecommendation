@@ -11,7 +11,7 @@ let services = [];
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         uid = user.uid;
-        
+
         const userDocRef = doc(db, "users", uid);
         const userDoc = await getDoc(userDocRef);
 
@@ -29,7 +29,35 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-function displayMovies(movies) {
+// function displayRecommendations(movies) {
+//     const recommendationsList = document.getElementById("recommendations-list");
+//     recommendationsList.innerHTML = ""; // Clear previous results
+
+//     movies.forEach(movie => {
+//         const movieBlock = document.createElement("li");
+//         movieBlock.classList.add("movie-block"); // Apply the new styling
+//         movieBlock.textContent = movie; // Replace with actual movie details if available
+//         recommendationsList.appendChild(movieBlock);
+//     });
+
+//     document.getElementById("recommendations-heading").style.display = "block";
+// }
+
+// logic for making title of movie a clickable link
+// takes one argument (name of movie we want to find a trailer for)
+async function getTrailerLink(movieTitle) {
+    const response = await fetch(`/get_trailer_link?movie_title=${encodeURIComponent(movieTitle)}`); // makes request to backend for link
+    if (!response.ok) { // if response failed -> log an error
+        console.error(`Error fetching trailer for ${movieTitle}`);
+        return null;
+    }
+
+    const data = await response.json(); // extracts the response data as json
+    return data.trailer_link || null;
+
+}
+
+async function displayMovies(movies) {
     const resultsContainer = document.getElementById("recommendations-list");
 
     if (!resultsContainer) {
@@ -38,49 +66,62 @@ function displayMovies(movies) {
     }
 
     resultsContainer.innerHTML = ""; // Clear previous results
-    document.getElementById("recommendations-heading").style.display = "block";
 
     if (movies.length === 0) {
         resultsContainer.innerHTML = "<p>No recommendations found.</p>";
         return;
     }
 
-    // Group movies by their title to combine streaming services
+    // Group movies by title to combine streaming services
     const movieMap = new Map();
 
-    movies.forEach(movie => {
-        const title = movie.movie || "Unknown Title";  // Title of the movie
-        const service = movie.streaming_service || "No service available"; // Streaming service for the movie
+    for (const movie of movies) {
+        const title = movie.movie || "Unknown Title"; 
+        const service = movie.streaming_service || "No service available"; 
         const posterUrl = movie.poster_url || "static/images/image-not-found.jpg";
-
+        const trailerLink = await getTrailerLink(title);
+        
         if (!movieMap.has(title)) {
             movieMap.set(title, {
                 services: [],
-                poster: posterUrl
+                poster: posterUrl,
+                trailerLink: trailerLink
             });
         }
         movieMap.get(title).services.push(service);
-    });
+    }
+
+    // Ensure there's a container to append movie cards
+    const moviesContainer = document.createElement("div");
+    moviesContainer.id = "movies-container";
+    resultsContainer.appendChild(moviesContainer);
 
     // Display the grouped movies with their services
     movieMap.forEach((movieData, title) => {
         const movieItem = document.createElement("div");
         movieItem.classList.add("movie-card");
-
-        const uniqueServices = Array.from(new Set(movieData.services)).join(", ");  // Ensure no duplicate services
+        const uniqueServices = Array.from(new Set(movieData.services)).join(", "); 
         
-        // Create movie card content with poster
+        // Default to TMDB search page if no trailer is available
+        const movieLink = movieData.trailerLink ? movieData.trailerLink : `https://www.themoviedb.org/search?query=${encodeURIComponent(title)}`;
+
+        // Movie card content
         movieItem.innerHTML = `
             <div class="movie-poster-container">
-                <img src="${movieData.poster}" alt="${title} poster" class="movie-poster">
+                <a href="${movieLink}" target="_blank">
+                    <img src="${movieData.poster}" alt="${title} poster" class="movie-poster">
+                </a>
             </div>
             <div class="movie-info">
-                <h3 class="movie-title">${title}</h3>
+                <h3 class="movie-title">
+                    <a href="${movieLink}" target="_blank">${title}</a>
+                </h3>
                 <p class="streaming-service">Available on: ${uniqueServices}</p>
             </div>
         `;
-        
-        resultsContainer.appendChild(movieItem);
+
+        // Append to movies container
+        moviesContainer.appendChild(movieItem);
     });
 }
 
@@ -145,6 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById("get-recs-button").addEventListener("click", async function (event) {
     event.preventDefault();
 
+    // this part directly clear both buttons before getting new recs (both buttons tied together)
+    document.getElementById("recommendations-list").innerHTML = "";
+    document.getElementById("streaming-info-list").innerHTML = "";
+
+    document.getElementById("streaming-info-heading").style.display = "none"; // this hides the Streaming Availability heading
+
     const movieTitle = document.getElementById("movie_title").value.trim();
     if (!movieTitle) {
         alert("Please enter a movie title.");
@@ -154,13 +201,13 @@ document.getElementById("get-recs-button").addEventListener("click", async funct
     await fetchMoviesForUser(movieTitle);
 });
 
-// Add CSS styles dynamically
 const style = document.createElement('style');
 style.innerHTML = `
     #recommendations-list {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: flex-start;
         gap: 20px;
         padding: 20px;
         list-style-type: none;
@@ -174,6 +221,9 @@ style.innerHTML = `
         transition: transform 0.3s ease;
         background-color: #000;
         color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin-bottom: 20px;
     }
     
@@ -199,6 +249,8 @@ style.innerHTML = `
     }
     
     .movie-info {
+        width: 100%;
+        text-align: center;
         padding: 15px;
     }
     
