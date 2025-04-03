@@ -9,19 +9,31 @@
     background-color: pink;
     padding: 10px 75px;
     align-self: center;
+    border-radius: 25px;
 }
 
 .website-desc {
     background-color: purple;
     align-self: center;
+    margin-top: 25px;
 }
 
 .recommendations-desc {
     background-color: orange;
     align-self: center;
+    margin-top: 25px;
 }
 
 .services-desc {
     background-color: lightblue;
     align-self: center;
+    margin-top: 25px;
+}
+
+.about-us-flexbox {
+    display: flex;
+    background-color: lightgreen;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 25px;
 }
