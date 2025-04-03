@@ -2,6 +2,18 @@ body {
     background-color: black;
 }
 
-.header {
+.container {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.about {
     background-color: pink;
+    padding: 10px 75px;
+}
+
+.description {
+    background-color: purple;
 }
