@@ -11,7 +11,8 @@ body {
     background-attachment: fixed;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+    gap: 10px;
 }
 
 html {
@@ -28,6 +29,12 @@ html {
     padding-top: 20px;
     gap: 30px;
     width: 100%;
+}
+
+.how-to-use-flexbox {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .how-to-use {
