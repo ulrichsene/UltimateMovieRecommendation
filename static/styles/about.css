@@ -11,7 +11,7 @@ body {
     background-attachment: fixed;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
 }
 
 html {
@@ -22,17 +22,18 @@ html {
 
 .flexbox {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
     padding-top: 20px;
     gap: 30px;
+    width: 100%;
+
 }
 
 .how-to-use {
     background-color: rgb(169, 9, 9);
-    padding: 10px 75px;
-    align-self: center;
+    padding: 5px 20px;
     border-radius: 25px;
 }
 
@@ -53,13 +54,6 @@ html {
     border-color: lightgray;
     border-radius: 15px;
     padding: 9px;
-}
-
-.about-us-flexbox {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 25px;
 }
 
 .about-panel {
