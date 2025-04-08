@@ -9,8 +9,10 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* display: flex; */
+    display: flex;
+    flex-direction: row;
 }
+
 html {
     height: 100%;
     margin: 0;
@@ -24,6 +26,13 @@ html {
     flex-direction: column;
     padding-top: 20px;
     gap: 30px;
+}
+
+.how-to-use {
+    background-color: rgb(169, 9, 9);
+    padding: 10px 75px;
+    align-self: center;
+    border-radius: 25px;
 }
 
 .about {
