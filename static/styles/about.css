@@ -11,6 +11,7 @@ body {
     background-attachment: fixed;
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 html {
@@ -20,9 +21,9 @@ html {
 }
 
 .flexbox {
-    background-color: white;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     padding-top: 20px;
     gap: 30px;
