@@ -1,3 +1,22 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    color: white;
+    background-image: url('/static/images/movie-posters-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* display: flex; */
+}
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .flexbox {
     background-color: white;
     display: flex;
@@ -15,13 +34,15 @@
 }
 
 .website-desc, .services-desc, .recommendations-desc {
-    background-color: rgb(255, 183, 223);
+    background-color: #1e1e1e;
     align-self: center;
     text-align: center;
     min-width: 85%;
     max-width: 85%;
     border-width: 20px;
     border-color: lightgray;
+    border-radius: 15px;
+    padding: 9px;
 }
 
 .about-us-flexbox {
@@ -32,5 +53,10 @@
 }
 
 .about-panel {
-    background-color: aliceblue;
+    background-color: #5e7783;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
