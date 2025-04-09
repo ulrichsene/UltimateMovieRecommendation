@@ -25,10 +25,6 @@ body {
     box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
-.login-input-fields {
-
-}
-
 /* Header Style */
 .login-container h2 {
     margin-bottom: 20px;
