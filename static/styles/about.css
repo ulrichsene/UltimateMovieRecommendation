@@ -4,7 +4,7 @@ body {
     padding: 0;
     height: 100%;
     color: white;
-    background-image: url('/static/images/theatre.jpg');
+    background-image: url('/static/images/movie-posters-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -19,16 +19,6 @@ html {
     height: 100%;
     margin: 0px;
     padding: 0;
-}
-
-.flexbox {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
-    padding-top: 20px;
-    gap: 30px;
-    width: 100%;
 }
 
 .how-to-use-flexbox {
@@ -61,7 +51,7 @@ html {
 }
 
 .website-desc, .services-desc, .recommendations-desc {
-    background-color: #1e1e1e;
+    background-color: white;
     align-self: center;
     text-align: center;
     min-width: 85%;
@@ -70,4 +60,8 @@ html {
     border-color: lightgray;
     border-radius: 15px;
     padding: 9px;
+}
+
+.text {
+    color: black;
 }
