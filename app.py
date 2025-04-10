@@ -51,6 +51,10 @@ def create_user():
 def profile():
     return render_template('profile.html')
 
+@app.route("/resetPassword")
+def reset_password():
+    return render_template("resetPassword.html")
+
 @app.route('/initializeUser')
 def initialize_user():
     return render_template('initializeUser.html')
