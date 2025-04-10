@@ -4,7 +4,7 @@ body {
     padding: 0;
     height: 100%;
     color: white;
-    background-image: url('/static/images/movie-posters-background.jpg');
+    background-image: url('/static/images/theatre.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
