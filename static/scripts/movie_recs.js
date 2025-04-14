@@ -57,6 +57,31 @@ async function getTrailerLink(movieTitle) {
 
 }
 
+async function fetchMovieDetails(movieId, movieTitle) {
+    console.log("Fetching details for Movie ID:", movieId);
+    try {
+        const response = await fetch(`/get_movie_details?movie_id=${movieId}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch movie details for movie ID: ${movieId}`);
+        }
+
+        const movieDetails = await response.json();
+        console.log("Movie Details fetched successfully:", movieDetails);
+        console.log(movieDetails);
+
+        alert(`
+            Title: ${movieTitle || "N/A"}
+            Plot Summary: ${movieDetails['Plot Summary'] || "N/A"}
+            IMDb Rating: ${movieDetails['IMDb Rating'] || "N/A"}
+            Director: ${movieDetails['Director'] || "N/A"}
+            Top Cast: ${movieDetails['Top Cast'] ? movieDetails['Top Cast'].join(", ") : "N/A"}
+        `);
+    } catch (error) {
+        console.error("Error fetching movie details:", error);
+    }
+}
+
+
 async function displayMovies(movies) {
     const resultsContainer = document.getElementById("recommendations-list");
 
@@ -65,47 +90,53 @@ async function displayMovies(movies) {
         return;
     }
 
-    resultsContainer.innerHTML = ""; // Clear previous results
+    resultsContainer.innerHTML = ""; // clears previous results
 
     if (movies.length === 0) {
         resultsContainer.innerHTML = "<p>No recommendations found.</p>";
         return;
     }
 
-    // Group movies by title to combine streaming services
+    // groups movies by title to combine streaming services
     const movieMap = new Map();
 
     for (const movie of movies) {
-        const title = movie.movie || "Unknown Title"; 
-        const service = movie.streaming_service || "No service available"; 
+        const title = movie.movie || "Unknown Title";
+        console.log("Movie Object:", movie); // debuggin the incoming data
+        console.log(`🎬 Processing movie "${title}" with ID: ${movie.movie_id || 'N/A'}`);
+
+        const service = movie.streaming_service || "No service available";
         const posterUrl = movie.poster_url || "static/images/image-not-found.jpg";
         const trailerLink = await getTrailerLink(title);
-        
+
         if (!movieMap.has(title)) {
             movieMap.set(title, {
                 services: [],
                 poster: posterUrl,
-                trailerLink: trailerLink
+                trailerLink: trailerLink,
+                movieId: movie.movie_id || "undefined"
             });
         }
         movieMap.get(title).services.push(service);
     }
 
-    // Ensure there's a container to append movie cards
+    // makes sure there's a container to append movie cards
     const moviesContainer = document.createElement("div");
     moviesContainer.id = "movies-container";
     resultsContainer.appendChild(moviesContainer);
 
-    // Display the grouped movies with their services
+    // displays the grouped movies with their services
     movieMap.forEach((movieData, title) => {
+        console.log("Movie Data for:", title, movieData);
+
         const movieItem = document.createElement("div");
         movieItem.classList.add("movie-card");
-        const uniqueServices = Array.from(new Set(movieData.services)).join(", "); 
-        
-        // Default to TMDB search page if no trailer is available
+        const uniqueServices = Array.from(new Set(movieData.services)).join(", ");
+
+        // default to TMDB search page if no trailer is available
         const movieLink = movieData.trailerLink ? movieData.trailerLink : `https://www.themoviedb.org/search?query=${encodeURIComponent(title)}`;
 
-        // Movie card content
+        // movie card content
         movieItem.innerHTML = `
             <div class="movie-poster-container">
                 <a href="${movieLink}" target="_blank">
@@ -120,16 +151,29 @@ async function displayMovies(movies) {
             </div>
         `;
 
-        // Append to movies container
+        // here we can create a "find out more" button when the movies are displayed
+        const findOutMoreButton = document.createElement("button");
+        findOutMoreButton.textContent = "Find Out More";
+        findOutMoreButton.classList.add("find-out-more-button");
+
+        findOutMoreButton.addEventListener("click", () => {
+            console.log("Movie ID passed to fetchMovieDetails:", movieData.movieId);
+            fetchMovieDetails(movieData.movieId, title);
+        });
+
+        movieItem.appendChild(findOutMoreButton);
+
+        // append to movies container
         moviesContainer.appendChild(movieItem);
+
     });
 }
 
 function formatServiceName(service) {
     return service
-        .split(" ") // Split into words
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter of each word
-        .join(" "); // Join back into a single string
+        .split(" ")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // capitalize first letter of each word
+        .join(" "); // go back into a single string
 }
 
 async function fetchMoviesForUser(movieTitle) {
@@ -143,7 +187,7 @@ async function fetchMoviesForUser(movieTitle) {
         return alert("Please select at least one streaming service.");
     }
 
-    // 🔥 Convert lowercase services to proper format
+    // convert lowercase services to proper format
     const formattedServices = services.map(formatServiceName);
     console.log("📤 Sending request with:", JSON.stringify({ services: formattedServices, movie_title: movieTitle }));
 
@@ -156,7 +200,16 @@ async function fetchMoviesForUser(movieTitle) {
 
         const result = await response.json();
         console.log("✅ Recommended Movies:", result);
-        displayMovies(result);
+
+        if (Array.isArray(result)) {
+            displayMovies(result);
+        } else if (result.error) {
+            alert(result.error);
+            console.warn("❗ Backend returned error:", result.error);
+        } else {
+            console.warn("⚠️ Unexpected response format:", result);
+        }
+
     } catch (error) {
         console.error("❌ Error fetching movies:", error);
     }
