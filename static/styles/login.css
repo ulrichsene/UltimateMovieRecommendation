@@ -69,6 +69,12 @@ button[type="submit"]:hover {
     font-weight: bold;
 }
 
+.reset-password-link {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .login-container {
