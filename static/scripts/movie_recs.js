@@ -187,7 +187,15 @@ async function fetchMoviesForUser(movieTitle) {
         return alert("Please select at least one streaming service.");
     }
 
-    // convert lowercase services to proper format
+    // Show loading indicator
+    const loadingIndicator = document.getElementById('loading-indicator');
+    loadingIndicator.style.display = 'flex';
+    
+    // Hide any previous results while loading
+    document.getElementById('recommendations-heading').style.display = 'none';
+    document.getElementById('recommendations-list').innerHTML = '';
+
+    // 🔥 Convert lowercase services to proper format
     const formattedServices = services.map(formatServiceName);
     console.log("📤 Sending request with:", JSON.stringify({ services: formattedServices, movie_title: movieTitle }));
 
@@ -200,18 +208,21 @@ async function fetchMoviesForUser(movieTitle) {
 
         const result = await response.json();
         console.log("✅ Recommended Movies:", result);
-
-        if (Array.isArray(result)) {
-            displayMovies(result);
-        } else if (result.error) {
-            alert(result.error);
-            console.warn("❗ Backend returned error:", result.error);
-        } else {
-            console.warn("⚠️ Unexpected response format:", result);
-        }
-
+        
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+        
+        // Display the results
+        displayMovies(result);
     } catch (error) {
         console.error("❌ Error fetching movies:", error);
+        
+        // Hide loading indicator even if there's an error
+        loadingIndicator.style.display = 'none';
+        
+        // Show error message
+        const resultsContainer = document.getElementById("recommendations-list");
+        resultsContainer.innerHTML = "<p>Sorry, there was an error getting recommendations.</p>";
     }
 }
 
