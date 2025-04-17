@@ -34,13 +34,18 @@ html {
     text-align: center;
     width: 100%;
     box-sizing: border-box;
+    margin-top: 0px;
 }
 
 .how-to-use h1 {
-    margin: 0;
+    margin: 0px;
     padding: 10px 0;
     font-size: 2em;
     line-height: 1.2;
+}
+
+.how-to-use-container {
+    margin-top: 0px;
 }
 
 .about {
@@ -51,7 +56,15 @@ html {
 }
 
 .back-btn {
-    margin-top: 40px;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 0px;
+    text-decoration: none; 
+    padding: 9px 9px; 
+    border-radius: 10px; 
+    background-color: white; 
+    color: black;
+    align-self: flex-start;
 }
 
 .website-desc, .services-desc, .recommendations-desc {
