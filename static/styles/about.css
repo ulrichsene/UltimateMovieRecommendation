@@ -50,6 +50,10 @@ html {
     border-radius: 25px;
 }
 
+.back-btn {
+    margin-top: 40px;
+}
+
 .website-desc, .services-desc, .recommendations-desc {
     background-color: white;
     align-self: center;
