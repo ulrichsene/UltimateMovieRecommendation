@@ -45,6 +45,22 @@ button {
     color: white;
 }
 
+.about-container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.about-button {
+    background-color: rgb(169, 9, 9);
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+}
+
 button:hover {
     background-color: #770400;
 }
