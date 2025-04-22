@@ -169,11 +169,34 @@ async function displayMovies(movies) {
     });
 }
 
+const properServiceNames = {
+    "fubotv": "fuboTV",
+    "appletv+": "AppleTV+",
+    "mubi": "MUBI",
+    "peacock premium": "Peacock Premium",
+    "philo": "Philo",
+    "hulu": "Hulu",
+    "amazon prime video": "Amazon Prime Video",
+    "disney+": "Disney+",
+    "netflix": "Netflix",
+    "paramount+": "Paramount+",
+    "youtube": "YouTube",
+    "plex": "Plex",
+    "max": "Max",
+    "starz": "Starz",
+    "amc+": "AMC+"
+};
+
 function formatServiceName(service) {
+    const key = service.toLowerCase();
+    if (key in properServiceNames) {
+        return properServiceNames[key];
+    }
+    // fallback: capitalize each word
     return service
         .split(" ")
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // capitalize first letter of each word
-        .join(" "); // go back into a single string
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
 }
 
 async function fetchMoviesForUser(movieTitle) {
