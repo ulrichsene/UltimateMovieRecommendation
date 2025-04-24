@@ -81,6 +81,33 @@ async function fetchMovieDetails(movieId, movieTitle) {
     }
 }
 
+function showModal(movieDetails) {
+    // sets the modal content 
+    document.getElementById("modal-title").textContent = movieDetails.title || "N/A";
+    document.getElementById("modal-summary").innerHTML = `<strong>Plot Summary:</strong> ${movieDetails['Plot Summary'] || "N/A"}`;
+    document.getElementById("modal-rating").innerHTML = `<strong>IMDb Rating:</strong> ${movieDetails['IMDb Rating'] || "N/A"}`;
+    document.getElementById("modal-director").innerHTML = `<strong>Director:</strong> ${movieDetails['Director'] || "N/A"}`;
+    document.getElementById("modal-cast").innerHTML = `<strong>Top Cast:</strong> ${movieDetails['Top Cast'] ? movieDetails['Top Cast'].join(", ") : "N/A"}`;
+
+    // displays the modal
+    const modal = document.getElementById("movieModal");
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    const modal = document.getElementById("movieModal");
+    modal.style.display = "none";
+}
+
+// allows  modal when clicking outside of it
+window.onclick = function (event) {
+    const modal = document.getElementById("movieModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
+
 
 async function displayMovies(movies) {
     const resultsContainer = document.getElementById("recommendations-list");
@@ -127,46 +154,57 @@ async function displayMovies(movies) {
 
     // displays the grouped movies with their services
     movieMap.forEach((movieData, title) => {
-        console.log("Movie Data for:", title, movieData);
-
         const movieItem = document.createElement("div");
         movieItem.classList.add("movie-card");
         const uniqueServices = Array.from(new Set(movieData.services)).join(", ");
 
-        // default to TMDB search page if no trailer is available
-        const movieLink = movieData.trailerLink ? movieData.trailerLink : `https://www.themoviedb.org/search?query=${encodeURIComponent(title)}`;
+        // Create the title with clear interactivity
+        const movieTitle = document.createElement("h3");
+        movieTitle.classList.add("movie-title");
+        movieTitle.innerHTML = `🔍 <span class="clickable" title="Click for more details">${title}</span>`;
+        movieTitle.addEventListener("click", () => {
 
-        // movie card content
-        movieItem.innerHTML = `
-            <div class="movie-poster-container">
-                <a href="${movieLink}" target="_blank">
-                    <img src="${movieData.poster}" alt="${title} poster" class="movie-poster">
-                </a>
-            </div>
-            <div class="movie-info">
-                <h3 class="movie-title">
-                    <a href="${movieLink}" target="_blank">${title}</a>
-                </h3>
-                <p class="streaming-service">Available on: ${uniqueServices}</p>
-            </div>
-        `;
+            console.log("Movie Title:", movieTitle.textContent || "N/A");
+            console.log("Movie Data:", movieData);
 
-        // here we can create a "find out more" button when the movies are displayed
-        const findOutMoreButton = document.createElement("button");
-        findOutMoreButton.textContent = "Find Out More";
-        findOutMoreButton.classList.add("find-out-more-button");
-
-        findOutMoreButton.addEventListener("click", () => {
-            console.log("Movie ID passed to fetchMovieDetails:", movieData.movieId);
-            fetchMovieDetails(movieData.movieId, title);
+            showModal({
+                title: movieTitle.textContent || "N/A",
+                'Plot Summary': movieData['Plot Summary'] || "N/A",
+                'IMDb Rating': movieData['IMDb Rating'] || "N/A",
+                'Director': movieData['Director'] || "N/A",
+                'Top Cast': movieData['Top Cast'] || []
+            });
         });
 
-        movieItem.appendChild(findOutMoreButton);
 
-        // append to movies container
+
+        // Platform info (available on)
+        const platformInfo = document.createElement("p");
+        platformInfo.classList.add("streaming-service");
+        platformInfo.textContent = `Available on: ${uniqueServices}`;
+
+        // "Watch Trailer Here!" button
+        const watchTrailerButton = document.createElement("button");
+        watchTrailerButton.textContent = "Watch Trailer Here!";
+        watchTrailerButton.classList.add("watch-trailer-button");
+        watchTrailerButton.addEventListener("click", () => {
+            window.open(movieData.trailerLink || `https://www.themoviedb.org/search?query=${encodeURIComponent(title)}`, "_blank");
+        });
+
+        // Combine elements into the movie card
+        movieItem.innerHTML = `
+            <div class="movie-poster-container">
+                <img src="${movieData.poster}" alt="${title} poster" class="movie-poster">
+            </div>
+        `;
+        movieItem.appendChild(movieTitle); // Add movie title
+        movieItem.appendChild(platformInfo); // Add platform info
+        movieItem.appendChild(watchTrailerButton); // Add trailer button
+
+        // Append to movies container
         moviesContainer.appendChild(movieItem);
-
     });
+
 }
 
 const properServiceNames = {
@@ -213,7 +251,7 @@ async function fetchMoviesForUser(movieTitle) {
     // Show loading indicator
     const loadingIndicator = document.getElementById('loading-indicator');
     loadingIndicator.style.display = 'flex';
-    
+
     // Hide any previous results while loading
     document.getElementById('recommendations-heading').style.display = 'none';
     document.getElementById('recommendations-list').innerHTML = '';
@@ -231,18 +269,18 @@ async function fetchMoviesForUser(movieTitle) {
 
         const result = await response.json();
         console.log("✅ Recommended Movies:", result);
-        
+
         // Hide loading indicator
         loadingIndicator.style.display = 'none';
-        
+
         // Display the results
         displayMovies(result);
     } catch (error) {
         console.error("❌ Error fetching movies:", error);
-        
+
         // Hide loading indicator even if there's an error
         loadingIndicator.style.display = 'none';
-        
+
         // Show error message
         const resultsContainer = document.getElementById("recommendations-list");
         resultsContainer.innerHTML = "<p>Sorry, there was an error getting recommendations.</p>";
@@ -313,6 +351,12 @@ style.innerHTML = `
         align-items: center;
         margin-bottom: 20px;
     }
+
+    .movie-title .clickable {
+    text-decoration: underline;
+    cursor: pointer;
+    }
+
     
     .movie-card:hover {
         transform: translateY(-5px);
