@@ -29,20 +29,6 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// function displayRecommendations(movies) {
-//     const recommendationsList = document.getElementById("recommendations-list");
-//     recommendationsList.innerHTML = ""; // Clear previous results
-
-//     movies.forEach(movie => {
-//         const movieBlock = document.createElement("li");
-//         movieBlock.classList.add("movie-block"); // Apply the new styling
-//         movieBlock.textContent = movie; // Replace with actual movie details if available
-//         recommendationsList.appendChild(movieBlock);
-//     });
-
-//     document.getElementById("recommendations-heading").style.display = "block";
-// }
-
 // logic for making title of movie a clickable link
 // takes one argument (name of movie we want to find a trailer for)
 async function getTrailerLink(movieTitle) {
