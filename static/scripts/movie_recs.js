@@ -53,29 +53,22 @@ async function fetchMovieDetails(movieId, movieTitle) {
 
         const movieDetails = await response.json();
         console.log("Movie Details fetched successfully:", movieDetails);
-        console.log(movieDetails);
 
-        alert(`
-            Title: ${movieTitle || "N/A"}
-            Plot Summary: ${movieDetails['Plot Summary'] || "N/A"}
-            IMDb Rating: ${movieDetails['IMDb Rating'] || "N/A"}
-            Director: ${movieDetails['Director'] || "N/A"}
-            Top Cast: ${movieDetails['Top Cast'] ? movieDetails['Top Cast'].join(", ") : "N/A"}
-        `);
+        return movieDetails; // return fetched details
     } catch (error) {
         console.error("Error fetching movie details:", error);
+        return null;
     }
 }
 
-function showModal(movieDetails) {
-    // sets the modal content 
-    document.getElementById("modal-title").textContent = movieDetails.title || "N/A";
+
+function openMovieModal(movieDetails, title) {
+    document.getElementById("modal-title").textContent = title || "N/A";
     document.getElementById("modal-summary").innerHTML = `<strong>Plot Summary:</strong> ${movieDetails['Plot Summary'] || "N/A"}`;
     document.getElementById("modal-rating").innerHTML = `<strong>IMDb Rating:</strong> ${movieDetails['IMDb Rating'] || "N/A"}`;
     document.getElementById("modal-director").innerHTML = `<strong>Director:</strong> ${movieDetails['Director'] || "N/A"}`;
     document.getElementById("modal-cast").innerHTML = `<strong>Top Cast:</strong> ${movieDetails['Top Cast'] ? movieDetails['Top Cast'].join(", ") : "N/A"}`;
 
-    // displays the modal
     const modal = document.getElementById("movieModal");
     modal.style.display = "block";
 }
@@ -148,21 +141,29 @@ async function displayMovies(movies) {
         const movieTitle = document.createElement("h3");
         movieTitle.classList.add("movie-title");
         movieTitle.innerHTML = `🔍 <span class="clickable" title="Click for more details">${title}</span>`;
-        movieTitle.addEventListener("click", () => {
-
-            console.log("Movie Title:", movieTitle.textContent || "N/A");
-            console.log("Movie Data:", movieData);
-
-            showModal({
-                title: movieTitle.textContent || "N/A",
-                'Plot Summary': movieData['Plot Summary'] || "N/A",
-                'IMDb Rating': movieData['IMDb Rating'] || "N/A",
-                'Director': movieData['Director'] || "N/A",
-                'Top Cast': movieData['Top Cast'] || []
-            });
+        movieTitle.addEventListener("click", async () => {
+            console.log(`🎯 Fetching details for "${title}" with ID: ${movieData.movieId}`);
+            try {
+                // Fetch movie details using the movie ID
+                const movieDetails = await fetchMovieDetails(movieData.movieId, title);
+                if (movieDetails) {
+                    openMovieModal(movieDetails, title);
+                } else {
+                    console.error("❌ No movie details available, showing placeholders.");
+                    openMovieModal(
+                        {
+                            'Plot Summary': "N/A",
+                            'IMDb Rating': "N/A",
+                            'Director': "N/A",
+                            'Top Cast': []
+                        },
+                        title
+                    );
+                }
+            } catch (error) {
+                console.error("❌ Error handling movie click:", error);
+            }
         });
-
-
 
         // Platform info (available on)
         const platformInfo = document.createElement("p");
