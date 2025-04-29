@@ -163,11 +163,27 @@ def get_movie_recommendations():
         if not movie_title:
             return jsonify({"error": "Movie title is required"}), 400
 
-        # get top 50 similar movies
-        similar_movies = get_similar_movies(movie_title, top_n=50)
-        if not similar_movies:
-            print("❌ No similar movies found for:", movie_title)
-            return jsonify({"error": "No similar movies found"}), 400
+        top_n = 50
+        max_attempts = 5
+        matched_movies = []
+
+        for attempt in range(max_attempts):
+            print(f"Attempt {attempt+1}: Fetching top {top_n} similar movies")
+            # get similar movies
+            similar_movies = get_similar_movies(movie_title, top_n=top_n)
+            if not similar_movies:
+                print("❌ No similar movies found.")
+                return jsonify({"error": "No similar movies found"}), 400
+
+            enriched_movies = [movie for movie in similar_movies if movie.get("movie_id")]
+            print(f"📊 Enriched list (with IDs): {len(enriched_movies)} movies")
+
+            # find at least 3 available movies on the provided streaming services
+            matched_movies = match_movie_to_streaming(streaming_services, enriched_movies)
+            if len(matched_movies) >= 3:
+                break
+
+            top_n += 50  # increase the range for the next attempt
 
         # filter out movies that failed to resolve IDs
         enriched_movies = []

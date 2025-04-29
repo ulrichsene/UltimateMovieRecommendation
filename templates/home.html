@@ -41,12 +41,12 @@
                 </div>
             </form>
 
-        <!-- Loading indicator -->
-        <div id="loading-indicator" class="loading-container" style="display: none;">
-            <div class="loading-spinner"></div>
-            <p>Finding movies you'll love...</p>
-        </div>
-        
+            <!-- Loading indicator -->
+            <div id="loading-indicator" class="loading-container" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Finding movies you'll love...</p>
+            </div>
+
         </div>
         <!-- Display Recommendations -->
         <h2 id="recommendations-heading" style="display:none;">Recommended Movies:</h2>
@@ -61,6 +61,20 @@
     <script type="module" src="static/scripts/movie_recs.js"></script>
     <script type="module" src="static/scripts/autocomplete.js"></script> <!-- New script for autocomplete -->
     <script type="module" src="static/scripts/streaming_info.js"></script> <!-- New script for streaming info -->
+
+    <!--for the movie details modal pop up-->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <div class="details-container">
+                <h2 id="modal-title">Movie Title</h2>
+                <p id="modal-summary"><strong>Plot Summary:</strong> </p>
+                <p id="modal-rating"><strong>IMDb Rating:</strong> </p>
+                <p id="modal-director"><strong>Director:</strong> </p>
+                <p id="modal-cast"><strong>Top Cast:</strong> </p>
+            </div>
+        </div>
+    </div>
 
 </body>
 
