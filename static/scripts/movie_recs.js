@@ -300,9 +300,13 @@ document.getElementById("get-recs-button").addEventListener("click", async funct
 
     // this part directly clear both buttons before getting new recs (both buttons tied together)
     document.getElementById("recommendations-list").innerHTML = "";
-    document.getElementById("streaming-info-list").innerHTML = "";
 
-    document.getElementById("streaming-info-heading").style.display = "none"; // this hides the Streaming Availability heading
+    document.getElementById("buy-list").innerHTML = "";
+    document.getElementById("rent-list").innerHTML = "";
+    document.getElementById("stream-list").innerHTML = "";
+    document.getElementById("streaming-info-container").style.display = "none";
+
+    document.getElementById("streaming-info-heading").style.display = "none";
 
     const movieTitle = document.getElementById("movie_title").value.trim();
     if (!movieTitle) {
