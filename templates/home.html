@@ -54,7 +54,20 @@
 
         <!-- Display Streaming Information-->
         <h2 id="streaming-info-heading" style="display:none;">Streaming Availability</h2>
-        <ul id="streaming-info-list"></ul>
+        <div id="streaming-info-container">
+            <div id="buy-container" class="streaming-box">
+                <h3><b>Where to Buy:</b></h3>
+                <ul id="buy-list"></ul>
+            </div>
+            <div id="rent-container" class="streaming-box">
+                <h3><b>Where to Rent:</b></h3>
+                <ul id="rent-list"></ul>
+            </div>
+            <div id="stream-container" class="streaming-box">
+                <h3><b>Where to Stream:</b></h3>
+                <ul id="stream-list"></ul>
+            </div>
+        </div>
     </div>
 
     <script type="module" src="static/scripts/auth_check.js"></script>
@@ -65,7 +78,6 @@
     <!--for the movie details modal pop up-->
     <div id="movieModal" class="modal">
         <div class="modal-content">
-            <span class="close-button">×</span>
             <div class="details-container">
                 <h2 id="modal-title">Movie Title</h2>
                 <p id="modal-summary"><strong>Plot Summary:</strong> </p>

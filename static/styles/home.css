@@ -265,3 +265,68 @@ button:hover {
     flex-grow: 1;
     /* Allow it to expand to fill space */
 }
+
+/* here we style the streaming availability button output */
+#streaming-info-container {
+    display: none;
+    justify-content: space-between;
+    /* Align containers side by side */
+    gap: 10px;
+    /* Add space between boxes */
+}
+
+/* style the individual streaming boxes */
+.streaming-box {
+    flex: 1;
+    /* Ensure equal width for all boxes */
+    padding: 10px;
+    /* Add padding inside the box */
+    border: 2px solid #ddd;
+    /* Create a subtle border */
+    border-radius: 8px;
+    /* Add rounded corners */
+    background-color: #f9f9f9;
+    /* Light background color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Add a shadow for depth */
+}
+
+/* Streaming Box Header Styling */
+.streaming-box h3 {
+    font-size: 18px;
+    color: #333;
+    /* Darker text color for visibility */
+    margin-bottom: 10px;
+    /* Add spacing below the header */
+}
+
+/* Styling the List of Services */
+.streaming-box ul {
+    list-style-type: none;
+    /* Remove bullet points */
+    padding: 0;
+    /* Remove default list padding */
+}
+
+.streaming-box li {
+    font-size: 14px;
+    color: #555;
+    /* Softer text color */
+    margin-bottom: 6px;
+    /* Spacing between list items */
+}
+
+#streaming-info-heading {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* Adjust for Smaller Screens */
+@media (max-width: 768px) {
+    #streaming-info-container {
+        flex-direction: column;
+        /* Stack containers vertically */
+        gap: 15px;
+        /* Reduce spacing */
+    }
+}
